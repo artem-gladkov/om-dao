@@ -1,0 +1,8 @@
+export enum SwapStatus {
+  READY,
+  STARTING,
+  AWAITING_CONFIRM,
+  AWAITING_BLOCK_MINING,
+  SUCCESS,
+  ERROR,
+}

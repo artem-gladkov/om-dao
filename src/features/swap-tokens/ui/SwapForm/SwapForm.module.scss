@@ -1,0 +1,30 @@
+@import "/src/app/styles/variables";
+
+.swapForm {
+  display: grid;
+  grid-template: max-content/ 1fr;
+  grid-gap: $big-indent;
+  justify-items: center;
+}
+
+.header {
+  display: grid;
+  align-items: center;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $default-indent;
+}
+
+.buttonChangePlaces {
+  justify-self: end;
+}
+
+.wrapper {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 8px;
+  border-radius: $default-border-radius;
+  border: 2px solid $gray-color;
+  padding: 10px 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}

@@ -1,0 +1,15 @@
+@import "src/app/styles/variables";
+
+.wrapper {
+  display: grid;
+  grid-template: 1fr / 1fr;
+  align-items: center;
+  justify-items: center;
+  gap: $default-indent;
+}
+
+.stakePage {
+  display: grid;
+  grid-template: 1fr / 1fr;
+  align-items: center;
+}

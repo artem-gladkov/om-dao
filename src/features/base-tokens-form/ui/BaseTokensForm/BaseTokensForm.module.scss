@@ -1,0 +1,50 @@
+@import "/src/app/styles/variables";
+
+.swapForm {
+  display: grid;
+  grid-template: max-content/ 1fr;
+  grid-gap: $big-indent;
+  justify-items: center;
+}
+
+.header {
+  display: grid;
+  align-items: center;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $default-indent;
+}
+
+.buttonChangePlaces {
+  justify-self: end;
+}
+
+.wrapper {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 8px;
+  border-radius: $default-border-radius;
+  border: 2px solid $gray-color;
+  padding: 10px 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.buttonRearrange {
+  border: 2px solid $gray-color;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  padding: $small-indent;
+  color: $white;
+  fill: $white;
+  transform: rotate(180deg);
+  transition: border ease .3s, transform ease .3s;
+  justify-self: center;
+
+  &:hover {
+    border: 2px solid $white;
+    transform: rotate(0);
+    transition: border ease .3s, transform ease .3s;
+  }
+}

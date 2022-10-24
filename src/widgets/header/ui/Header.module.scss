@@ -1,0 +1,31 @@
+@import "src/app/styles/variables";
+
+.header {
+  min-height: $header-height;
+  border-bottom: 1px solid $primary-color;
+  display: flex;
+  align-items: center;
+}
+
+.body {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  grid-template-rows: 1fr;
+  align-items: center;
+}
+
+.logo {
+  color: $primary-color;
+  font-weight: 500;
+  font-size: $h3-font-size;
+  display: flex;
+  align-items: center;
+}
+
+.actions {
+  display: grid;
+  grid-template: 1fr / repeat(2, 1fr);
+  align-items: center;
+  gap: $default-indent;
+  justify-self: end;
+}

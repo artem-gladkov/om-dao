@@ -1,0 +1,16 @@
+@import "src/app/styles/variables";
+
+.button {
+  border-radius: $default-border-radius;
+  border: 2px solid $gray-color;
+  padding: $default-indent $big-indent;
+  color: $white;
+  transition: border ease .3s, color ease .3s;
+  background-color: unset;
+  cursor: pointer;
+
+  &:hover {
+    border: 2px solid $white;
+    transition: border ease .3s, color ease .3s;
+  }
+}

@@ -1,0 +1,35 @@
+// Colors
+$primary-color          : #5557A4;
+
+$dark-gray-color        : #252525;
+$gray-color             : #2F3140;
+$light-gray-color       : #F3F3F3;
+
+$white                  : #fff;
+$black                  : #000;
+
+// Grid
+$desktop-width          : 1260px;
+$tablet-width           : 768px;
+$mobile-width           : 480px;
+
+// Fonts
+
+$h1-font-size                : 84px;
+$h2-font-size                : 56px;
+$h3-font-size                : 36px;
+$h4-font-size                : 24px;
+$text-font-size              : 18px;
+$number-font-size            : 200px;
+
+// Options
+$header-height: 80px;
+$footer-height: 100px;
+
+$default-border-radius: 5px;
+
+// Indents
+$default-indent: 8px;
+$small-indent: $default-indent / 2;
+$big-indent: $default-indent * 2;
+$large-indent: $default-indent * 3;

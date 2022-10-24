@@ -1,0 +1,18 @@
+@import 'src/app/styles/variables';
+
+.stakeForm {
+  display: grid;
+  grid-template: max-content 1fr / 1fr;
+  justify-items: center;
+  grid-gap: $big-indent;
+  max-width: 800px;
+}
+
+.wrapper {
+  display: grid;
+  grid-template: repeat(2, 1fr) / 1fr;
+  grid-gap: $default-indent;
+  border-radius: $default-border-radius;
+  border: 2px solid $gray-color;
+  padding: $default-indent $big-indent;
+}

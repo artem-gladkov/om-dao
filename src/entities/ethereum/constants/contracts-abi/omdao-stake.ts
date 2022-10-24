@@ -1,0 +1,125 @@
+import {ContractInterface} from "@ethersproject/contracts";
+
+export const OMDAO_STAKE_ABI: ContractInterface = [{
+  "inputs": [],
+  "stateMutability": "nonpayable",
+  "type": "constructor"
+}, {
+  "anonymous": false,
+  "inputs": [{"indexed": true, "internalType": "address", "name": "previousOwner", "type": "address"}, {
+    "indexed": true,
+    "internalType": "address",
+    "name": "newOwner",
+    "type": "address"
+  }],
+  "name": "OwnershipTransferred",
+  "type": "event"
+}, {
+  "anonymous": false,
+  "inputs": [{"indexed": true, "internalType": "address", "name": "from", "type": "address"}, {
+    "indexed": true,
+    "internalType": "address",
+    "name": "to",
+    "type": "address"
+  }, {"indexed": false, "internalType": "uint256", "name": "value", "type": "uint256"}],
+  "name": "Transfer",
+  "type": "event"
+}, {
+  "anonymous": false,
+  "inputs": [{"indexed": false, "internalType": "address", "name": "owner", "type": "address"}, {
+    "indexed": false,
+    "internalType": "uint256",
+    "name": "value",
+    "type": "uint256"
+  }],
+  "name": "divsPayed",
+  "type": "event"
+}, {
+  "anonymous": false,
+  "inputs": [{"indexed": false, "internalType": "address", "name": "owner", "type": "address"}, {
+    "indexed": false,
+    "internalType": "uint256",
+    "name": "value",
+    "type": "uint256"
+  }],
+  "name": "tokensStaked",
+  "type": "event"
+}, {
+  "inputs": [{"internalType": "address", "name": "", "type": "address"}],
+  "name": "Reestr",
+  "outputs": [{"internalType": "uint256", "name": "", "type": "uint256"}],
+  "stateMutability": "view",
+  "type": "function"
+}, {
+  "inputs": [{"internalType": "address", "name": "account", "type": "address"}],
+  "name": "balanceOf",
+  "outputs": [{"internalType": "uint256", "name": "", "type": "uint256"}],
+  "stateMutability": "view",
+  "type": "function"
+}, {
+  "inputs": [],
+  "name": "decimals",
+  "outputs": [{"internalType": "uint8", "name": "", "type": "uint8"}],
+  "stateMutability": "pure",
+  "type": "function"
+}, {
+  "inputs": [],
+  "name": "divDate",
+  "outputs": [{"internalType": "uint256", "name": "", "type": "uint256"}],
+  "stateMutability": "view",
+  "type": "function"
+}, {
+  "inputs": [],
+  "name": "myDivs",
+  "outputs": [{"internalType": "uint256", "name": "", "type": "uint256"}],
+  "stateMutability": "view",
+  "type": "function"
+}, {
+  "inputs": [],
+  "name": "name",
+  "outputs": [{"internalType": "string", "name": "", "type": "string"}],
+  "stateMutability": "pure",
+  "type": "function"
+}, {
+  "inputs": [],
+  "name": "owner",
+  "outputs": [{"internalType": "address", "name": "", "type": "address"}],
+  "stateMutability": "view",
+  "type": "function"
+}, {
+  "inputs": [],
+  "name": "renounceOwnership",
+  "outputs": [],
+  "stateMutability": "nonpayable",
+  "type": "function"
+}, {
+  "inputs": [{"internalType": "uint256", "name": "_unixdate", "type": "uint256"}],
+  "name": "setDivDate",
+  "outputs": [],
+  "stateMutability": "nonpayable",
+  "type": "function"
+}, {
+  "inputs": [{"internalType": "uint256", "name": "_amount", "type": "uint256"}],
+  "name": "stake",
+  "outputs": [],
+  "stateMutability": "nonpayable",
+  "type": "function"
+}, {
+  "inputs": [],
+  "name": "symbol",
+  "outputs": [{"internalType": "string", "name": "", "type": "string"}],
+  "stateMutability": "pure",
+  "type": "function"
+}, {
+  "inputs": [],
+  "name": "totalSupply",
+  "outputs": [{"internalType": "uint256", "name": "", "type": "uint256"}],
+  "stateMutability": "view",
+  "type": "function"
+}, {
+  "inputs": [{"internalType": "address", "name": "newOwner", "type": "address"}],
+  "name": "transferOwnership",
+  "outputs": [],
+  "stateMutability": "nonpayable",
+  "type": "function"
+}, {"inputs": [], "name": "unstake", "outputs": [], "stateMutability": "nonpayable", "type": "function"}]

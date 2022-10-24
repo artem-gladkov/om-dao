@@ -1,0 +1,45 @@
+@import "src/app/styles/variables";
+
+.swapBlock {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 16px;
+  border-radius: $default-border-radius;
+  border: 2px solid $gray-color;
+  padding: $default-indent $big-indent;
+}
+
+.header {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.body {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.footer {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.token {
+  display: grid;
+  grid-template-columns: 24px 1fr;
+  align-items: center;
+  grid-gap: $default-indent;
+}
+
+.tokenIcon {
+  width: 24px;
+  height: 24px;
+  background-color: $gray-color;
+  border-radius: 50%;
+  overflow: hidden;
+
+  & > img {
+    width: 100%;
+    height: 100%;
+  }
+}
