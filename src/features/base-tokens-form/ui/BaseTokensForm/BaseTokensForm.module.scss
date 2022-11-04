@@ -2,8 +2,8 @@
 
 .swapForm {
   display: grid;
-  grid-template: max-content/ 1fr;
-  grid-gap: $big-indent;
+  grid-template: max-content max-content/ 1fr;
+  gap: $default-indent;
   justify-items: center;
 }
 

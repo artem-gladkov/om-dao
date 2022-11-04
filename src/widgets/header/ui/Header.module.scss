@@ -9,9 +9,11 @@
 
 .body {
   display: grid;
-  grid-template-columns: 200px 1fr;
+  grid-template-columns: max-content 1fr max-content;
+  gap: $big-indent;
   grid-template-rows: 1fr;
   align-items: center;
+  width: 100%;
 }
 
 .logo {

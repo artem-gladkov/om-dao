@@ -1,3 +1,5 @@
+@import "src/app/styles";
+
 .exchangePage {
   display: grid;
   grid-template: 1fr/1fr;
@@ -6,5 +8,12 @@
 
 .wrapper {
   display: grid;
-  grid-template: 1fr;
+  grid-gap: $default-indent;
+}
+
+.body {
+  margin: 0 auto;
+  width: max-content;
+  display: grid;
+  grid-gap: $default-indent;
 }

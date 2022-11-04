@@ -1,5 +1,9 @@
 // Colors
+$contrast-primary-color: #40418c;
 $primary-color          : #5557A4;
+$light-primary-color    : #7c7fbf;
+
+$accent-color: #08D899;
 
 $dark-gray-color        : #252525;
 $gray-color             : #2F3140;
@@ -7,6 +11,10 @@ $light-gray-color       : #F3F3F3;
 
 $white                  : #fff;
 $black                  : #000;
+
+$primary-text-color: $dark-gray-color;
+$secondary-text-color: #676767;
+$disabled-text-color: #949697;
 
 // Grid
 $desktop-width          : 1260px;

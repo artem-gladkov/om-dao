@@ -1,4 +1,4 @@
-import {FC, useState} from 'react'
+import React, {FC, useState} from 'react'
 import classNames from 'classnames'
 
 import styles from './StakeForm.module.scss'
@@ -21,7 +21,6 @@ export const StakeForm: FC<StakeFormProps> = observer(({className, ...otherProps
     onStake,
     status,
     isStaking,
-    calculateStakeDestinationAmount
   }] = useState(() => new StakeFormStore(signer))
 
 
@@ -34,7 +33,6 @@ export const StakeForm: FC<StakeFormProps> = observer(({className, ...otherProps
       destinationContract={destinationContract}
       isLoading={isStaking}
       loadingText={STAKE_STATUS_LABELS[status]}
-      calculateDestinationAmount={calculateStakeDestinationAmount}
     />
   )
 })

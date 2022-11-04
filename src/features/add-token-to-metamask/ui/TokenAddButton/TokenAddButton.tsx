@@ -6,9 +6,9 @@ import {TokenAddButtonStore} from '../../model'
 import {useEthereumStore} from "../../../../entities";
 import {observer} from "mobx-react-lite";
 import {TOKEN_SYMBOLS} from "../../../../entities";
-import { Button } from '../../../../shared/ui';
+import {Button, ButtonProps} from '../../../../shared/ui';
 
-export interface TokenAddButtonProps {
+export interface TokenAddButtonProps extends ButtonProps{
   className?: string
   text: string,
   tokenSymbol: TOKEN_SYMBOLS,

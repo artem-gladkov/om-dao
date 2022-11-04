@@ -1,6 +1,7 @@
 import {makeAutoObservable} from 'mobx'
 import {JsonRpcSigner, Web3Provider} from "@ethersproject/providers";
-import { Ethereum } from '..';
+import {Ethereum} from '..';
+import {AVAILABLE_NETWORK} from "../../../shared/config";
 
 export class EthereumStore {
   private _ethereum: Ethereum | undefined;
@@ -11,27 +12,64 @@ export class EthereumStore {
 
   private _initialized: boolean = false
 
+  private _currentNetwork: number = 0
+
   constructor() {
     makeAutoObservable(this)
     this.init()
   }
 
   private init = async () => {
-    if(window.ethereum && window.ethereum.isMetaMask) {
-      this.ethereum = window.ethereum
-    } else {
-      alert('Установите MetaMask')
-      return
+    try {
+      if (window.ethereum && window.ethereum.isMetaMask) {
+        this.ethereum = window.ethereum
+      } else {
+        alert('Установите MetaMask')
+        return
+      }
+      await this.createEthereumProvider()
+      await this.checkNetwork()
+      await this.checkSigner()
+      this.initialized = true
+      console.log('end init')
+    } catch (e) {
+      console.log(e)
     }
 
-    await this.createEthereumProvider()
-    await this.checkSigner()
-    this.initialized = true
+  }
+
+  private checkNetwork = async (): Promise<void> => {
+    try {
+      const {chainId} = await this.provider.getNetwork()
+      this._currentNetwork = chainId
+
+      if (chainId !== AVAILABLE_NETWORK) {
+        await this.changeToAvailableNetwork()
+      }
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  public changeToAvailableNetwork = async (): Promise<void> => {
+    try {
+      const result = await this.ethereum.request({
+        method: "wallet_switchEthereumChain",
+        params: [{chainId: `0x${AVAILABLE_NETWORK.toString(16)}`}]
+      })
+
+      if (!result) {
+        const {chainId} = await this.provider.getNetwork()
+        this.currentNetwork = chainId
+      }
+    } catch (e) {
+      console.log(e)
+    }
   }
 
   private createEthereumProvider = async (): Promise<void> => {
     try {
-      this.provider = new Web3Provider(window.ethereum, 'goerli')
+      this.provider = new Web3Provider(window.ethereum, 'any')
     } catch (e) {
       console.log(e)
     }
@@ -41,8 +79,8 @@ export class EthereumStore {
     try {
       const [account]: string[] = await this.provider.listAccounts()
 
-      if(account !== undefined) {
-        this.signer = this.provider.getSigner()
+      if (account !== undefined) {
+        await this.updateSigner(this.provider.getSigner())
       }
     } catch (e) {
       console.log(e)
@@ -51,6 +89,14 @@ export class EthereumStore {
 
   public get hasSigner(): boolean {
     return !!this._signer
+  }
+
+  public updateSigner = async (signer: JsonRpcSigner): Promise<void> => {
+    try {
+      this.signer = signer
+    } catch (e) {
+      console.log(e)
+    }
   }
 
   public setSigner(signer: JsonRpcSigner): void {
@@ -62,7 +108,7 @@ export class EthereumStore {
   }
 
   public get signer(): JsonRpcSigner {
-    if(!this._signer) {
+    if (!this._signer) {
       throw Error('Signer не существует')
     }
 
@@ -74,7 +120,7 @@ export class EthereumStore {
   }
 
   public get provider(): Web3Provider {
-    if(!this._provider) {
+    if (!this._provider) {
       throw Error('EthereumProvider не существует')
     }
 
@@ -90,7 +136,7 @@ export class EthereumStore {
   }
 
   public get ethereum(): Ethereum {
-    if(!this._ethereum) {
+    if (!this._ethereum) {
       throw Error('Ethereum не существует')
     }
 
@@ -99,5 +145,13 @@ export class EthereumStore {
 
   private set ethereum(value: Ethereum) {
     this._ethereum = value
+  }
+
+  private set currentNetwork(value: number) {
+    this._currentNetwork = value
+  }
+
+  public get isCorrectNetwork(): boolean {
+    return this._currentNetwork === AVAILABLE_NETWORK
   }
 }

@@ -1,0 +1,25 @@
+@import "src/app/styles";
+
+.nav {
+  display: grid;
+  grid-template-columns: repeat(2, max-content);
+  grid-template-rows: 1fr;
+  gap: $default-indent;
+  width: max-content;
+  justify-self: center;
+}
+
+.navLink {
+  color: $white;
+  padding: $default-indent $big-indent;
+  transition: color ease .3s;
+
+  &.active {
+    border-bottom: 2px solid $primary-color;
+  }
+
+  &:hover {
+    color: rgba($white, .5);
+    transition: color ease .3s;
+  }
+}

@@ -5,11 +5,22 @@
   grid-template: 1fr / 1fr;
   align-items: center;
   justify-items: center;
-  gap: $default-indent;
 }
 
 .stakePage {
   display: grid;
   grid-template: 1fr / 1fr;
   align-items: center;
+}
+
+.body {
+  width:  max-content;
+  display: grid;
+  grid-gap: $default-indent;
+  margin: 0 auto;
+}
+
+.form {
+  display: grid;
+  grid-template: 1fr / 1fr;
 }

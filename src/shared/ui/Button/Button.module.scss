@@ -8,6 +8,11 @@
   transition: border ease .3s, color ease .3s;
   background-color: unset;
   cursor: pointer;
+  text-align: center;
+
+  &.full {
+    width: 100%;
+  }
 
   &:hover {
     border: 2px solid $white;

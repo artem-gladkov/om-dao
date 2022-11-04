@@ -3,13 +3,12 @@ import {ExchangePage, RootLayout, StakePage} from '../pages';
 import {PATHS} from "./constants";
 
 export const appRouter = createBrowserRouter([{
-  path: PATHS.MAIN,
   element: <RootLayout/>,
   children: [{
-    path: PATHS.EXCHANGE,
+    path: PATHS.ROOT,
     element: <ExchangePage/>
   }, {
     path: PATHS.STAKE,
-    element: <StakePage/>
+    element: <StakePage/>,
   }]
 }])

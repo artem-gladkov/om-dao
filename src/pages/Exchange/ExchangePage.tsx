@@ -13,9 +13,9 @@ export interface ExchangePageProps {
 }
 
 export const ExchangePage: FC<ExchangePageProps> = observer(({
-     className,
-     ...otherProps
-   }) => {
+                                                               className,
+                                                               ...otherProps
+                                                             }) => {
   const {ethereumStore: {hasSigner}} = useEthereumStore()
 
   return (
@@ -23,8 +23,10 @@ export const ExchangePage: FC<ExchangePageProps> = observer(({
       <Container className={styles.wrapper}>
         {
           hasSigner
-            ? <SwapForm/>
-            : <WalletConnectForm />
+            ? <div className={styles.body}>
+              <SwapForm/>
+            </div>
+            : <WalletConnectForm/>
         }
       </Container>
     </main>

@@ -1,4 +1,4 @@
-import { OperationStatus } from "../types";
+import { OperationStatus } from "../../../shared/types";
 
 export const STAKE_STATUS_LABELS: {[key in OperationStatus]: string} = {
   [OperationStatus.READY]: 'Готов к стейкингу',

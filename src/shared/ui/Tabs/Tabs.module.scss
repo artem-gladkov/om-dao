@@ -1,0 +1,12 @@
+@import "src/app/styles";
+
+.tabs {
+  display: flex;
+  grid-template-columns: repeat(auto-fit, max-content);
+  grid-template-rows: 1fr;
+  height: max-content;
+
+  .tab ~ .tab {
+    margin: 0 0 0 $default-indent;
+  }
+}

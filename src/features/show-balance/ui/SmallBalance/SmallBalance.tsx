@@ -4,7 +4,6 @@ import classNames from 'classnames'
 import styles from './SmallBalance.module.scss'
 import {observer} from "mobx-react-lite";
 import {BalanceStore} from "../../model";
-import {Contract, ContractInterface} from "@ethersproject/contracts";
 import {TOKEN_SYMBOLS, useEthereumStore} from "../../../../entities";
 
 export interface SmallBalanceProps {

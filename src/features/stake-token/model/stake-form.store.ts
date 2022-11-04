@@ -5,7 +5,6 @@ import {BaseTokensFormSubmitData} from "../../base-tokens-form/types";
 import {formatUnits, parseUnits} from "@ethersproject/units";
 import {OperationStatus} from "../types";
 import {makeAutoObservable} from "mobx";
-import {log} from "util";
 
 export class StakeFormStore {
   private _sourceContract: Contract
@@ -67,32 +66,8 @@ export class StakeFormStore {
     }
   }
 
-  public calculateDestinationAmount = (sourceAmount: string, isRearranged: boolean): string => {
-    if (isRearranged) {
-      return this.calculateUnstakeDestinationAmount(sourceAmount)
-    } else {
-      return this.calculateStakeDestinationAmount(sourceAmount)
-    }
-  }
-
-  public calculateStakeDestinationAmount = (sourceAmount: string): string => {
-    return sourceAmount
-  }
-
-  public calculateUnstakeDestinationAmount = (sourceAmount: string): string => {
-    return sourceAmount
-  }
-
-  private set sourceContract(value: Contract) {
-    this._sourceContract = value
-  }
-
   public get sourceContract(): Contract {
     return this._sourceContract
-  }
-
-  private set destinationContract(value: Contract) {
-    this._destinationContract = value
   }
 
   public get destinationContract(): Contract {

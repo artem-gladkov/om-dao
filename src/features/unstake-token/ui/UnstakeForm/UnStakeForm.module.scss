@@ -1,0 +1,22 @@
+@import "src/app/styles";
+
+.unstakeForm {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: $big-indent;
+  border: 1px solid $gray-color;
+  border-radius: $default-border-radius;
+  padding: $default-indent $big-indent;
+}
+
+.data {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $default-indent;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(2, 300px);
+  gap: $default-indent;
+}

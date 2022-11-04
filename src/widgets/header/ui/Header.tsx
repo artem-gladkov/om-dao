@@ -2,9 +2,9 @@ import React, {FC, useMemo} from 'react'
 import classNames from 'classnames'
 
 import styles from './Header.module.scss'
-import {Container} from "../../../shared/ui";
+import {Container, Nav} from "../../../shared/ui";
 import {WalletConnectButton} from "../../../features/connect-wallet/ui/WalletConnectButton";
-import { TOKEN_SYMBOLS, useEthereumStore} from "../../../entities";
+import {TOKEN_SYMBOLS, useEthereumStore} from "../../../entities";
 import {Wallet} from '../../../features/show-wallet';
 import {observer} from 'mobx-react-lite';
 import {SmallBalance} from "../../../features/show-balance";
@@ -22,11 +22,16 @@ export const Header: FC<HeaderProps> = observer(({className, ...otherProps}) => 
         <div className={styles.logo}>
           <span>OMDAO</span>
         </div>
+        {hasSigner &&
+            <Nav/>
+        }
         <div className={styles.actions}>
           {
             hasSigner
-              ? <> <SmallBalance tokenSymbol={TOKEN_SYMBOLS.STOMD} text={'OM DAO (Staked) Баланс:'}/>
-                <Wallet/></>
+              ? <>
+                <SmallBalance tokenSymbol={TOKEN_SYMBOLS.STOMD} text={'OM DAO (Staked) Баланс:'}/>
+                <Wallet/>
+              </>
               : <WalletConnectButton/>
           }
         </div>
