@@ -1,1 +1,1 @@
-export * from './calculate-destination-amount'
+export * from "./calculate-destination-amount";

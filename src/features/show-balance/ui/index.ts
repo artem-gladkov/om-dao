@@ -1,1 +1,1 @@
-export * from './SmallBalance'
+export * from "./SmallBalance";

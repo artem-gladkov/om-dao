@@ -1,1 +1,1 @@
-export * from './stake-status-labels'
+export * from "./stake-status-labels";

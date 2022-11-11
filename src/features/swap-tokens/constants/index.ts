@@ -1,1 +1,1 @@
-export * from './swap-status-labels'
+export * from "./swap-status-labels";

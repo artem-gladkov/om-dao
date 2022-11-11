@@ -1,34 +1,36 @@
 // Colors
 $contrast-primary-color: #40418c;
-$primary-color          : #5557A4;
-$light-primary-color    : #7c7fbf;
+$primary-color: #5557a4;
+$light-primary-color: #7c7fbf;
 
-$accent-color: #08D899;
+$accent-color: #08d899;
 
-$dark-gray-color        : #252525;
-$gray-color             : #2F3140;
-$light-gray-color       : #F3F3F3;
+$dark-gray-color: #252525;
+$gray-color: #2f3140;
+$light-gray-color: #f3f3f3;
 
-$white                  : #fff;
-$black                  : #000;
+$white: #fff;
+$black: #000;
 
 $primary-text-color: $dark-gray-color;
 $secondary-text-color: #676767;
 $disabled-text-color: #949697;
 
 // Grid
-$desktop-width          : 1260px;
-$tablet-width           : 768px;
-$mobile-width           : 480px;
+$desktop-width: 1260px;
+$tablet-width: 768px;
+$mobile-width: 480px;
 
 // Fonts
+$primary-font-stack: 'Inter', sans-serif;
+$secondary-font-stack: 'Playfair Display', serif;
 
-$h1-font-size                : 84px;
-$h2-font-size                : 56px;
-$h3-font-size                : 36px;
-$h4-font-size                : 24px;
-$text-font-size              : 18px;
-$number-font-size            : 200px;
+$h1-font-size: 84px;
+$h2-font-size: 56px;
+$h3-font-size: 36px;
+$h4-font-size: 24px;
+$text-font-size: 18px;
+$number-font-size: 200px;
 
 // Options
 $header-height: 80px;

@@ -1,1 +1,1 @@
-export * from './ethereum-store.provider'
+export * from "./ethereum-store.provider";

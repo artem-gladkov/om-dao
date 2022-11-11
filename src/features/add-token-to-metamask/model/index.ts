@@ -1,1 +1,1 @@
-export * from './token-add-button.store'
+export * from "./token-add-button.store";

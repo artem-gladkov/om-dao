@@ -1,35 +1,40 @@
-import {FC, useState} from 'react'
-import classNames from 'classnames'
+import { FC, useState } from "react";
+import classNames from "classnames";
 
-import styles from './UnStakeForm.module.scss'
-import {Button, Loader} from "../../../../shared/ui";
-import {observer} from 'mobx-react-lite';
-import {UnstakeFormStore} from "../../model";
-import {useEthereumStore} from "../../../../entities";
+import styles from "./UnStakeForm.module.scss";
+import { Button, Loader } from "../../../../shared/ui";
+import { observer } from "mobx-react-lite";
+import { UnstakeFormStore } from "../../model";
+import { useEthereumStore } from "../../../../entities";
 
 export interface IUnStakeFormProps {
-  className?: string
+  className?: string;
 }
 
-export const UnStakeForm: FC<IUnStakeFormProps> = observer(({className}) => {
-  const {ethereumStore: {signer}} = useEthereumStore()
-  const [{
-    inStake,
-    dividends,
-    formattedUnstakeDate,
-    totalAmount,
-    isLoading,
-    onUnStake,
-    loadingText,
-    disableUnstake
-  }] = useState(() => new UnstakeFormStore(signer))
+export const UnStakeForm: FC<IUnStakeFormProps> = observer(({ className }) => {
+  const {
+    ethereumStore: { signer },
+  } = useEthereumStore();
+  const [
+    {
+      inStake,
+      dividends,
+      formattedUnstakeDate,
+      totalAmount,
+      isLoading,
+      onUnStake,
+      loadingText,
+      disableUnstake,
+    },
+  ] = useState(() => new UnstakeFormStore(signer));
 
   return (
     <div className={classNames(styles.unstakeForm, className)}>
-      <h1 className={styles.title}>Вывести из стейкинга</h1>
-      {isLoading
-        ? <Loader text={loadingText}/>
-        : <>
+      <h2>Вывести из стейкинга</h2>
+      {isLoading ? (
+        <Loader text={loadingText} />
+      ) : (
+        <>
           <div className={styles.data}>
             <div className={styles.row}>
               <p>В стейкинге:</p>
@@ -48,10 +53,11 @@ export const UnStakeForm: FC<IUnStakeFormProps> = observer(({className}) => {
               <span>{formattedUnstakeDate}</span>
             </div>
           </div>
-          <Button onClick={onUnStake} full disabled={disableUnstake}>Вывод токена из стейкинга</Button>
+          <Button onClick={onUnStake} full disabled={disableUnstake}>
+            Вывод токена из стейкинга
+          </Button>
         </>
-      }
+      )}
     </div>
-  )
-})
-
+  );
+});

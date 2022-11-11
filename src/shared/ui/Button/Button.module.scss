@@ -5,7 +5,7 @@
   border: 2px solid $gray-color;
   padding: $default-indent $big-indent;
   color: $white;
-  transition: border ease .3s, color ease .3s;
+  transition: border ease 0.3s, color ease 0.3s;
   background-color: unset;
   cursor: pointer;
   text-align: center;
@@ -16,6 +16,6 @@
 
   &:hover {
     border: 2px solid $white;
-    transition: border ease .3s, color ease .3s;
+    transition: border ease 0.3s, color ease 0.3s;
   }
 }

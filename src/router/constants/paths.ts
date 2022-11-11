@@ -1,4 +1,4 @@
 export enum PATHS {
-  ROOT = '/',
-  STAKE = '/stake'
+  ROOT = "/",
+  STAKE = "/stake",
 }

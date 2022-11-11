@@ -1,8 +1,8 @@
-import {BaseContractInfo} from "../types";
+import { BaseContractInfo } from "../types";
 
 export const DEFAULT_TOKEN_INFO: BaseContractInfo = {
-  name: '',
-  symbol: '',
-  decimals: '',
-  balance: ''
-}
+  name: "",
+  symbol: "",
+  decimals: "",
+  balance: "",
+};

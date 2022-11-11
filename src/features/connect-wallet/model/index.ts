@@ -1,1 +1,1 @@
-export * from './wallet-connection.store'
+export * from "./wallet-connection.store";

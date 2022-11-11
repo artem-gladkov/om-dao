@@ -1,1 +1,1 @@
-export * from './WalletConnectForm'
+export * from "./WalletConnectForm";

@@ -1,1 +1,1 @@
-export * from './ethereum-store.types'
+export * from "./ethereum-store.types";

@@ -1,4 +1,3 @@
-
 export interface Ethereum {
-  [key: string]: any
+  [key: string]: any;
 }

@@ -1,1 +1,1 @@
-export * from './base-tokens-form.store'
+export * from "./base-tokens-form.store";

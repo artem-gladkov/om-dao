@@ -1,1 +1,1 @@
-export * from './formatAddress'
+export * from "./formatAddress";

@@ -1,4 +1,4 @@
-@import "/src/app/styles/variables";
+@import "/src/app/styles";
 
 .swapForm {
   display: grid;
@@ -7,11 +7,9 @@
   justify-items: center;
 }
 
-.header {
-  display: grid;
-  align-items: center;
-  grid-template-columns: repeat(2, 1fr);
-  gap: $default-indent;
+.title {
+  font-family: $secondary-font-stack;
+  font-weight: 600;
 }
 
 .buttonChangePlaces {
@@ -39,12 +37,12 @@
   color: $white;
   fill: $white;
   transform: rotate(180deg);
-  transition: border ease .3s, transform ease .3s;
+  transition: border ease 0.3s, transform ease 0.3s;
   justify-self: center;
 
   &:hover {
     border: 2px solid $white;
     transform: rotate(0);
-    transition: border ease .3s, transform ease .3s;
+    transition: border ease 0.3s, transform ease 0.3s;
   }
 }

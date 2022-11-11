@@ -1,1 +1,1 @@
-export * from './stake-form.store'
+export * from "./stake-form.store";

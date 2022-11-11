@@ -1,9 +1,25 @@
 @import "variables";
 
 
-%text {
+%h1 {
+  font-family: $secondary-font-stack;
+  font-weight: 600;
+  font-size: 64px;
   color: $white;
-  font-size: 16px;
+}
+
+%h2 {
+  font-family: $secondary-font-stack;
+  font-weight: 600;
+  font-size: 42px;
+  color: $white;
+}
+
+%text {
+  font-family: $primary-font-stack;
+  font-weight: 400;
+  font-size: 18px;
+  color: $white;
 }
 
 %subtitle {

@@ -1,1 +1,1 @@
-export * from './StakeForm'
+export * from "./StakeForm";

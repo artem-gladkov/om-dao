@@ -14,10 +14,12 @@
 }
 
 .body {
-  width:  max-content;
+  width: max-content;
   display: grid;
   grid-gap: $default-indent;
   margin: 0 auto;
+  min-width: 560px;
+  min-height: 452px;
 }
 
 .form {

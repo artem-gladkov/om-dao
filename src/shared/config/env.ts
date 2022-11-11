@@ -5,11 +5,10 @@ const getEnvVariable = (key: string) => {
   return process.env[key] || "";
 };
 
-
 export const isProd = () => {
-  return getEnvVariable('NODE_ENV') === 'production'
-}
+  return getEnvVariable("NODE_ENV") === "production";
+};
 
 export const isDev = () => {
-  return getEnvVariable('NODE_ENV') === 'development'
-}
+  return getEnvVariable("NODE_ENV") === "development";
+};

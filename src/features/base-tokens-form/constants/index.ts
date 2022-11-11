@@ -1,1 +1,1 @@
-export * from './default-token-info'
+export * from "./default-token-info";

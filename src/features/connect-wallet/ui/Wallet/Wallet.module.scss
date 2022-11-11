@@ -9,13 +9,13 @@
   border: 2px solid $gray-color;
   border-radius: $default-border-radius;
   padding: 10px 20px;
-  transition:  border ease .3s;
+  transition: border ease 0.3s;
   width: 100%;
   color: $white;
   cursor: pointer;
 
   &:hover {
-    transition: border ease .3s;
+    transition: border ease 0.3s;
     border: 2px solid $white;
   }
 }

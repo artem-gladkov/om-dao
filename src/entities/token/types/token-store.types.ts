@@ -1,6 +1,6 @@
 export interface BaseTokenInfo {
-  name: string,
-  symbol: string,
-  decimals: string,
-  address: string,
+  name: string;
+  symbol: string;
+  decimals: string;
+  address: string;
 }

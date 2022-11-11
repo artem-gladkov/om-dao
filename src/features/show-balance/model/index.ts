@@ -1,1 +1,1 @@
-export * from './balance.store'
+export * from "./balance.store";

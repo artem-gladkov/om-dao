@@ -12,14 +12,14 @@
 .navLink {
   color: $white;
   padding: $default-indent $big-indent;
-  transition: color ease .3s;
+  transition: color ease 0.3s;
 
   &.active {
     border-bottom: 2px solid $primary-color;
   }
 
   &:hover {
-    color: rgba($white, .5);
-    transition: color ease .3s;
+    color: rgba($white, 0.5);
+    transition: color ease 0.3s;
   }
 }

@@ -1,1 +1,1 @@
-export * from './DestinationContract'
+export * from "./DestinationContract";

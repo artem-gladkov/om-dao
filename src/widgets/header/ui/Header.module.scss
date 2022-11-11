@@ -16,14 +16,6 @@
   width: 100%;
 }
 
-.logo {
-  color: $primary-color;
-  font-weight: 500;
-  font-size: $h3-font-size;
-  display: flex;
-  align-items: center;
-}
-
 .actions {
   display: grid;
   grid-template: 1fr / repeat(2, 1fr);
