@@ -23,14 +23,10 @@ export const ExchangePage: FC<ExchangePageProps> = observer(
         className={classNames(styles.exchangePage, className)}
         {...otherProps}
       >
-        <Container className={styles.wrapper}>
-          {hasSigner ? (
-            <div className={styles.body}>
-              <SwapForm />
-            </div>
-          ) : (
-            <WalletConnectForm />
-          )}
+        <Container>
+          <div className={styles.body}>
+            {hasSigner ? <SwapForm /> : <WalletConnectForm />}
+          </div>
         </Container>
       </main>
     );

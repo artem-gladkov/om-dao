@@ -1,6 +1,7 @@
 @import "src/app/styles/variables";
 
 .app {
+  position: relative;
   display: grid;
   grid-template-rows: $header-height 1fr;
   width: 100%;
@@ -15,3 +16,63 @@
   align-items: center;
   justify-items: center;
 }
+
+.bg {
+  position: absolute;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+
+  .grid {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .circles {
+
+    .circle {
+      position: absolute;
+      animation: circle 15s linear infinite;
+
+      &:nth-child(1) {
+        position: absolute;
+        width: 1115px;
+        height: 1115px;
+        left: -15%;
+        top: -50%;
+        background: radial-gradient(50% 50% at 50% 50%, rgba(55, 235, 250, 0.2) 0%, rgba(200, 245, 255, 0) 100%);
+      }
+
+      &:nth-child(2) {
+        width: 1115px;
+        height: 1115px;
+        left: -5%;
+        top: 20%;
+        background: radial-gradient(50% 50% at 50% 50%, rgba(112, 13, 173, 0.15) 0%, rgba(112, 13, 173, 0) 100%);
+        animation: c;
+      }
+
+      &:nth-child(3) {
+        position: absolute;
+        width: 1115px;
+        height: 1115px;
+        left: 60%;
+        top:  -25%;
+        background: radial-gradient(50% 50% at 50% 50%, rgba(106, 84, 255, 0.2) 0%, rgba(209, 169, 255, 0) 100%);
+      }
+    }
+  }
+}
+
+@keyframes circle {
+  0% {
+    transform: rotate(0deg) translate(-125px);
+  }
+  100% {
+    transform: rotate(360deg) translate(-125px);
+  }
+}
+

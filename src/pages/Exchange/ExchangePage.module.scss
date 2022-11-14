@@ -1,19 +1,9 @@
 @import "src/app/styles";
 
-.exchangePage {
-  display: grid;
-  grid-template: 1fr/1fr;
-  align-items: center;
-}
-
-.wrapper {
-  display: grid;
-  grid-gap: $default-indent;
-}
-
 .body {
-  margin: 0 auto;
-  width: max-content;
+  max-width: 600px;
+  width: 100%;
   display: grid;
   grid-gap: $default-indent;
+  margin: 149px auto 0;
 }

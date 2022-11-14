@@ -72,14 +72,14 @@ export const BaseTokensForm: FC<BaseTokensFormProps> = observer(
 
     return (
       <div className={classNames(styles.swapForm, className)} {...otherProps}>
-        {isInitialized ? (
-          <>
-            <div className={styles.wrapper}>
+        <div className={styles.wrapper}>
+          <h2 className={styles.title}>{title}</h2>
+          {isInitialized ? (
+            <>
               {isLoading ? (
                 <Loader text={loadingText} />
               ) : (
                 <>
-                  <h2 className={styles.title}>{title}</h2>
                   <SourceContract
                     fullContractInfo={fullSourceContractInfo}
                     amount={sourceAmount}
@@ -104,16 +104,16 @@ export const BaseTokensForm: FC<BaseTokensFormProps> = observer(
                   </Button>
                 </>
               )}
-            </div>
-            <TokenAddButton
-              full
-              text={"Добавить токен OMD в MetaMask"}
-              tokenSymbol={TOKEN_SYMBOLS.OMD}
-            />
-          </>
-        ) : (
-          <Loader />
-        )}
+              <TokenAddButton
+                full
+                text={"Добавить токен OMD в MetaMask"}
+                tokenSymbol={TOKEN_SYMBOLS.OMD}
+              />
+            </>
+          ) : (
+            <Loader />
+          )}
+        </div>
       </div>
     );
   }

@@ -5,6 +5,8 @@
   border-bottom: 1px solid $primary-color;
   display: flex;
   align-items: center;
+  height: max-content;
+  padding: $default-indent 0;
 }
 
 .body {
@@ -18,8 +20,25 @@
 
 .actions {
   display: grid;
-  grid-template: 1fr / repeat(2, 1fr);
+  grid-template: 1fr / 1fr;
   align-items: center;
   gap: $default-indent;
   justify-self: end;
+
+  &.hasSigner {
+    grid-template: 1fr / repeat(2, 1fr);
+  }
+}
+
+@media screen  and (max-width: $desktop-width){
+  .body {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(2, max-content);
+    justify-items: center;
+  }
+
+  .actions {
+    justify-self: center;
+  }
+
 }

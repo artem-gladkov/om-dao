@@ -23,7 +23,7 @@ export const StakePage: FC<StakePageProps> = ({
 
   return hasSigner ? (
     <div className={classNames(styles.stakePage, className)} {...otherProps}>
-      <Container className={styles.wrapper}>
+      <Container>
         <div className={styles.body}>
           <Tabs
             activeKey={activeTab}

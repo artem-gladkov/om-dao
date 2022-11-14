@@ -24,7 +24,11 @@ export const Header: FC<HeaderProps> = observer(
         <Container className={styles.body}>
           <Logo />
           {hasSigner && <Nav />}
-          <div className={styles.actions}>
+          <div
+            className={classNames(styles.actions, {
+              [styles.hasSigner]: hasSigner,
+            })}
+          >
             {hasSigner ? (
               <>
                 <SmallBalance

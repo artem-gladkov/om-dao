@@ -4,7 +4,7 @@
   display: grid;
   grid-template-rows: 1fr;
   grid-template-columns: max-content 1fr;
-  border: 2px solid $gray-color;
+  border: 2px solid $default-border-color;
   border-radius: $default-border-radius;
   padding: $default-indent $big-indent;
   align-items: center;
@@ -23,6 +23,6 @@
 
 .address {
   border-radius: $default-border-radius;
-  background-color: $gray-color;
+  background-color: $default-border-color;
   padding: $small-indent $default-indent;
 }
