@@ -24,14 +24,15 @@ export class EthereumStore {
       if (window.ethereum && window.ethereum.isMetaMask) {
         this.ethereum = window.ethereum;
       } else {
-        alert("Установите MetaMask");
+        alert(
+          "Установите MetaMask https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=ru"
+        );
         return;
       }
       await this.createEthereumProvider();
       await this.checkNetwork();
       await this.checkSigner();
       this.initialized = true;
-      console.log("end init");
     } catch (e) {
       console.log(e);
     }

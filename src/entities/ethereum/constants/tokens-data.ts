@@ -1,5 +1,6 @@
 import { ContractInterface } from "@ethersproject/contracts";
 import { USDT_ABI, OMDAO_ABI, OMDAO_STAKE_ABI } from "./contracts-abi";
+import { isProd } from "../../../shared/config";
 
 export enum TOKEN_SYMBOLS {
   USDT = "USDT",
@@ -8,9 +9,15 @@ export enum TOKEN_SYMBOLS {
 }
 
 export const TOKEN_ADDRESS: { [key in TOKEN_SYMBOLS]: string } = {
-  [TOKEN_SYMBOLS.USDT]: "0xfE09A8E5127232899fd0403D29Bff9a9c1cA0BdD",
-  [TOKEN_SYMBOLS.OMD]: "0x53ef682b4BB9f21E7d38318ee00A8e2C1AB02d21",
-  [TOKEN_SYMBOLS.STOMD]: "0x64ED6E7882BABFfA78F11FD79ED874922d93c906",
+  [TOKEN_SYMBOLS.USDT]: isProd()
+    ? "0xdAC17F958D2ee523a2206206994597C13D831ec7"
+    : "0xfE09A8E5127232899fd0403D29Bff9a9c1cA0BdD",
+  [TOKEN_SYMBOLS.OMD]: isProd()
+    ? "0xA4282798c2199a1C58843088297265acD748168c"
+    : "0x53ef682b4BB9f21E7d38318ee00A8e2C1AB02d21",
+  [TOKEN_SYMBOLS.STOMD]: isProd()
+    ? "0x497bdbA917430E72d09993a55cdBBD411763168B"
+    : "0x64ED6E7882BABFfA78F11FD79ED874922d93c906",
 };
 
 export const TOKEN_ABI: { [key in TOKEN_SYMBOLS]: ContractInterface } = {
