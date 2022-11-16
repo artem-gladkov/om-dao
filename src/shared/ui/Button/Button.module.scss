@@ -4,7 +4,7 @@
   border-radius: $default-border-radius;
   border: 2px solid $default-border-color;
   padding: $default-indent $big-indent;
-  color: $white;
+  color: $white-color;
   transition: border ease 0.3s, color ease 0.3s;
   background-color: unset;
   cursor: pointer;
@@ -15,7 +15,13 @@
   }
 
   &:hover {
-    border: 2px solid $white;
+    border: 2px solid $white-color;
     transition: border ease 0.3s, color ease 0.3s;
+  }
+
+  &:disabled {
+    border: 2px solid transparent;
+    background-color: rgba($disabled-bg-color, 0.5);
+    cursor: not-allowed;
   }
 }

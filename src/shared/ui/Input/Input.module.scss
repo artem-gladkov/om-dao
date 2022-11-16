@@ -1,0 +1,12 @@
+@import "src/app/styles/variables";
+
+.input {
+  border: 1px solid $default-border-color;
+  border-radius: $default-border-radius;
+  padding: $small-indent $default-indent;
+
+  &:read-only {
+    background-color: rgba($light-gray-color, 0.5);
+    border: 1px solid transparent;
+  }
+}

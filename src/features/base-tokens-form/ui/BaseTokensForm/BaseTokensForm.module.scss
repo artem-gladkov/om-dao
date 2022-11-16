@@ -39,14 +39,14 @@
   height: 40px;
   cursor: pointer;
   padding: $small-indent;
-  color: $white;
-  fill: $white;
+  color: $white-color;
+  fill: $white-color;
   transform: rotate(180deg);
   transition: border ease 0.3s, transform ease 0.3s;
   justify-self: center;
 
   &:hover {
-    border: 2px solid $white;
+    border: 2px solid $white-color;
     transform: rotate(0);
     transition: border ease 0.3s, transform ease 0.3s;
   }

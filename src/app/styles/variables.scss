@@ -9,12 +9,21 @@ $dark-gray-color: #252525;
 $gray-color: #2f3140;
 $light-gray-color: #f3f3f3;
 
-$white: #fff;
+$white-color: #fff;
 $black: #000;
+
+
+$success-color: #3AC922;
+$light-success-color: #E6FFE2;
+$error-color: #FF3030;
+$light-error-color: #FFF2F2;
 
 $primary-text-color: $dark-gray-color;
 $secondary-text-color: #676767;
 $disabled-text-color: #949697;
+
+
+$disabled-bg-color: #E7EBF1;
 
 // Grid
 $desktop-width: 1260px;
@@ -37,10 +46,12 @@ $header-height: 80px;
 $footer-height: 100px;
 
 $default-border-radius: 5px;
-$default-border-color: rgba($white, .5);
+$default-border-color: rgba($white-color, .5);
 
 // Indents
 $default-indent: 8px;
 $small-indent: $default-indent / 2;
 $big-indent: $default-indent * 2;
 $large-indent: $default-indent * 3;
+
+$light-bg-color: #F0F5F5;

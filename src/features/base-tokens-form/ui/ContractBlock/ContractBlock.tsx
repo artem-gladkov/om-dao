@@ -4,16 +4,14 @@ import classNames from "classnames";
 import styles from "./ContractBlock.module.scss";
 import { SmallBalance } from "../../../show-balance";
 import { Contract } from "@ethersproject/contracts";
+import { Input } from "../../../../shared/ui";
 
 export interface ContractBlockProps {
   title: string;
   token: { symbol: string; image?: string; name: string; balance: string };
   contract: Contract;
   amount: string;
-  onChangeAmount?: (
-    value: string,
-    event: ChangeEvent<HTMLInputElement>
-  ) => void;
+  onChangeAmount?: (value: string) => void;
   readonlyAmount?: boolean;
   className?: string;
 }
@@ -28,13 +26,9 @@ export const ContractBlock: FC<ContractBlockProps> = ({
   className,
   ...otherProps
 }) => {
-  const handleChangeSwapAmount = useCallback(
-    (event: ChangeEvent<HTMLInputElement>) => {
-      onChangeAmount &&
-        onChangeAmount(event.currentTarget.value.toString(), event);
-    },
-    []
-  );
+  const handleChangeSwapAmount = useCallback((value: string) => {
+    onChangeAmount && onChangeAmount(value);
+  }, []);
 
   return (
     <div className={classNames(styles.swapBlock, className)} {...otherProps}>
@@ -49,17 +43,11 @@ export const ContractBlock: FC<ContractBlockProps> = ({
           </div>
           <div className={styles.tokenSymbol}>{symbol}</div>
         </div>
-        <div className={styles.amount}>
-          {readonlyAmount ? (
-            <span className={styles.amountValue}>{amount}</span>
-          ) : (
-            <input
-              className={styles.amountValue}
-              value={amount}
-              onChange={handleChangeSwapAmount}
-            />
-          )}
-        </div>
+        <Input
+          value={amount}
+          onChange={handleChangeSwapAmount}
+          readOnly={readonlyAmount}
+        />
       </div>
       <div className={styles.footer}>
         <div className={styles.tokenName}>{name}</div>

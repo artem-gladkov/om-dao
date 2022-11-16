@@ -8,7 +8,7 @@ import { FullContractInfo } from "../../types";
 export interface SourceContractProps {
   fullContractInfo: FullContractInfo;
   amount: string;
-  onChangeAmount: (value: string, event: ChangeEvent<HTMLInputElement>) => void;
+  onChangeAmount: (value: string) => void;
   className?: string;
 }
 

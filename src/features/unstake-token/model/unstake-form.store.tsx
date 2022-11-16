@@ -2,7 +2,6 @@ import { JsonRpcSigner } from "@ethersproject/providers";
 import { Contract } from "@ethersproject/contracts";
 import { TOKEN_ABI, TOKEN_ADDRESS, TOKEN_SYMBOLS } from "../../../entities";
 import { formatUnits } from "@ethersproject/units";
-import { isDev, isProd } from "../../../shared/config";
 import { format } from "date-fns";
 import { makeAutoObservable } from "mobx";
 import { OperationStatus } from "../../../shared/types";
@@ -73,19 +72,10 @@ export class UnstakeFormStore {
       const address = await this._signer.getAddress();
       const decimals = await this._unStakeContract.decimals();
 
-      if (isProd()) {
-        this.dividends = formatUnits(
-          await this._stakeContract.myDivs(address),
-          decimals
-        );
-      }
-
-      if (isDev()) {
-        this.dividends = formatUnits(
-          await this._stakeContract.myDivs(),
-          decimals
-        );
-      }
+      this.dividends = formatUnits(
+        await this._stakeContract.myDivs(address),
+        decimals
+      );
     } catch (e) {
       console.log(e);
     }
@@ -130,7 +120,6 @@ export class UnstakeFormStore {
   }
 
   public get formattedUnstakeDate(): string {
-    console.log(this._unstakeDate);
     return format(this._unstakeDate, "dd.MM.yyyy в  HH:mm");
   }
 

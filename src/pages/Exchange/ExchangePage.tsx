@@ -6,7 +6,7 @@ import { useEthereumStore } from "../../entities";
 import { SwapForm } from "../../features/swap-tokens";
 import { WalletConnectForm } from "../../features/connect-wallet";
 import { observer } from "mobx-react-lite";
-import { Container } from "../../shared/ui";
+import { Container, Input } from "../../shared/ui";
 
 export interface ExchangePageProps {
   className?: string;

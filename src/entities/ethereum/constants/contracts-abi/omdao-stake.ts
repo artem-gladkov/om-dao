@@ -112,7 +112,7 @@ export const OMDAO_STAKE_ABI: ContractInterface = [
     type: "function",
   },
   {
-    inputs: [],
+    inputs: [{ internalType: "address", name: "account", type: "address" }],
     name: "myDivs",
     outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "view",

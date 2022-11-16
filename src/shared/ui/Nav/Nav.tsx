@@ -29,7 +29,7 @@ export const Nav: FC<INavProps> = ({ className, ...otherProps }) => {
         })}
         to={PATHS.STAKE}
       >
-        Стейкинг/Вывод из стейкинга
+        Стейкинг
       </NavLink>
     </nav>
   );

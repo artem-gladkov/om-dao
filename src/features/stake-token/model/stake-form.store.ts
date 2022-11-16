@@ -15,33 +15,25 @@ export class StakeFormStore {
 
   constructor(private _signer: JsonRpcSigner) {
     makeAutoObservable(this);
+
     this._sourceContract = new Contract(
       TOKEN_ADDRESS[TOKEN_SYMBOLS.OMD],
       TOKEN_ABI[TOKEN_SYMBOLS.OMD],
       _signer
     );
+
     this._destinationContract = new Contract(
       TOKEN_ADDRESS[TOKEN_SYMBOLS.STOMD],
       TOKEN_ABI[TOKEN_SYMBOLS.STOMD],
       _signer
     );
-    this._destinationContract
-      .myDivs()
-      .then((resp: any) => console.log(formatUnits(resp, 6)));
   }
 
   public onStake = async ({
-    destinationAmount,
     sourceAmount,
-    isRearranged,
   }: BaseTokensFormSubmitData): Promise<void> => {
     this.status = OperationStatus.STARTING;
-
-    if (isRearranged) {
-      await this.unstakeToken();
-    } else {
-      await this.stakeToken(sourceAmount);
-    }
+    await this.stakeToken(sourceAmount);
   };
 
   private stakeToken = async (amount: string): Promise<void> => {
@@ -69,18 +61,6 @@ export class StakeFormStore {
       this.status = OperationStatus.SUCCESS;
     } catch (e) {
       this.status = OperationStatus.ERROR;
-      console.log(e);
-    }
-  };
-
-  private unstakeToken = async (): Promise<void> => {
-    try {
-      this.status = OperationStatus.AWAITING_CONFIRM;
-      const unstakeTransaction = await this.destinationContract.unstake();
-      this.status = OperationStatus.AWAITING_BLOCK_MINING;
-      await unstakeTransaction.wait();
-      this.status = OperationStatus.SUCCESS;
-    } catch (e) {
       console.log(e);
     }
   };

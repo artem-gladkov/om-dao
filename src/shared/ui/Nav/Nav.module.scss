@@ -10,7 +10,7 @@
 }
 
 .navLink {
-  color: $white;
+  color: $white-color;
   padding: $default-indent $big-indent;
   transition: color ease 0.3s;
 
@@ -19,7 +19,7 @@
   }
 
   &:hover {
-    color: rgba($white, 0.5);
+    color: rgba($white-color, 0.5);
     transition: color ease 0.3s;
   }
 }
