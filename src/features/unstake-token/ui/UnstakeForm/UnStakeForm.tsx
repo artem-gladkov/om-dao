@@ -24,7 +24,7 @@ export const UnStakeForm: FC<IUnStakeFormProps> = observer(({ className }) => {
       isLoading,
       onUnStake,
       loadingText,
-      disableUnstake,
+      isUnStakeDisabled,
     },
   ] = useState(() => new UnstakeFormStore(signer));
 
@@ -53,7 +53,7 @@ export const UnStakeForm: FC<IUnStakeFormProps> = observer(({ className }) => {
               <span>{formattedUnstakeDate}</span>
             </div>
           </div>
-          <Button onClick={onUnStake} full disabled={disableUnstake}>
+          <Button onClick={onUnStake} full disabled={isUnStakeDisabled}>
             Вывод токена из стейкинга
           </Button>
         </>

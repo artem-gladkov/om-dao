@@ -12,26 +12,37 @@ export interface StakeFormProps {
   className?: string;
 }
 
-export const StakeForm: FC<StakeFormProps> = observer(
-  ({ className, ...otherProps }) => {
-    const {
-      ethereumStore: { signer },
-    } = useEthereumStore();
+export const StakeForm: FC<StakeFormProps> = observer(({ className }) => {
+  const {
+    ethereumStore: { signer },
+  } = useEthereumStore();
 
-    const [
-      { sourceContract, destinationContract, onStake, status, isStaking },
-    ] = useState(() => new StakeFormStore(signer));
+  const [
+    {
+      sourceContract,
+      destinationContract,
+      onStake,
+      status,
+      isStaking,
+      isStakeDisabled,
+    },
+  ] = useState(() => new StakeFormStore(signer));
 
-    return (
-      <BaseTokensForm
-        className={classNames(styles.stakeForm, className)}
-        title="Стейкинг OMD"
-        onSubmit={onStake}
-        sourceContract={sourceContract}
-        destinationContract={destinationContract}
-        isLoading={isStaking}
-        loadingText={STAKE_STATUS_LABELS[status]}
-      />
-    );
-  }
-);
+  return (
+    <BaseTokensForm
+      className={classNames(styles.stakeForm, className)}
+      title="Стейкинг OMD"
+      onSubmit={onStake}
+      sourceContract={sourceContract}
+      destinationContract={destinationContract}
+      isLoading={isStaking}
+      loadingText={STAKE_STATUS_LABELS[status]}
+      disableSubmitButton={isStakeDisabled}
+      disabledText={
+        isStakeDisabled
+          ? "Нельзя застейкать токен так как еще не установлена дата выплаты дивидендов или она уже просрочена"
+          : ""
+      }
+    />
+  );
+});

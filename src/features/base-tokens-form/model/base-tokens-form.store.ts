@@ -31,6 +31,7 @@ export class BaseTokensFormStore {
     ) => string
   ) {
     makeAutoObservable(this);
+
     this._sourceContract = sourceContract;
     this._destinationContract = destinationContract;
 
@@ -39,9 +40,9 @@ export class BaseTokensFormStore {
 
   protected init = async (): Promise<void> => {
     try {
-      this.sourceContractData = {
-        ...(await this.fetchContractData(this._sourceContract)),
-      };
+      this.sourceContractData = await this.fetchContractData(
+        this._sourceContract
+      );
 
       this.destinationContractData = await this.fetchContractData(
         this._destinationContract
@@ -100,6 +101,50 @@ export class BaseTokensFormStore {
     this.isRearranged = !this.isRearranged;
   };
 
+  public updateBalances = async (): Promise<void> => {
+    try {
+      await this.updateSourceBalance();
+      await this.updateDestinationBalance();
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  public updateSourceBalance = async (): Promise<void> => {
+    try {
+      const signerAddress = await this._signer.getAddress();
+
+      const decimals = await this._sourceContract.decimals();
+      const balance = formatUnits(
+        await this._sourceContract.balanceOf(signerAddress),
+        decimals
+      );
+      this.sourceContractData = {
+        ...this._sourceContractData,
+        balance,
+      };
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  public updateDestinationBalance = async (): Promise<void> => {
+    try {
+      const signerAddress = await this._signer.getAddress();
+      const decimals = await this._destinationContract.decimals();
+      const balance = formatUnits(
+        await this._destinationContract.balanceOf(signerAddress),
+        decimals
+      );
+      this.destinationContractData = {
+        ...this._destinationContractData,
+        balance,
+      };
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   private set sourceContract(value: Contract) {
     this._sourceContract = value;
   }
@@ -131,7 +176,7 @@ export class BaseTokensFormStore {
   }
 
   public get isDisabledSubmitButton(): boolean {
-    return !this.sourceAmount || Number(this.sourceAmount) <= 0;
+    return !this.sourceAmount || Number(this.sourceAmount) < 1;
   }
 
   private set sourceContractData(value: BaseContractInfo) {

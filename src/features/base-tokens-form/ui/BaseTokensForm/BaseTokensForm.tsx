@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useCallback, useState } from "react";
 import classNames from "classnames";
 
 import styles from "./BaseTokensForm.module.scss";
@@ -15,7 +15,7 @@ import { TokenAddButton } from "../../../add-token-to-metamask";
 
 export interface BaseTokensFormProps {
   title: string;
-  onSubmit: (data: BaseTokensFormSubmitData) => void;
+  onSubmit: (data: BaseTokensFormSubmitData) => Promise<void>;
   sourceContract: Contract;
   destinationContract: Contract;
   isLoading: boolean;
@@ -26,6 +26,8 @@ export interface BaseTokensFormProps {
     isRearranged: boolean
   ) => string;
   canRearrangeContracts?: boolean;
+  disableSubmitButton?: boolean;
+  disabledText?: string;
 }
 
 export const BaseTokensForm: FC<BaseTokensFormProps> = observer(
@@ -38,12 +40,15 @@ export const BaseTokensForm: FC<BaseTokensFormProps> = observer(
     loadingText,
     onSubmit,
     calculateDestinationAmount,
-    canRearrangeContracts = false,
+    canRearrangeContracts,
+    disableSubmitButton,
+    disabledText,
     ...otherProps
   }) => {
     const {
       ethereumStore: { signer },
     } = useEthereumStore();
+
     const [
       {
         fullDestinationContractInfo,
@@ -55,6 +60,7 @@ export const BaseTokensForm: FC<BaseTokensFormProps> = observer(
         destinationAmount,
         isRearranged,
         isInitialized,
+        updateBalances,
       },
     ] = useState(
       () =>
@@ -66,9 +72,10 @@ export const BaseTokensForm: FC<BaseTokensFormProps> = observer(
         )
     );
 
-    const onSubmitForm = () => {
-      onSubmit({ sourceAmount, destinationAmount, isRearranged });
-    };
+    const onSubmitForm = useCallback(async () => {
+      await onSubmit({ sourceAmount, destinationAmount, isRearranged });
+      await updateBalances();
+    }, [onSubmit, sourceAmount, destinationAmount, isRearranged]);
 
     return (
       <div className={classNames(styles.swapForm, className)} {...otherProps}>
@@ -98,7 +105,8 @@ export const BaseTokensForm: FC<BaseTokensFormProps> = observer(
                   <Button
                     type="button"
                     onClick={onSubmitForm}
-                    disabled={isDisabledSubmitButton}
+                    disabled={isDisabledSubmitButton || disableSubmitButton}
+                    title={disabledText}
                   >
                     Совершить сделку
                   </Button>
@@ -106,12 +114,12 @@ export const BaseTokensForm: FC<BaseTokensFormProps> = observer(
               )}
               <TokenAddButton
                 full
-                text={"Добавить токен OMD в MetaMask"}
+                text={`Добавить токен ${TOKEN_SYMBOLS.OMD} в MetaMask`}
                 tokenSymbol={TOKEN_SYMBOLS.OMD}
               />
               <TokenAddButton
                 full
-                text={"Добавить токен stOMD в MetaMask"}
+                text={`Добавить токен ${TOKEN_SYMBOLS.STOMD} в MetaMask`}
                 tokenSymbol={TOKEN_SYMBOLS.STOMD}
               />
             </>

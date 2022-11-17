@@ -5,7 +5,7 @@ import { isProd } from "../../../shared/config";
 export enum TOKEN_SYMBOLS {
   USDT = "USDT",
   OMD = "OMD",
-  STOMD = "STOMD",
+  STOMD = "stOMD",
 }
 
 export const TOKEN_ADDRESS: { [key in TOKEN_SYMBOLS]: string } = {

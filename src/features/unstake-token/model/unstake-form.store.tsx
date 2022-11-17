@@ -5,7 +5,7 @@ import { formatUnits } from "@ethersproject/units";
 import { format } from "date-fns";
 import { makeAutoObservable } from "mobx";
 import { OperationStatus } from "../../../shared/types";
-import { UNSTAKE_STATUS_LABELS } from "../constants/unstake-status-label";
+import { UNSTAKE_STATUS_LABELS } from "../constants";
 
 export class UnstakeFormStore {
   private _inStake: string = "";
@@ -40,14 +40,14 @@ export class UnstakeFormStore {
       _signer
     );
 
-    this.init();
+    this.fetchUnStakeInfo();
   }
 
-  private init = async (): Promise<void> => {
+  private fetchUnStakeInfo = async (): Promise<void> => {
     try {
       await this.fetchBalance();
-      await this.fetchDividends();
       await this.fetchUnStakeDate();
+      await this.fetchDividends();
     } catch (e) {
       console.log(e);
     } finally {
@@ -78,6 +78,7 @@ export class UnstakeFormStore {
       );
     } catch (e) {
       console.log(e);
+      this.dividends = "0";
     }
   };
 
@@ -95,10 +96,18 @@ export class UnstakeFormStore {
     this.isLoading = true;
 
     try {
+      const symbol = await this._stakeContract.symbol();
+
       this.status = OperationStatus.AWAITING_CONFIRM;
-      const unstakeTransaction = await this._stakeContract.unstake();
+      const unStakeTransaction = await this._stakeContract.unstake();
+
       this.status = OperationStatus.AWAITING_BLOCK_MINING;
-      await unstakeTransaction.wait();
+      await unStakeTransaction.wait();
+
+      const event = new CustomEvent(`need-update-${symbol}`);
+      document.dispatchEvent(event);
+
+      await this.fetchUnStakeInfo();
       this.status = OperationStatus.SUCCESS;
     } catch (e) {
       console.log(e);
@@ -135,7 +144,7 @@ export class UnstakeFormStore {
     return UNSTAKE_STATUS_LABELS[this.status];
   }
 
-  public get disableUnstake(): boolean {
+  public get isUnStakeDisabled(): boolean {
     return this._unstakeDate && Date.now() < this._unstakeDate.getTime();
   }
 

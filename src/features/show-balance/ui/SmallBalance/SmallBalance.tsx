@@ -17,9 +17,21 @@ export const SmallBalance: FC<SmallBalanceProps> = observer(
     const {
       ethereumStore: { signer },
     } = useEthereumStore();
-    const [{ balance }] = useState(
+
+    const [{ balance, updateBalance }] = useState(
       () => new BalanceStore({ tokenSymbol, signer })
     );
+
+    useEffect(() => {
+      document.addEventListener(`need-update-${tokenSymbol}`, updateBalance);
+
+      return () => {
+        document.removeEventListener(
+          `need-update-${tokenSymbol}`,
+          updateBalance
+        );
+      };
+    }, [tokenSymbol]);
 
     return (
       <div

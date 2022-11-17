@@ -46,6 +46,10 @@ export class SwapFormStore {
     try {
       const allowedAmount = await this.fetchAllowedAmount();
 
+      if (allowedAmount !== 0 && allowedAmount < +amount) {
+        await this.approveSwapAmount("0");
+      }
+
       if (allowedAmount < +amount) {
         await this.approveSwapAmount(amount);
       }

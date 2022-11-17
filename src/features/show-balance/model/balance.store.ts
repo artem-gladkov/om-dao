@@ -1,7 +1,7 @@
 import { makeAutoObservable } from "mobx";
 import { Contract } from "@ethersproject/contracts";
 import { formatUnits } from "@ethersproject/units";
-import { JsonRpcSigner, Web3Provider } from "@ethersproject/providers";
+import { JsonRpcSigner } from "@ethersproject/providers";
 import { TOKEN_ABI, TOKEN_ADDRESS, TOKEN_SYMBOLS } from "../../../entities";
 
 export class BalanceStore {
@@ -32,13 +32,13 @@ export class BalanceStore {
       this._decimals = await this.contract.decimals();
       this._signerAddress = await this.signer.getAddress();
 
-      await this.fetchBalance();
+      await this.updateBalance();
     } catch (e) {
       console.log(e);
     }
   };
 
-  fetchBalance = async (): Promise<void> => {
+  public updateBalance = async (): Promise<void> => {
     try {
       const balance = await this.contract.balanceOf(this._signerAddress);
       this.balance = formatUnits(balance, this._decimals);

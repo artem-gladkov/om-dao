@@ -7,9 +7,11 @@ import { makeAutoObservable } from "mobx";
 import { OperationStatus } from "../../../shared/types";
 
 export class StakeFormStore {
-  private _sourceContract: Contract;
+  private readonly _sourceContract: Contract;
 
-  private _destinationContract: Contract;
+  private readonly _destinationContract: Contract;
+
+  private _unStakeDate: Date | undefined;
 
   private _status: OperationStatus = OperationStatus.READY;
 
@@ -27,17 +29,34 @@ export class StakeFormStore {
       TOKEN_ABI[TOKEN_SYMBOLS.STOMD],
       _signer
     );
+
+    this.fetchUnStakeDate();
   }
 
   public onStake = async ({
     sourceAmount,
   }: BaseTokensFormSubmitData): Promise<void> => {
+    if (this.isStakeDisabled) {
+      return;
+    }
+
     this.status = OperationStatus.STARTING;
     await this.stakeToken(sourceAmount);
   };
 
+  private fetchUnStakeDate = async (): Promise<void> => {
+    try {
+      const timestamp =
+        Number(formatUnits(await this.destinationContract.divDate(), 0)) * 1000;
+      this.unStakeDate = new Date(timestamp);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   private stakeToken = async (amount: string): Promise<void> => {
     try {
+      const symbol = await this.destinationContract.symbol();
       const decimals = await this.destinationContract.decimals();
       const unit256Amount = parseUnits(amount, decimals);
 
@@ -58,6 +77,9 @@ export class StakeFormStore {
       this.status = OperationStatus.AWAITING_BLOCK_MINING;
       await stakeTransaction.wait();
 
+      const event = new CustomEvent(`need-update-${symbol}`);
+      document.dispatchEvent(event);
+
       this.status = OperationStatus.SUCCESS;
     } catch (e) {
       this.status = OperationStatus.ERROR;
@@ -77,8 +99,20 @@ export class StakeFormStore {
     return this._status;
   }
 
+  public get unStakeDate(): Date | undefined {
+    return this._unStakeDate;
+  }
+
   private set status(value: OperationStatus) {
     this._status = value;
+  }
+
+  private set unStakeDate(value: Date | undefined) {
+    this._unStakeDate = value;
+  }
+
+  public get isStakeDisabled(): boolean {
+    return this.unStakeDate ? Date.now() > this.unStakeDate.getTime() : true;
   }
 
   public get isStaking(): boolean {
