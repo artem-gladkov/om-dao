@@ -34,12 +34,17 @@
 .tokenIcon {
   width: 24px;
   height: 24px;
-  background-color: $default-border-color;
   border-radius: 50%;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   & > img {
     width: 100%;
-    height: 100%;
+  }
+
+  &.empty {
+    background-color: $default-border-color;
   }
 }

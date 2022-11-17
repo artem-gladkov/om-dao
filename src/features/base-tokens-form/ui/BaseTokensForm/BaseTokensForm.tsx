@@ -1,4 +1,4 @@
-import { FC, useCallback, useState } from "react";
+import { FC, useState } from "react";
 import classNames from "classnames";
 
 import styles from "./BaseTokensForm.module.scss";
@@ -10,7 +10,7 @@ import { DestinationContract } from "../DestinationContract";
 import { BaseTokensFormSubmitData } from "../../types";
 import { Contract } from "@ethersproject/contracts";
 import { Button, Loader } from "../../../../shared/ui";
-import { Arrow } from "../../../../shared/ui/Arrow";
+import { Arrow } from "../../../../shared/ui";
 import { TokenAddButton } from "../../../add-token-to-metamask";
 
 export interface BaseTokensFormProps {
@@ -108,6 +108,11 @@ export const BaseTokensForm: FC<BaseTokensFormProps> = observer(
                 full
                 text={"Добавить токен OMD в MetaMask"}
                 tokenSymbol={TOKEN_SYMBOLS.OMD}
+              />
+              <TokenAddButton
+                full
+                text={"Добавить токен stOMD в MetaMask"}
+                tokenSymbol={TOKEN_SYMBOLS.STOMD}
               />
             </>
           ) : (

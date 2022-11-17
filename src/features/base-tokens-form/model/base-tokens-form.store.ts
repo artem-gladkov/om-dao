@@ -57,6 +57,13 @@ export class BaseTokensFormStore {
     contract: Contract
   ): Promise<BaseContractInfo> => {
     try {
+      const symbol = await contract.symbol();
+      const image = await import(
+        `/src/app/images/tokens/${symbol.toLowerCase()}.webp`
+      )
+        .then((module) => module.default)
+        .catch(() => "");
+
       const decimals = await contract.decimals();
       const signerAddress = await this._signer.getAddress();
       const balance = formatUnits(
@@ -66,9 +73,10 @@ export class BaseTokensFormStore {
 
       return {
         name: await contract.name(),
-        symbol: await contract.symbol(),
+        symbol,
         decimals,
         balance,
+        image,
       };
     } catch (e) {
       console.log(e);

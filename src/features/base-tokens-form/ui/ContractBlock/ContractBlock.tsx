@@ -1,8 +1,7 @@
-import { ChangeEvent, FC, useCallback } from "react";
+import { FC, useCallback } from "react";
 import classNames from "classnames";
 
 import styles from "./ContractBlock.module.scss";
-import { SmallBalance } from "../../../show-balance";
 import { Contract } from "@ethersproject/contracts";
 import { Input } from "../../../../shared/ui";
 
@@ -38,7 +37,9 @@ export const ContractBlock: FC<ContractBlockProps> = ({
       </div>
       <div className={styles.body}>
         <div className={styles.token}>
-          <div className={styles.tokenIcon}>
+          <div
+            className={classNames(styles.tokenIcon, { [styles.empty]: !image })}
+          >
             {image && <img src={image} alt={name} />}
           </div>
           <div className={styles.tokenSymbol}>{symbol}</div>
