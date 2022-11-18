@@ -2,20 +2,10 @@
 
 .header {
   min-height: $header-height;
-  border-bottom: 1px solid $primary-color;
   display: flex;
   align-items: center;
   height: max-content;
   padding: $default-indent 0;
-}
-
-.body {
-  display: grid;
-  grid-template-columns: max-content 1fr max-content;
-  gap: $big-indent;
-  grid-template-rows: 1fr;
-  align-items: center;
-  width: 100%;
 }
 
 .actions {

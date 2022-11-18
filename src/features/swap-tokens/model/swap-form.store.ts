@@ -14,16 +14,21 @@ export class SwapFormStore {
 
   private _swapStatus: SwapStatus = SwapStatus.READY;
 
-  constructor(private _signer: JsonRpcSigner) {
+  constructor(
+    private _signer: JsonRpcSigner,
+    tokenASymbol: TOKEN_SYMBOLS,
+    tokenBSymbol: TOKEN_SYMBOLS
+  ) {
     makeAutoObservable(this);
+
     this._sourceContract = new Contract(
-      TOKEN_ADDRESS[TOKEN_SYMBOLS.USDT],
-      TOKEN_ABI[TOKEN_SYMBOLS.USDT],
+      TOKEN_ADDRESS[tokenASymbol],
+      TOKEN_ABI[tokenASymbol],
       _signer
     );
     this._destinationContract = new Contract(
-      TOKEN_ADDRESS[TOKEN_SYMBOLS.OMD],
-      TOKEN_ABI[TOKEN_SYMBOLS.OMD],
+      TOKEN_ADDRESS[tokenBSymbol],
+      TOKEN_ABI[tokenBSymbol],
       _signer
     );
   }

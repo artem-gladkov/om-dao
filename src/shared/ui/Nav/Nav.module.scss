@@ -2,7 +2,7 @@
 
 .nav {
   display: grid;
-  grid-template-columns: repeat(2, max-content);
+  grid-template-columns: repeat(3, max-content);
   grid-template-rows: 1fr;
   gap: $default-indent;
   width: max-content;

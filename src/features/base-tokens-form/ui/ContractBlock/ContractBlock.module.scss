@@ -23,28 +23,3 @@
   display: grid;
   grid-template-columns: 1fr;
 }
-
-.token {
-  display: grid;
-  grid-template-columns: 24px 1fr;
-  align-items: center;
-  grid-gap: $default-indent;
-}
-
-.tokenIcon {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  & > img {
-    width: 100%;
-  }
-
-  &.empty {
-    background-color: $default-border-color;
-  }
-}

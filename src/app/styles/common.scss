@@ -1,5 +1,4 @@
 @import "variables";
-@import "extends";
 
 * {
   box-sizing: border-box;
@@ -15,34 +14,24 @@ body,
 }
 
 body {
-  font-family: sans-serif;
   background-color: $dark-gray-color;
-  @extend %text;
+  font-family: $primary-font-stack;
+  font-weight: 400;
+  font-size: 18px;
+  color: $white-color;
 }
 
 h1 {
-  @extend %h1;
+  font-family: $secondary-font-stack;
+  font-weight: 600;
+  font-size: 64px;
+  color: $white-color;
 }
 
 h2 {
-  @extend %h2;
-}
-
-//TODO
-.appNetworkAlert {
-  display: grid;
-  width: 100%;
-  height: 100%;
-  grid-template: 1fr / 1fr;
-  align-items: center;
-  justify-items: center;
-  align-self: center;
-
-  & > div > div {
-    display: grid;
-    grid-gap: $default-indent;
-    text-align: center;
-    width: max-content;
-    margin: 0 auto;
-  }
+  font-family: $secondary-font-stack;
+  font-weight: 600;
+  font-size: 42px;
+  color: $white-color;
+  margin: 0 0 $big-indent;
 }

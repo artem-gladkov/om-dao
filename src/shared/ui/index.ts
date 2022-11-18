@@ -6,3 +6,4 @@ export * from "./Nav";
 export * from "./Loader";
 export * from "./Tabs";
 export * from "./Logo";
+export * from "./Panel";

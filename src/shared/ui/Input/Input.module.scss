@@ -4,6 +4,7 @@
   border: 1px solid $default-border-color;
   border-radius: $default-border-radius;
   padding: $small-indent $default-indent;
+  background-color: transparent;
 
   &:read-only {
     background-color: rgba($light-gray-color, 0.5);

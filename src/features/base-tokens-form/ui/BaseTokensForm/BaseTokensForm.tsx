@@ -2,7 +2,7 @@ import { FC, useCallback, useState } from "react";
 import classNames from "classnames";
 
 import styles from "./BaseTokensForm.module.scss";
-import { TOKEN_SYMBOLS, useEthereumStore } from "../../../../entities";
+import { useEthereumStore } from "../../../../entities";
 import { BaseTokensFormStore } from "../../model";
 import { observer } from "mobx-react-lite";
 import { SourceContract } from "../SourceContract";
@@ -11,7 +11,6 @@ import { BaseTokensFormSubmitData } from "../../types";
 import { Contract } from "@ethersproject/contracts";
 import { Button, Loader } from "../../../../shared/ui";
 import { Arrow } from "../../../../shared/ui";
-import { TokenAddButton } from "../../../add-token-to-metamask";
 
 export interface BaseTokensFormProps {
   title: string;
@@ -78,55 +77,46 @@ export const BaseTokensForm: FC<BaseTokensFormProps> = observer(
     }, [onSubmit, sourceAmount, destinationAmount, isRearranged]);
 
     return (
-      <div className={classNames(styles.swapForm, className)} {...otherProps}>
-        <div className={styles.wrapper}>
-          <h2 className={styles.title}>{title}</h2>
-          {isInitialized ? (
-            <>
-              {isLoading ? (
-                <Loader text={loadingText} />
-              ) : (
-                <>
-                  <SourceContract
-                    fullContractInfo={fullSourceContractInfo}
-                    amount={sourceAmount}
-                    onChangeAmount={onChangeSwapAmount}
+      <div
+        className={classNames(styles.wrapper, className, "w-full")}
+        {...otherProps}
+      >
+        <h2 className={styles.title}>{title}</h2>
+        {isInitialized ? (
+          <>
+            {isLoading ? (
+              <Loader text={loadingText} />
+            ) : (
+              <>
+                <SourceContract
+                  fullContractInfo={fullSourceContractInfo}
+                  amount={sourceAmount}
+                  onChangeAmount={onChangeSwapAmount}
+                />
+                {canRearrangeContracts && (
+                  <Arrow
+                    onClick={onRearrangeContracts}
+                    className={styles.buttonRearrange}
                   />
-                  {canRearrangeContracts && (
-                    <Arrow
-                      onClick={onRearrangeContracts}
-                      className={styles.buttonRearrange}
-                    />
-                  )}
-                  <DestinationContract
-                    fullContractInfo={fullDestinationContractInfo}
-                    amount={destinationAmount}
-                  />
-                  <Button
-                    type="button"
-                    onClick={onSubmitForm}
-                    disabled={isDisabledSubmitButton || disableSubmitButton}
-                    title={disabledText}
-                  >
-                    Совершить сделку
-                  </Button>
-                </>
-              )}
-              <TokenAddButton
-                full
-                text={`Добавить токен ${TOKEN_SYMBOLS.OMD} в MetaMask`}
-                tokenSymbol={TOKEN_SYMBOLS.OMD}
-              />
-              <TokenAddButton
-                full
-                text={`Добавить токен ${TOKEN_SYMBOLS.STOMD} в MetaMask`}
-                tokenSymbol={TOKEN_SYMBOLS.STOMD}
-              />
-            </>
-          ) : (
-            <Loader />
-          )}
-        </div>
+                )}
+                <DestinationContract
+                  fullContractInfo={fullDestinationContractInfo}
+                  amount={destinationAmount}
+                />
+                <Button
+                  type="button"
+                  onClick={onSubmitForm}
+                  disabled={isDisabledSubmitButton || disableSubmitButton}
+                  title={disabledText}
+                >
+                  Совершить сделку
+                </Button>
+              </>
+            )}
+          </>
+        ) : (
+          <Loader />
+        )}
       </div>
     );
   }

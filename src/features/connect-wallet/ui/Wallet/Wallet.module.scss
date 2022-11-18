@@ -1,8 +1,8 @@
 @import "src/app/styles/variables";
-@import "src/app/styles/extends";
 
 .wallet {
-  @extend %resetButton;
+  margin: 0;
+  background: unset;
   display: grid;
   grid-template-columns: 1fr 40px;
   grid-template-rows: 1fr;

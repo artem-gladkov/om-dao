@@ -1,34 +1,26 @@
 import { FC } from "react";
-import classNames from "classnames";
 
-import styles from "./ExchangePage.module.scss";
 import { useEthereumStore } from "../../entities";
 import { SwapForm } from "../../features/swap-tokens";
 import { WalletConnectForm } from "../../features/connect-wallet";
 import { observer } from "mobx-react-lite";
-import { Container, Input } from "../../shared/ui";
 
-export interface ExchangePageProps {
-  className?: string;
-}
+export interface ExchangePageProps {}
 
-export const ExchangePage: FC<ExchangePageProps> = observer(
-  ({ className, ...otherProps }) => {
-    const {
-      ethereumStore: { hasSigner },
-    } = useEthereumStore();
+export const ExchangePage: FC<ExchangePageProps> = observer(() => {
+  const {
+    ethereumStore: { hasSigner },
+  } = useEthereumStore();
 
-    return (
-      <main
-        className={classNames(styles.exchangePage, className)}
-        {...otherProps}
-      >
-        <Container>
-          <div className={styles.body}>
-            {hasSigner ? <SwapForm /> : <WalletConnectForm />}
-          </div>
-        </Container>
-      </main>
-    );
-  }
-);
+  return (
+    <main className="container mx-auto pt-8">
+      {hasSigner ? (
+        <div className="flex flex-col mx-auto max-w-xl w-full">
+          <SwapForm />
+        </div>
+      ) : (
+        <WalletConnectForm />
+      )}
+    </main>
+  );
+});

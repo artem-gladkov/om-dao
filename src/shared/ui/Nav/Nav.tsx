@@ -3,34 +3,26 @@ import classNames from "classnames";
 
 import styles from "./Nav.module.scss";
 import { NavLink, useLocation } from "react-router-dom";
-import { PATHS } from "../../../router";
-import { useEthereumStore } from "../../../entities";
+import { PATHS, PATH_LABEL } from "../../../router";
 
-export interface INavProps {
-  className?: string;
-}
+export interface INavProps {}
 
-export const Nav: FC<INavProps> = ({ className, ...otherProps }) => {
+export const Nav: FC<INavProps> = () => {
   const { pathname } = useLocation();
 
   return (
-    <nav className={classNames(styles.nav, className)} {...otherProps}>
-      <NavLink
-        className={classNames(styles.navLink, {
-          [styles.active]: pathname === PATHS.ROOT,
-        })}
-        to={PATHS.ROOT}
-      >
-        Обмен
-      </NavLink>
-      <NavLink
-        className={classNames(styles.navLink, {
-          [styles.active]: pathname === PATHS.STAKE,
-        })}
-        to={PATHS.STAKE}
-      >
-        Стейкинг
-      </NavLink>
+    <nav className={styles.nav}>
+      {Object.entries(PATHS).map(([key, value]) => (
+        <NavLink
+          key={key}
+          className={classNames(styles.navLink, {
+            [styles.active]: pathname === value,
+          })}
+          to={value}
+        >
+          {PATH_LABEL[key]}
+        </NavLink>
+      ))}
     </nav>
   );
 };

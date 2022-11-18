@@ -3,43 +3,26 @@ import { FC, HTMLProps, useState } from "react";
 import { EthereumStore, EthereumStoreProvider } from "../entities";
 import { RouterProvider } from "react-router";
 import { appRouter } from "../router";
-import { Button, Container, Loader } from "../shared/ui";
+import { Loader } from "../shared/ui";
 import { observer } from "mobx-react-lite";
-import { AVAILABLE_NETWORK } from "../shared/config";
-import { NETWORK_NAMES } from "../shared/constants";
+import { WrongNetworkOverlay } from "../widgets/wrong-network-overlay";
 
 export interface AppProps extends HTMLProps<any> {}
 
 export const App: FC<AppProps> = observer(({ className, children }) => {
   const [ethereumStore] = useState(() => new EthereumStore());
-  const { initialized, isCorrectNetwork, changeToAvailableNetwork } =
-    ethereumStore;
+  const { initialized, isCorrectNetwork } = ethereumStore;
+
+  if (!initialized) {
+    return <Loader />;
+  }
 
   return (
     <EthereumStoreProvider ethereumStore={ethereumStore}>
-      {initialized ? (
-        <>
-          {isCorrectNetwork ? (
-            <RouterProvider router={appRouter} />
-          ) : (
-            /*TODO Вынести в компонент*/
-            <div className={"appNetworkAlert"}>
-              <Container>
-                <div>
-                  <h1>
-                    Для работы приложения необходима сеть{" "}
-                    {NETWORK_NAMES[AVAILABLE_NETWORK]}
-                  </h1>
-                  <Button onClick={changeToAvailableNetwork}>
-                    Сменить сеть на {NETWORK_NAMES[AVAILABLE_NETWORK]}
-                  </Button>
-                </div>
-              </Container>
-            </div>
-          )}
-        </>
+      {isCorrectNetwork ? (
+        <RouterProvider router={appRouter} />
       ) : (
-        <Loader />
+        <WrongNetworkOverlay />
       )}
     </EthereumStoreProvider>
   );

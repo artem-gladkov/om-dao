@@ -1,6 +1,8 @@
-@import "reset";
 @import "fonts";
 @import "variables";
-@import "extends";
-@import "utils";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @import "common";

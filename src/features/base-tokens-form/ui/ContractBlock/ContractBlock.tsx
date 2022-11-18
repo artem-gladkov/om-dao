@@ -4,6 +4,7 @@ import classNames from "classnames";
 import styles from "./ContractBlock.module.scss";
 import { Contract } from "@ethersproject/contracts";
 import { Input } from "../../../../shared/ui";
+import { Token } from "../../../../entities";
 
 export interface ContractBlockProps {
   title: string;
@@ -36,14 +37,7 @@ export const ContractBlock: FC<ContractBlockProps> = ({
         <div>Текущий баланс: {balance}</div>
       </div>
       <div className={styles.body}>
-        <div className={styles.token}>
-          <div
-            className={classNames(styles.tokenIcon, { [styles.empty]: !image })}
-          >
-            {image && <img src={image} alt={name} />}
-          </div>
-          <div className={styles.tokenSymbol}>{symbol}</div>
-        </div>
+        <Token img={image} symbol={symbol} />
         <Input
           value={amount}
           onChange={handleChangeSwapAmount}

@@ -1,8 +1,8 @@
-import React, { FC, useMemo } from "react";
+import React, { FC } from "react";
 import classNames from "classnames";
 
 import styles from "./Header.module.scss";
-import { Container, Logo, Nav } from "../../../shared/ui";
+import { Logo, Nav } from "../../../shared/ui";
 import { WalletConnectButton } from "../../../features/connect-wallet/ui/WalletConnectButton";
 import { TOKEN_SYMBOLS, useEthereumStore } from "../../../entities";
 import { Wallet } from "../../../features/show-wallet";
@@ -13,36 +13,34 @@ export interface HeaderProps {
   className?: string;
 }
 
-export const Header: FC<HeaderProps> = observer(
-  ({ className, ...otherProps }) => {
-    const {
-      ethereumStore: { hasSigner },
-    } = useEthereumStore();
+export const Header: FC<HeaderProps> = observer(() => {
+  const {
+    ethereumStore: { hasSigner },
+  } = useEthereumStore();
 
-    return (
-      <header className={classNames(styles.header, className)} {...otherProps}>
-        <Container className={styles.body}>
-          <Logo />
-          {hasSigner && <Nav />}
-          <div
-            className={classNames(styles.actions, {
-              [styles.hasSigner]: hasSigner,
-            })}
-          >
-            {hasSigner ? (
-              <>
-                <SmallBalance
-                  tokenSymbol={TOKEN_SYMBOLS.STOMD}
-                  text={"OM DAO (Staked) Баланс:"}
-                />
-                <Wallet />
-              </>
-            ) : (
-              <WalletConnectButton />
-            )}
-          </div>
-        </Container>
-      </header>
-    );
-  }
-);
+  return (
+    <header className={styles.header}>
+      <div className="container mx-auto gap-4 flex flex-col xl:flex-row justify-between items-center ">
+        <Logo />
+        {hasSigner && <Nav />}
+        <div
+          className={classNames(styles.actions, {
+            [styles.hasSigner]: hasSigner,
+          })}
+        >
+          {hasSigner ? (
+            <>
+              <SmallBalance
+                tokenSymbol={TOKEN_SYMBOLS.STOMD}
+                text={"OM DAO (Staked) Баланс:"}
+              />
+              <Wallet />
+            </>
+          ) : (
+            <WalletConnectButton />
+          )}
+        </div>
+      </div>
+    </header>
+  );
+});
