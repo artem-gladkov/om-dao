@@ -75,7 +75,7 @@ export const BaseTokensForm: FC<BaseTokensFormProps> = observer(
     }, [onSubmit, sourceAmount, destinationAmount, isRearranged]);
 
     return (
-      <div className="grid grid-cols-1 gap-4 w-full">
+      <div className="grid grid-cols-1 gap-4 w-full h-max">
         <h2>{title}</h2>
         {isInitialized ? (
           <>

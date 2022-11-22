@@ -1,7 +1,6 @@
 import React, { FC } from "react";
 import { Outlet } from "react-router-dom";
 import { Header } from "../../widgets/header";
-import { Footer } from "../../widgets/footer";
 import { useEthereumStore } from "../../entities";
 import { observer } from "mobx-react-lite";
 import { Background } from "./Background";
@@ -22,7 +21,6 @@ export const RootLayout: FC<IRootProps> = observer(() => {
           <main className="container mx-auto grow px-4 pt-8">
             {hasSigner ? <Outlet /> : <WalletConnectForm />}
           </main>
-          <Footer />
           <Background />
         </div>
       )}
