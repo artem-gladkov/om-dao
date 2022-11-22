@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes, FC, ReactElement } from "react";
+import { ButtonHTMLAttributes, FC } from "react";
 import classNames from "classnames";
 
 import styles from "./Wallet.module.scss";

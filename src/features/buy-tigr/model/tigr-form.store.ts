@@ -8,9 +8,9 @@ import { formatUnits, parseUnits } from "@ethersproject/units";
 import { SwapStatus } from "../../swap-tokens";
 
 export class TigrFormStore {
-  private _sourceContract: Contract;
+  private readonly _sourceContract: Contract;
 
-  private _destinationContract: Contract;
+  private readonly _destinationContract: Contract;
 
   private _swapContract: Contract;
 

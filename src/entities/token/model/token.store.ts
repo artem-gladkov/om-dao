@@ -5,7 +5,7 @@ import {
   TOKEN_DECIMAL,
   TOKEN_NAME,
   TOKEN_SYMBOLS,
-} from "../../ethereum/constants/tokens-data";
+} from "../../ethereum";
 
 export class TokenStore {
   private _decimals: string = "";

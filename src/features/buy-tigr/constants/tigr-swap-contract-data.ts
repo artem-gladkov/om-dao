@@ -1,7 +1,9 @@
 import { isProd } from "../../../shared/config";
 
 export const TIGR_SWAP_CONTRACT_DATA = {
-  address: isProd() ? "" : "0x390277Fb8a0E63d4e486232FC76A9cd5e6a5E745",
+  address: isProd()
+    ? "0xf3435E586Da135E78b6c3fbB774ABBf859D66730"
+    : "0x390277Fb8a0E63d4e486232FC76A9cd5e6a5E745",
   abi: [
     { inputs: [], stateMutability: "nonpayable", type: "constructor" },
     {

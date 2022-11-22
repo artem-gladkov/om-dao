@@ -1,7 +1,7 @@
 import { Contract } from "@ethersproject/contracts";
 import { TOKEN_ABI, TOKEN_ADDRESS, TOKEN_SYMBOLS } from "../../../entities";
 import { JsonRpcSigner } from "@ethersproject/providers";
-import { BaseTokensFormSubmitData } from "../../base-tokens-form/types";
+import { BaseTokensFormSubmitData } from "../../base-tokens-form";
 import { formatUnits, parseUnits } from "@ethersproject/units";
 import { makeAutoObservable } from "mobx";
 import { OperationStatus } from "../../../shared/types";
