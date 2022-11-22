@@ -1,5 +1,11 @@
 import { createBrowserRouter } from "react-router-dom";
-import { ExchangePage, ProjectsPage, RootLayout, StakePage } from "../pages";
+import {
+  ExchangePage,
+  ProjectPage,
+  ProjectsPage,
+  RootLayout,
+  StakePage,
+} from "../pages";
 import { PATHS } from "./constants";
 
 export const appRouter = createBrowserRouter([
@@ -17,6 +23,10 @@ export const appRouter = createBrowserRouter([
       {
         path: PATHS.PROJECTS,
         element: <ProjectsPage />,
+      },
+      {
+        path: `${PATHS.PROJECT}`,
+        element: <ProjectPage />,
       },
     ],
   },

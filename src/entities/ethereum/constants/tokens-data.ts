@@ -1,11 +1,17 @@
 import { ContractInterface } from "@ethersproject/contracts";
-import { USDT_ABI, OMDAO_ABI, OMDAO_STAKE_ABI } from "./contracts-abi";
+import {
+  USDT_ABI,
+  OMDAO_ABI,
+  OMDAO_STAKE_ABI,
+  TIGR_ABI,
+} from "./contracts-abi";
 import { isProd } from "../../../shared/config";
 
 export enum TOKEN_SYMBOLS {
   USDT = "USDT",
   OMD = "OMD",
   STOMD = "stOMD",
+  TIGR = "omdwTigr",
 }
 
 export const TOKEN_ADDRESS: { [key in TOKEN_SYMBOLS]: string } = {
@@ -18,22 +24,28 @@ export const TOKEN_ADDRESS: { [key in TOKEN_SYMBOLS]: string } = {
   [TOKEN_SYMBOLS.STOMD]: isProd()
     ? "0x497bdbA917430E72d09993a55cdBBD411763168B"
     : "0xD9e8F04c685b2C12027f08b71e8f3fEF6a9A6668",
+  [TOKEN_SYMBOLS.TIGR]: isProd()
+    ? ""
+    : "0x9a4d39F46044400Aa48Ab528f8EC3DD3B793f885",
 };
 
 export const TOKEN_ABI: { [key in TOKEN_SYMBOLS]: ContractInterface } = {
   [TOKEN_SYMBOLS.USDT]: USDT_ABI,
   [TOKEN_SYMBOLS.OMD]: OMDAO_ABI,
   [TOKEN_SYMBOLS.STOMD]: OMDAO_STAKE_ABI,
+  [TOKEN_SYMBOLS.TIGR]: TIGR_ABI,
 };
 
 export const TOKEN_NAME: { [key in TOKEN_SYMBOLS]: string } = {
   [TOKEN_SYMBOLS.USDT]: "Tether USD",
   [TOKEN_SYMBOLS.OMD]: "OM DAO",
   [TOKEN_SYMBOLS.STOMD]: "OM DAO (Staked)",
+  [TOKEN_SYMBOLS.TIGR]: "OM DAO Wrapped Tigr",
 };
 
 export const TOKEN_DECIMAL: { [key in TOKEN_SYMBOLS]: string } = {
   [TOKEN_SYMBOLS.USDT]: "6",
   [TOKEN_SYMBOLS.OMD]: "6",
   [TOKEN_SYMBOLS.STOMD]: "6",
+  [TOKEN_SYMBOLS.TIGR]: "6",
 };

@@ -8,8 +8,8 @@ import { useNavigate } from "react-router";
 import { PATHS } from "../../../../router";
 import { BaseTokensForm } from "../../../base-tokens-form";
 import { SWAP_STATUS_LABELS } from "../../constants";
-import { calculateSwapDestinationAmount } from "../../lib";
 import { useSearchParams } from "react-router-dom";
+import { calculateSwapDestinationAmount } from "../../lib";
 
 export interface ISwapFormProps {}
 

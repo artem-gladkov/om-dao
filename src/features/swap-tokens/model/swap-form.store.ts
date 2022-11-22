@@ -5,7 +5,7 @@ import { makeAutoObservable } from "mobx";
 import { SwapStatus } from "../types";
 
 import { formatUnits, parseUnits } from "@ethersproject/units";
-import { BaseTokensFormSubmitData } from "../../base-tokens-form/types";
+import { BaseTokensFormSubmitData } from "../../base-tokens-form";
 
 export class SwapFormStore {
   private readonly _sourceContract: Contract;
