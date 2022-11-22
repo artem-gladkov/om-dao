@@ -11,18 +11,22 @@ export interface WalletProps {
   className?: string;
 }
 
-export const Wallet: FC<WalletProps> = observer(
-  ({ className, ...otherProps }) => {
-    const {
-      ethereumStore: { signer },
-    } = useEthereumStore();
-    const [{ address }] = useState(() => new WalletStore(signer));
+export const Wallet: FC<WalletProps> = observer(({ className }) => {
+  const {
+    ethereumStore: { signer },
+  } = useEthereumStore();
+  const [{ address }] = useState(() => new WalletStore(signer));
 
-    return (
-      <div className={classNames(styles.wallet, className)} {...otherProps}>
-        <img className={styles.image} src={metamaskImg} alt="Metamask" />
-        <div className={styles.address}>{address}</div>
-      </div>
-    );
-  }
-);
+  return (
+    <div
+      className={classNames(
+        styles.wallet,
+        className,
+        "py-2 px-4 border rounded-md"
+      )}
+    >
+      <img className={styles.image} src={metamaskImg} alt="Metamask" />
+      <div className={styles.address}>{address}</div>
+    </div>
+  );
+});

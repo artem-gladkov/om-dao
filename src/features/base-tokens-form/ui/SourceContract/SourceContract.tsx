@@ -1,4 +1,4 @@
-import { ChangeEvent, FC } from "react";
+import { FC } from "react";
 import classNames from "classnames";
 
 import styles from "./SourceContract.module.scss";
@@ -27,7 +27,6 @@ export const SourceContract: FC<SourceContractProps> = ({
       <ContractBlock
         title="Вы отдаете"
         token={restContractInfo}
-        contract={contract}
         amount={amount}
         onChangeAmount={onChangeAmount}
       />

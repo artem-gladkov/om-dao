@@ -25,7 +25,7 @@ export const appRouter = createBrowserRouter([
         element: <ProjectsPage />,
       },
       {
-        path: `${PATHS.PROJECT}`,
+        path: `${PATHS.PROJECTS}/:symbol`,
         element: <ProjectPage />,
       },
     ],

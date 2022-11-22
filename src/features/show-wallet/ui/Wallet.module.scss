@@ -4,9 +4,6 @@
   display: grid;
   grid-template-rows: 1fr;
   grid-template-columns: max-content 1fr;
-  border: 2px solid $default-border-color;
-  border-radius: $default-border-radius;
-  padding: $default-indent $big-indent;
   align-items: center;
   gap: $default-indent;
 }

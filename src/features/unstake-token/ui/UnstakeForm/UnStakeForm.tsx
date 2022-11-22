@@ -1,17 +1,11 @@
 import { FC, useState } from "react";
-import classNames from "classnames";
 
-import styles from "./UnStakeForm.module.scss";
 import { Button, Loader } from "../../../../shared/ui";
 import { observer } from "mobx-react-lite";
 import { UnstakeFormStore } from "../../model";
 import { useEthereumStore } from "../../../../entities";
 
-export interface IUnStakeFormProps {
-  className?: string;
-}
-
-export const UnStakeForm: FC<IUnStakeFormProps> = observer(({ className }) => {
+export const UnStakeForm: FC = observer(() => {
   const {
     ethereumStore: { signer },
   } = useEthereumStore();
@@ -29,26 +23,26 @@ export const UnStakeForm: FC<IUnStakeFormProps> = observer(({ className }) => {
   ] = useState(() => new UnstakeFormStore(signer));
 
   return (
-    <div className={classNames(styles.unstakeForm, className)}>
+    <div className="grid gap-4">
       <h2>Вывести из стейкинга</h2>
       {isLoading ? (
         <Loader text={loadingText} />
       ) : (
         <>
-          <div className={styles.data}>
-            <div className={styles.row}>
+          <div className="grid grid-cols-1 gap-2 border rounded p-4">
+            <div className="grid grid-cols-2 gap-3">
               <p>В стейкинге:</p>
               <span>{inStake}</span>
             </div>
-            <div className={styles.row}>
+            <div className="grid grid-cols-2 gap-3">
               <p>Текущие дивиденды:</p>
               <span>{dividends}</span>
             </div>
-            <div className={styles.row}>
+            <div className="grid grid-cols-2 gap-3">
               <p>Итого:</p>
               <span>{totalAmount}</span>
             </div>
-            <div className={styles.row}>
+            <div className="grid grid-cols-2 gap-3">
               <p>Дата после которой можно вывести:</p>
               <span>{formattedUnstakeDate}</span>
             </div>

@@ -3,10 +3,8 @@ import { Outlet } from "react-router-dom";
 import { Header } from "../../widgets/header";
 import { Footer } from "../../widgets/footer";
 import { useEthereumStore } from "../../entities";
-import { ReactComponent as BgSvg } from "../../app/images/bg.svg";
-
-import styles from "./RootLayout.module.scss";
 import { observer } from "mobx-react-lite";
+import { Background } from "./Background";
 
 export interface IRootProps {}
 
@@ -18,18 +16,13 @@ export const RootLayout: FC<IRootProps> = observer(() => {
   return (
     <>
       {initialized && (
-        <div className={styles.app}>
+        <div className="flex flex-col relative w-full h-full">
           <Header />
-          <Outlet />
+          <main className="container mx-auto grow px-4 pt-8">
+            <Outlet />
+          </main>
           <Footer />
-          <div className={styles.bg}>
-            <BgSvg className={styles.grid} />
-            <div className={styles.circles}>
-              <div className={styles.circle} />
-              <div className={styles.circle} />
-              <div className={styles.circle} />
-            </div>
-          </div>
+          <Background />
         </div>
       )}
     </>

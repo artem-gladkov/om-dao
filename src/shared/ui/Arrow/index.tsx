@@ -1,7 +1,4 @@
-import { FC, HTMLProps, SVGProps } from "react";
-import classNames from "classnames";
-
-import styles from "./Arrow.module.scss";
+import { FC, SVGProps } from "react";
 
 export interface ArrowProps extends SVGProps<SVGSVGElement> {}
 

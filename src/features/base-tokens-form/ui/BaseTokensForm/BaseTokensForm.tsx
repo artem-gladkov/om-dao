@@ -1,5 +1,4 @@
 import { FC, useCallback, useState } from "react";
-import classNames from "classnames";
 
 import styles from "./BaseTokensForm.module.scss";
 import { useEthereumStore } from "../../../../entities";
@@ -42,7 +41,6 @@ export const BaseTokensForm: FC<BaseTokensFormProps> = observer(
     canRearrangeContracts,
     disableSubmitButton,
     disabledText,
-    ...otherProps
   }) => {
     const {
       ethereumStore: { signer },
@@ -77,11 +75,8 @@ export const BaseTokensForm: FC<BaseTokensFormProps> = observer(
     }, [onSubmit, sourceAmount, destinationAmount, isRearranged]);
 
     return (
-      <div
-        className={classNames(styles.wrapper, className, "w-full")}
-        {...otherProps}
-      >
-        <h2 className={styles.title}>{title}</h2>
+      <div className="grid grid-cols-1 gap-4 w-full">
+        <h2>{title}</h2>
         {isInitialized ? (
           <>
             {isLoading ? (

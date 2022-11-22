@@ -25,7 +25,6 @@ export const DestinationContract: FC<DestinationContractProps> = ({
       <ContractBlock
         title="Вы получаете"
         token={restContractProps}
-        contract={contract}
         readonlyAmount
         amount={amount}
       />

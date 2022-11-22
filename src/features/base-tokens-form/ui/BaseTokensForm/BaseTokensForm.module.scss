@@ -1,31 +1,5 @@
 @import "/src/app/styles";
 
-.swapForm {
-
-}
-
-.title {
-  font-family: $secondary-font-stack;
-  font-weight: 600;
-  margin: 0 0 $big-indent;
-}
-
-.buttonChangePlaces {
-  justify-self: end;
-}
-
-.wrapper {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-gap: $default-indent;
-  border-radius: $default-border-radius;
-  border: 2px solid $default-border-color;
-  padding: 10px 20px;
-  margin: 0 auto;
-  min-height: 250px;
-  justify-items: center;
-}
-
 .buttonRearrange {
   border: 2px solid $default-border-color;
   border-radius: 50%;

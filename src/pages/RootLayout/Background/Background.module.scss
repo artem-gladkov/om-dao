@@ -1,22 +1,5 @@
 @import "src/app/styles/variables";
 
-.app {
-  position: relative;
-  display: grid;
-  grid-template-rows: max-content 1fr;
-  width: 100%;
-  height: 100%;
-}
-
-.appLoader {
-  display: grid;
-  width: 100%;
-  height: 100%;
-  grid-template: 1fr/1fr;
-  align-items: center;
-  justify-items: center;
-}
-
 .bg {
   position: absolute;
   z-index: -1;

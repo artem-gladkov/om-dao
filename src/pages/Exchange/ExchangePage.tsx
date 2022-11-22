@@ -12,15 +12,5 @@ export const ExchangePage: FC<ExchangePageProps> = observer(() => {
     ethereumStore: { hasSigner },
   } = useEthereumStore();
 
-  return (
-    <main className="container mx-auto pt-8">
-      {hasSigner ? (
-        <div className="flex flex-col mx-auto max-w-xl w-full">
-          <SwapForm />
-        </div>
-      ) : (
-        <WalletConnectForm />
-      )}
-    </main>
-  );
+  return hasSigner ? <SwapForm /> : <WalletConnectForm />;
 });

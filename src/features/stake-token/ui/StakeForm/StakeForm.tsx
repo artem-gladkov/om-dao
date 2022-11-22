@@ -1,7 +1,4 @@
 import React, { FC, useState } from "react";
-import classNames from "classnames";
-
-import styles from "./StakeForm.module.scss";
 import { StakeFormStore } from "../../model";
 import { useEthereumStore } from "../../../../entities";
 import { observer } from "mobx-react-lite";
@@ -30,7 +27,6 @@ export const StakeForm: FC<StakeFormProps> = observer(({ className }) => {
 
   return (
     <BaseTokensForm
-      className={classNames(styles.stakeForm, className)}
       title="Стейкинг OMD"
       onSubmit={onStake}
       sourceContract={sourceContract}
