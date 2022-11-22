@@ -32,6 +32,10 @@ export class EthereumStore {
       await this.createEthereumProvider();
       await this.checkNetwork();
       await this.checkSigner();
+
+      this.ethereum.on("accountsChanged", this.checkSigner);
+      this.ethereum.on("chainChanged", this.checkNetwork);
+
       this.initialized = true;
     } catch (e) {
       console.log(e);
@@ -80,7 +84,9 @@ export class EthereumStore {
       const [account]: string[] = await this.provider.listAccounts();
 
       if (account !== undefined) {
-        await this.updateSigner(this.provider.getSigner());
+        this.signer = await this.provider.getSigner();
+      } else {
+        this.signer = undefined;
       }
     } catch (e) {
       console.log(e);
@@ -91,28 +97,16 @@ export class EthereumStore {
     return !!this._signer;
   }
 
-  public updateSigner = async (signer: JsonRpcSigner): Promise<void> => {
-    try {
-      this.signer = signer;
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
   public setSigner(signer: JsonRpcSigner): void {
     this.signer = signer;
   }
 
-  private set signer(value: JsonRpcSigner) {
+  private set signer(value: JsonRpcSigner | undefined) {
     this._signer = value;
   }
 
   public get signer(): JsonRpcSigner {
-    if (!this._signer) {
-      throw Error("Signer не существует");
-    }
-
-    return this._signer;
+    return this._signer as JsonRpcSigner;
   }
 
   private set provider(value: Web3Provider) {

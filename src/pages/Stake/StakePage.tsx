@@ -2,18 +2,12 @@ import React, { FC, useState } from "react";
 
 import { StakeForm } from "../../features/stake-token";
 import { Tabs } from "../../shared/ui";
-import { useEthereumStore } from "../../entities";
-import { Navigate } from "react-router";
-import { PATHS } from "../../router";
 import { UnStakeForm } from "../../features/unstake-token";
 
 export const StakePage: FC = ({}) => {
-  const {
-    ethereumStore: { hasSigner },
-  } = useEthereumStore();
   const [activeTab, setActiveTab] = useState("stake");
 
-  return hasSigner ? (
+  return (
     <>
       <Tabs
         className="mb-4"
@@ -29,7 +23,5 @@ export const StakePage: FC = ({}) => {
         {activeTab === "unStake" && <UnStakeForm />}
       </div>
     </>
-  ) : (
-    <Navigate to={PATHS.ROOT} />
   );
 };

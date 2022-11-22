@@ -85,7 +85,9 @@ export class TigrFormStore {
   };
 
   public calculateDestinationAmount = (sourceAmount: string): string => {
-    return (+sourceAmount / this._exchangeRate).toString();
+    return this._exchangeRate.toString() === "0"
+      ? "0"
+      : (+sourceAmount / this._exchangeRate).toString();
   };
 
   public get sourceContract(): Contract {
