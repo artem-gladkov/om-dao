@@ -4,6 +4,7 @@ import { TOKEN_SYMBOLS, useEthereumStore } from "../../../entities";
 import { observer } from "mobx-react-lite";
 import { CRFormStore } from "../model";
 import { SWAP_STATUS_LABELS } from "../../swap-tokens";
+import { TokenAddButton } from "../../add-token-to-metamask";
 
 export const CRForm: FC = observer(() => {
   const {
@@ -21,14 +22,21 @@ export const CRForm: FC = observer(() => {
   } = store;
 
   return (
-    <BaseTokensForm
-      title={`Покупка ${TOKEN_SYMBOLS.CR}`}
-      onSubmit={onSubmit}
-      sourceContract={sourceContract}
-      destinationContract={destinationContract}
-      calculateDestinationAmount={calculateDestinationAmount}
-      loadingText={SWAP_STATUS_LABELS[swapStatus]}
-      isLoading={isLoading}
-    />
+    <>
+      <BaseTokensForm
+        title={`Покупка ${TOKEN_SYMBOLS.CR}`}
+        onSubmit={onSubmit}
+        sourceContract={sourceContract}
+        destinationContract={destinationContract}
+        calculateDestinationAmount={calculateDestinationAmount}
+        loadingText={SWAP_STATUS_LABELS[swapStatus]}
+        isLoading={isLoading}
+        />
+      <TokenAddButton
+        className="w-full"
+        text={`Добавить токен ${TOKEN_SYMBOLS.CR} в MetaMask`}
+        tokenSymbol={TOKEN_SYMBOLS.CR}
+      />
+    </>
   );
 });
