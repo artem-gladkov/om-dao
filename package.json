@@ -22,7 +22,6 @@
     "lint-staged": "^13.0.3",
     "mobx": "^6.6.2",
     "mobx-react-lite": "^3.4.0",
-    "node-sass": "^7.0.3",
     "prettier": "^2.7.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -68,6 +67,7 @@
   },
   "devDependencies": {
     "autoprefixer": "^10.4.13",
+    "node-sass": "^7.0.3",
     "postcss": "^8.4.19",
     "tailwindcss": "^3.2.4"
   }
