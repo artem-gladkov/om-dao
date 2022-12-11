@@ -7,6 +7,7 @@ import {
   CR_ABI,
 } from "./contracts-abi";
 import { isProd } from "../../../shared/config";
+import {Address} from "wagmi";
 
 export enum TOKEN_SYMBOLS {
   USDT = "USDT",
@@ -16,7 +17,7 @@ export enum TOKEN_SYMBOLS {
   CR = "omdwCRB",
 }
 
-export const TOKEN_ADDRESS: { [key in TOKEN_SYMBOLS]: string } = {
+export const TOKEN_ADDRESS: Record<TOKEN_SYMBOLS, Address> = {
   [TOKEN_SYMBOLS.USDT]: isProd()
     ? "0xdAC17F958D2ee523a2206206994597C13D831ec7"
     : "0x8B31e3910f59A0975253D3f2f6C6e7D8F7caC144",
@@ -34,7 +35,7 @@ export const TOKEN_ADDRESS: { [key in TOKEN_SYMBOLS]: string } = {
     : "0x79D31450D34cad1b2ac0bB91bA6b8B7BEaDa609f",
 };
 
-export const TOKEN_ABI: { [key in TOKEN_SYMBOLS]: ContractInterface } = {
+export const TOKEN_ABI: { [key in TOKEN_SYMBOLS]: any } = {
   [TOKEN_SYMBOLS.USDT]: USDT_ABI,
   [TOKEN_SYMBOLS.OMD]: OMDAO_ABI,
   [TOKEN_SYMBOLS.STOMD]: OMDAO_STAKE_ABI,

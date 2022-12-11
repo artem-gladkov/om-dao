@@ -1,29 +1,65 @@
-import { FC, HTMLProps, useState } from "react";
+import {FC, useEffect, useState} from "react";
 
-import { EthereumStore, EthereumStoreProvider } from "../entities";
-import { RouterProvider } from "react-router";
+import {
+  configureChains,
+  createClient,
+  goerli,
+  mainnet,
+  WagmiConfig,
+} from "wagmi";
+
+import {
+  EthereumClient,
+  modalConnectors,
+  walletConnectProvider,
+} from "@web3modal/ethereum";
+
 import { appRouter } from "../router";
-import { Loader } from "../shared/ui";
-import { observer } from "mobx-react-lite";
-import { WrongNetworkOverlay } from "../widgets/wrong-network-overlay";
+import { RouterProvider } from "react-router";
+import { Web3Modal } from "@web3modal/react";
 
-export interface AppProps extends HTMLProps<any> {}
+import { isProd, WALLET_CONNECT_PROJECT_ID } from "../shared/config";
+import { EthereumStore, EthereumStoreProvider } from "../entities";
 
-export const App: FC<AppProps> = observer(({ className, children }) => {
+const AVAILABLE_CHAINS = [isProd() ? mainnet : goerli];
+
+export const App: FC = () => {
+  const [{ ethereumClient, wagmiClient }] = useState(createClients);
   const [ethereumStore] = useState(() => new EthereumStore());
-  const { initialized, isCorrectNetwork } = ethereumStore;
-
-  if (!initialized) {
-    return <Loader />;
-  }
 
   return (
     <EthereumStoreProvider ethereumStore={ethereumStore}>
-      {isCorrectNetwork ? (
-        <RouterProvider router={appRouter} />
-      ) : (
-        <WrongNetworkOverlay />
-      )}
+      <>
+        <WagmiConfig client={wagmiClient}>
+          <RouterProvider router={appRouter} />
+        </WagmiConfig>
+        <Web3Modal
+          projectId={WALLET_CONNECT_PROJECT_ID}
+          ethereumClient={ethereumClient}
+          themeMode="dark"
+          themeColor="magenta"
+          themeBackground="themeColor"
+        />
+      </>
     </EthereumStoreProvider>
   );
-});
+};
+
+function createClients() {
+  const { provider } = configureChains(AVAILABLE_CHAINS, [
+    walletConnectProvider({ projectId: WALLET_CONNECT_PROJECT_ID }),
+  ]);
+
+  const wagmiClient = createClient({
+    autoConnect: true,
+    connectors: modalConnectors({
+      appName: "web3Modal",
+      chains: AVAILABLE_CHAINS,
+    }),
+    provider,
+  });
+
+  const ethereumClient = new EthereumClient(wagmiClient, AVAILABLE_CHAINS);
+
+  return { ethereumClient, wagmiClient };
+}

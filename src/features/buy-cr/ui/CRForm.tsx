@@ -26,12 +26,12 @@ export const CRForm: FC = observer(() => {
       <BaseTokensForm
         title={`Покупка ${TOKEN_SYMBOLS.CR}`}
         onSubmit={onSubmit}
-        sourceContract={sourceContract}
-        destinationContract={destinationContract}
+        sourceContractSymbol={TOKEN_SYMBOLS.USDT}
+        destinationContractSymbol={TOKEN_SYMBOLS.CR}
         calculateDestinationAmount={calculateDestinationAmount}
         loadingText={SWAP_STATUS_LABELS[swapStatus]}
         isLoading={isLoading}
-        />
+      />
       <TokenAddButton
         className="w-full"
         text={`Добавить токен ${TOKEN_SYMBOLS.CR} в MetaMask`}

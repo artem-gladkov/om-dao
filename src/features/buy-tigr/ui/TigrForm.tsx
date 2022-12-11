@@ -26,8 +26,8 @@ export const TigrForm: FC = observer(() => {
       <BaseTokensForm
         title={`Покупка ${TOKEN_SYMBOLS.TIGR}`}
         onSubmit={onSubmit}
-        sourceContract={sourceContract}
-        destinationContract={destinationContract}
+        sourceContractSymbol={TOKEN_SYMBOLS.USDT}
+        destinationContractSymbol={TOKEN_SYMBOLS.TIGR}
         calculateDestinationAmount={calculateDestinationAmount}
         loadingText={SWAP_STATUS_LABELS[swapStatus]}
         isLoading={isLoading}

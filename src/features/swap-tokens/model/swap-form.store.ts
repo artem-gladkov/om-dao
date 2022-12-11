@@ -90,6 +90,7 @@ export class SwapFormStore {
     this.swapStatus = SwapStatus.AWAITING_CONFIRM;
 
     try {
+      console.log(await this._signer.provider.getCode( this._destinationContract.address))
       const decimals = await this._sourceContract.decimals();
 
       const unit256Amount = parseUnits(amount, decimals);

@@ -7,6 +7,7 @@ import { useEthereumStore } from "../../../../entities";
 import { observer } from "mobx-react-lite";
 import { TOKEN_SYMBOLS } from "../../../../entities";
 import { Button, ButtonProps } from "../../../../shared/ui";
+import { useProvider } from "wagmi";
 
 export interface TokenAddButtonProps extends ButtonProps {
   className?: string;
@@ -14,13 +15,14 @@ export interface TokenAddButtonProps extends ButtonProps {
   tokenSymbol: TOKEN_SYMBOLS;
 }
 
+/**
+ * Использовать только если есть window.ethereum.
+ * Например, установлено расширение metamask
+ */
 export const TokenAddButton: FC<TokenAddButtonProps> = observer(
   ({ className, tokenSymbol, text, ...otherProps }) => {
-    const {
-      ethereumStore: { ethereum },
-    } = useEthereumStore();
     const [{ addToken }] = useState(
-      () => new TokenAddButtonStore(tokenSymbol, ethereum)
+      () => new TokenAddButtonStore(tokenSymbol, window.ethereum)
     );
 
     return (

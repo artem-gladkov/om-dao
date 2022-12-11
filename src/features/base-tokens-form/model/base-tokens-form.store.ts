@@ -85,52 +85,6 @@ export class BaseTokensFormStore {
     }
   };
 
-  //TODO упростить валидацию
-  public onChangeSwapAmount = (value: string): void => {
-    const validatePattern = /(^\d*\.?\d{0,6}$)/u;
-    const isValid = validatePattern.test(value);
-
-    if (isValid) {
-      const isStartWithDot = value.startsWith(".");
-
-      if (isStartWithDot) {
-        const pattern = /^\.(?<float>\d{0,6})$/;
-
-        this.sourceAmount = value.replace(pattern, (...props) => {
-          const groups = props.pop();
-          let result = "0.";
-
-          if (groups.float !== undefined) {
-            result += groups.float;
-          }
-
-          return result;
-        });
-      } else {
-        const pattern = /(?<int>\d+)(?<dot>\.?)(?<float>\d{0,6})/;
-
-        this.sourceAmount = value.replace(pattern, (...props) => {
-          const groups = props.pop();
-          let result = "";
-
-          if (groups.int !== undefined) {
-            result += Number(groups.int).toString();
-          }
-
-          if (groups.dot !== undefined) {
-            result += groups.dot;
-          }
-
-          if (groups.float !== undefined) {
-            result += groups.float;
-          }
-
-          return result;
-        });
-      }
-    }
-  };
-
   public onRearrangeContracts = (): void => {
     const temp = this._sourceContract;
     this.sourceContract = this._destinationContract;
