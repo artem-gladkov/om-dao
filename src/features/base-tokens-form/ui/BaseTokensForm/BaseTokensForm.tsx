@@ -24,6 +24,7 @@ import {
 } from "wagmi";
 import { BaseTokenInfo } from "../../../../entities/token/types";
 import { is } from "date-fns/locale";
+import { Web3Button } from "@web3modal/react";
 
 export interface BaseTokensFormProps {
   title: string;
@@ -56,13 +57,33 @@ export const BaseTokensForm: FC<BaseTokensFormProps> = observer(
     disableSubmitButton,
     disabledText,
   }) => {
+    const { data: sd } = useBaseTokenInfo(sourceContractSymbol, true);
+
+    const { data: dd } = useBaseTokenInfo(destinationContractSymbol, true);
+
+    const { isConnected } = useAccount();
+
+    const [sourceData, setSourceData] = useState<BaseContractInfo>();
+
+    const [destinationData, setDestinationData] = useState<BaseContractInfo>();
+
     const [sourceAmount, setSourceAmount] = useState("0");
 
     const [isRearranged, setIsRearranged] = useState(false);
 
-    const toggleIsRearranged = useCallback(() => {
+    useEffect(() => {
+      setSourceData(sd);
+    }, [sd]);
+
+    useEffect(() => {
+      setDestinationData(dd);
+    }, [dd]);
+
+    function rearrangeData() {
+      setSourceData(destinationData);
+      setDestinationData(sourceData);
       setIsRearranged((prevState) => !prevState);
-    }, [setIsRearranged]);
+    }
 
     const onChangeSwapAmount = useCallback(
       (value: string) => {
@@ -122,16 +143,13 @@ export const BaseTokensForm: FC<BaseTokensFormProps> = observer(
         : sourceAmount;
     }, [sourceAmount, calculateDestinationAmount, isRearranged]);
 
-    const { data: sourceData } = useBaseTokenInfo(sourceContractSymbol, true);
+    const isDataFetched = sourceData && destinationData;
 
-    const { data: destinationData } = useBaseTokenInfo(
-      destinationContractSymbol,
-      true
-    );
-
-    const isInitialized = !!sourceData && !!destinationData;
-
-    const isDisabledSubmitButton = !sourceAmount || Number(sourceAmount) < 1;
+    const isButtonSubmitDisabled =
+      !sourceAmount ||
+      Number(sourceAmount) < 1 ||
+      !sourceData ||
+      sourceData.balance < sourceAmount;
 
     const onSubmitForm = useCallback(async () => {
       await onSubmit({ sourceAmount, destinationAmount, isRearranged });
@@ -140,7 +158,7 @@ export const BaseTokensForm: FC<BaseTokensFormProps> = observer(
     return (
       <div className="grid grid-cols-1 gap-4 w-full h-max">
         <h2>{title}</h2>
-        {isInitialized ? (
+        {isDataFetched ? (
           <>
             {isLoading ? (
               <Loader text={loadingText} />
@@ -153,7 +171,7 @@ export const BaseTokensForm: FC<BaseTokensFormProps> = observer(
                 />
                 {canRearrangeContracts && (
                   <Arrow
-                    onClick={toggleIsRearranged}
+                    onClick={rearrangeData}
                     className={styles.buttonRearrange}
                   />
                 )}
@@ -161,14 +179,20 @@ export const BaseTokensForm: FC<BaseTokensFormProps> = observer(
                   fullContractInfo={destinationData}
                   amount={destinationAmount}
                 />
-                <Button
-                  type="button"
-                  onClick={onSubmitForm}
-                  disabled={isDisabledSubmitButton || disableSubmitButton}
-                  title={disabledText}
-                >
-                  Совершить сделку
-                </Button>
+                {isConnected ? (
+                  <Button
+                    type="button"
+                    onClick={onSubmitForm}
+                    disabled={isButtonSubmitDisabled || disableSubmitButton}
+                    title={disabledText}
+                  >
+                    Совершить сделку
+                  </Button>
+                ) : (
+                    <div className="flex justify-center items-center">
+                      <Web3Button label="Подключить кошелек" />
+                    </div>
+                )}
               </>
             )}
           </>
@@ -184,8 +208,9 @@ const useBaseTokenInfo = (
   tokenSymbol: TOKEN_SYMBOLS,
   watch: boolean = false
 ): { data: BaseContractInfo | undefined; isLoading: boolean } => {
-  const [result, setResult] = useState<BaseContractInfo | undefined>();
+  const [result, setResult] = useState<BaseContractInfo>();
   const { address } = useAccount();
+
   const { data: balance, isLoading: isLoadingBalance } = useBalance({
     address,
     token: TOKEN_ADDRESS[tokenSymbol],
@@ -198,27 +223,30 @@ const useBaseTokenInfo = (
     functionName: "name",
   });
 
-  const isLoading = !balance || !name;
-
   useEffect(() => {
-    console.log(balance, name, tokenSymbol);
-    if (isLoading) return;
-
-    (async () => {
-      const image = undefined;
+    if (isLoadingBalance || isLoadingName) {
+      return;
+    }
+    fetchData();
+    async function fetchData() {
+      const image = await import(
+        `../../../../app/images/tokens/${tokenSymbol.toLowerCase()}.webp`
+      )
+        .then((module) => module.default)
+        .catch();
 
       setResult({
         name: name as string,
-        decimals: balance.decimals.toString(),
+        decimals: balance ? balance.decimals.toString() : "0",
         symbol: tokenSymbol,
-        balance: balance.formatted,
+        balance: balance ? balance.formatted : "0",
         image,
       });
-    })();
-  }, [isLoading]);
+    }
+  }, [isLoadingBalance, isLoadingName]);
 
   return {
     data: result,
-    isLoading,
+    isLoading: isLoadingBalance || isLoadingName,
   };
 };

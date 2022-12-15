@@ -4,11 +4,15 @@ import { Button, Loader } from "../../../../shared/ui";
 import { observer } from "mobx-react-lite";
 import { UnstakeFormStore } from "../../model";
 import { useEthereumStore } from "../../../../entities";
+import { useAccount } from "wagmi";
+import { Web3Button } from "@web3modal/react";
 
 export const UnStakeForm: FC = observer(() => {
   const {
     ethereumStore: { signer },
   } = useEthereumStore();
+  const { isConnected } = useAccount();
+
   const [
     {
       inStake,
@@ -47,9 +51,13 @@ export const UnStakeForm: FC = observer(() => {
               <span>{formattedUnstakeDate}</span>
             </div>
           </div>
-          <Button onClick={onUnStake} full disabled={isUnStakeDisabled}>
-            Вывод токена из стейкинга
-          </Button>
+          {isConnected ? (
+            <Button onClick={onUnStake} full disabled={isUnStakeDisabled}>
+              Вывод токена из стейкинга
+            </Button>
+          ) : (
+            <Web3Button label="Подключить кошелек" />
+          )}
         </>
       )}
     </div>
