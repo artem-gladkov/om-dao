@@ -4,13 +4,12 @@ import { Button, Loader } from "../../../../shared/ui";
 import { observer } from "mobx-react-lite";
 import { UnstakeFormStore } from "../../model";
 import { useEthereumStore } from "../../../../entities";
-import { useAccount } from "wagmi";
+import {useAccount, useProvider, useSigner} from "wagmi";
 import { Web3Button } from "@web3modal/react";
 
 export const UnStakeForm: FC = observer(() => {
-  const {
-    ethereumStore: { signer },
-  } = useEthereumStore();
+  const { data: signer } = useSigner();
+  const provider = useProvider()
   const { isConnected } = useAccount();
 
   const [
@@ -24,7 +23,7 @@ export const UnStakeForm: FC = observer(() => {
       loadingText,
       isUnStakeDisabled,
     },
-  ] = useState(() => new UnstakeFormStore(signer));
+  ] = useState(() => new UnstakeFormStore(signer || provider as any));
 
   return (
     <div className="grid gap-4">

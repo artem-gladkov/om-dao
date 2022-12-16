@@ -9,18 +9,6 @@ import { useSigner } from "wagmi";
 export interface IRootProps {}
 
 export const RootLayout: FC<IRootProps> = observer(() => {
-  const { data: signer, status } = useSigner();
-  const {
-    ethereumStore: { setSigner },
-  } = useEthereumStore();
-
-  useEffect(() => {
-      console.log('useEffect', {status, signer})
-    if (status === "success" && signer) {
-      setSigner(signer);
-    }
-  }, [signer]);
-
   return (
     <div className="flex flex-col relative w-full h-full">
       <Header />

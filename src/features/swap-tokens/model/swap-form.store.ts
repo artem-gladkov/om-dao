@@ -1,6 +1,6 @@
 import { Contract } from "@ethersproject/contracts";
 import { TOKEN_ABI, TOKEN_ADDRESS, TOKEN_SYMBOLS } from "../../../entities";
-import { JsonRpcSigner } from "@ethersproject/providers";
+import {JsonRpcSigner, Provider} from "@ethersproject/providers";
 import { makeAutoObservable } from "mobx";
 import { SwapStatus } from "../types";
 
@@ -26,6 +26,10 @@ export class SwapFormStore {
       TOKEN_ABI[tokenASymbol],
       _signer
     );
+
+    new Contract(TOKEN_ADDRESS[tokenASymbol],
+        TOKEN_ABI[tokenASymbol],)
+
     this._destinationContract = new Contract(
       TOKEN_ADDRESS[tokenBSymbol],
       TOKEN_ABI[tokenBSymbol],
@@ -90,7 +94,6 @@ export class SwapFormStore {
     this.swapStatus = SwapStatus.AWAITING_CONFIRM;
 
     try {
-      console.log(await this._signer.provider.getCode( this._destinationContract.address))
       const decimals = await this._sourceContract.decimals();
 
       const unit256Amount = parseUnits(amount, decimals);

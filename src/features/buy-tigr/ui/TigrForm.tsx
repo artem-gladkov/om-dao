@@ -5,13 +5,16 @@ import { observer } from "mobx-react-lite";
 import { TigrFormStore } from "../model";
 import { SWAP_STATUS_LABELS } from "../../swap-tokens";
 import { TokenAddButton } from "../../add-token-to-metamask";
+import { useProvider, useSigner } from "wagmi";
+import { JsonRpcSigner } from "@ethersproject/providers";
 
 export const TigrForm: FC = observer(() => {
-  const {
-    ethereumStore: { signer },
-  } = useEthereumStore();
+  const { data: signer } = useSigner();
+  const provider = useProvider();
 
-  const [store] = useState(() => new TigrFormStore(signer));
+  const [store] = useState(
+    () => new TigrFormStore(signer || (provider as any))
+  );
   const {
     isLoading,
     sourceContract,
@@ -31,7 +34,7 @@ export const TigrForm: FC = observer(() => {
         calculateDestinationAmount={calculateDestinationAmount}
         loadingText={SWAP_STATUS_LABELS[swapStatus]}
         isLoading={isLoading}
-        />
+      />
       <TokenAddButton
         className="w-full"
         text={`Добавить токен ${TOKEN_SYMBOLS.TIGR} в MetaMask`}

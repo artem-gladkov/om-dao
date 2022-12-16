@@ -4,26 +4,25 @@ import { TOKEN_SYMBOLS, useEthereumStore } from "../../../../entities";
 import { observer } from "mobx-react-lite";
 import { BaseTokensForm } from "../../../base-tokens-form";
 import { STAKE_STATUS_LABELS } from "../../constants";
+import {useProvider, useSigner} from "wagmi";
+import { JsonRpcSigner } from "@ethersproject/providers";
 
 export interface StakeFormProps {
   className?: string;
 }
 
 export const StakeForm: FC<StakeFormProps> = observer(({ className }) => {
-  const {
-    ethereumStore: { signer },
-  } = useEthereumStore();
+  const { data: signer } = useSigner();
+  const provider = useProvider()
 
   const [
     {
-      sourceContract,
-      destinationContract,
       onStake,
       status,
       isStaking,
       isStakeDisabled,
     },
-  ] = useState(() => new StakeFormStore(signer));
+  ] = useState(() => new StakeFormStore(signer || provider as any));
 
   return (
     <BaseTokensForm

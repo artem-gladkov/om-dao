@@ -14,11 +14,13 @@ import { BaseTokensForm } from "../../../base-tokens-form";
 import { SWAP_STATUS_LABELS } from "../../constants";
 import { useSearchParams } from "react-router-dom";
 import { calculateSwapDestinationAmount } from "../../lib";
-import { useContractWrite, usePrepareContractWrite } from "wagmi";
+import { useProvider, useSigner } from "wagmi";
 
 export interface ISwapFormProps {}
 
 export const SwapForm: FC<ISwapFormProps> = observer(() => {
+  const { data: signer } = useSigner();
+  const provider = useProvider();
   const navigate = useNavigate();
 
   const [params] = useSearchParams([
@@ -29,12 +31,9 @@ export const SwapForm: FC<ISwapFormProps> = observer(() => {
   const tokenASymbol = params.get("tokenA") as TOKEN_SYMBOLS;
   const tokenBSymbol = params.get("tokenB") as TOKEN_SYMBOLS;
 
-  const {
-    ethereumStore: { signer },
-  } = useEthereumStore();
-
   const [{ onSwap, swapStatus, isSwapping }] = useState(
-    () => new SwapFormStore(signer, tokenASymbol, tokenBSymbol)
+    () =>
+      new SwapFormStore(signer || (provider as any), tokenASymbol, tokenBSymbol)
   );
 
   useEffect(() => {

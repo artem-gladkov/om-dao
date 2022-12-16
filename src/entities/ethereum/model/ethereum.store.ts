@@ -7,22 +7,10 @@ export class EthereumStore {
 
   private _signer: Signer | undefined;
 
-  private _initialized: boolean = false;
 
   constructor() {
     makeAutoObservable(this);
-
-    this.init();
   }
-
-  private init = async () => {
-    try {
-
-      this._initialized = true;
-    } catch (e) {
-      console.log(e);
-    }
-  };
 
   public setSigner = (signer: Signer): void => {
     this._signer = signer;
@@ -39,9 +27,5 @@ export class EthereumStore {
     }
 
     return this._provider;
-  }
-
-  public get initialized(): boolean {
-    return this._initialized;
   }
 }

@@ -6,11 +6,12 @@ import { format } from "date-fns";
 import { makeAutoObservable } from "mobx";
 import { OperationStatus } from "../../../shared/types";
 import { UNSTAKE_STATUS_LABELS } from "../constants";
+import {th} from "date-fns/locale";
 
 export class UnstakeFormStore {
   private _inStake: string = "";
 
-  private _dividends: string = "";
+  private _dividends: string = "0";
 
   private _unstakeDate: Date = new Date();
 
@@ -47,7 +48,9 @@ export class UnstakeFormStore {
     try {
       await this.fetchBalance();
       await this.fetchUnStakeDate();
-      await this.fetchDividends();
+      if(this._inStake && +this._inStake !== 0) {
+        await this.fetchDividends();
+      }
     } catch (e) {
       console.log(e);
     } finally {

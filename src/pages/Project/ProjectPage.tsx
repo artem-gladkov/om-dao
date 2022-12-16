@@ -5,10 +5,11 @@ import { useParams } from "react-router";
 
 export const ProjectPage: FC = () => {
   const params = useParams();
+
   return (
     <div className="container mx-auto p-4 max-w-2xl">
-      {params.symbol === 'omdwTigr' ? <TigrForm /> : null}
-      {params.symbol === 'omdwCRB' ? <CRForm /> : null}
+      {params.symbol === 'omdwTigr' && <TigrForm />}
+      {params.symbol === 'omdwCRB' &&  <CRForm />}
     </div>
   );
 };

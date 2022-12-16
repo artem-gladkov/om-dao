@@ -1,25 +1,18 @@
 import { FC, useState } from "react";
 import { BaseTokensForm } from "../../base-tokens-form";
-import { TOKEN_SYMBOLS, useEthereumStore } from "../../../entities";
+import { TOKEN_SYMBOLS } from "../../../entities";
 import { observer } from "mobx-react-lite";
 import { CRFormStore } from "../model";
 import { SWAP_STATUS_LABELS } from "../../swap-tokens";
 import { TokenAddButton } from "../../add-token-to-metamask";
+import { useProvider, useSigner } from "wagmi";
 
 export const CRForm: FC = observer(() => {
-  const {
-    ethereumStore: { signer },
-  } = useEthereumStore();
+  const { data: signer } = useSigner();
+  const provider = useProvider();
 
-  const [store] = useState(() => new CRFormStore(signer));
-  const {
-    isLoading,
-    sourceContract,
-    destinationContract,
-    onSubmit,
-    calculateDestinationAmount,
-    swapStatus,
-  } = store;
+  const [store] = useState(() => new CRFormStore(signer || (provider as any)));
+  const { isLoading, onSubmit, calculateDestinationAmount, swapStatus } = store;
 
   return (
     <>
