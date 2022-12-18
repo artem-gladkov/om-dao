@@ -28,6 +28,10 @@ export const appRouter = createBrowserRouter([
         path: `${PATHS.PROJECTS}/:symbol`,
         element: <ProjectPage />,
       },
+      {
+        path: `${PATHS.PROJECTS}/:symbol/:refcode`,
+        element: <ProjectPage />,
+      },
     ],
   },
 ]);
