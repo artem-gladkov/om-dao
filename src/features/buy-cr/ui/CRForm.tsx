@@ -19,7 +19,7 @@ export const CRForm: FC = observer(() => {
       <BaseTokensForm
         title={`Покупка ${TOKEN_SYMBOLS.CR}`}
         onSubmit={onSubmit}
-        sourceContractSymbol={TOKEN_SYMBOLS.USDT}
+        sourceContractSymbol={TOKEN_SYMBOLS.OMD}
         destinationContractSymbol={TOKEN_SYMBOLS.CR}
         calculateDestinationAmount={calculateDestinationAmount}
         loadingText={SWAP_STATUS_LABELS[swapStatus]}
