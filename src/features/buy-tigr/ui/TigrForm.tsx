@@ -5,20 +5,13 @@ import { observer } from "mobx-react-lite";
 import { TigrFormStore } from "../model";
 import { SWAP_STATUS_LABELS } from "../../swap-tokens";
 import { TokenAddButton } from "../../add-token-to-metamask";
-import { useProvider, useSigner } from "wagmi";
-export const TigrForm: FC = observer(() => {
-  const { data: signer } = useSigner();
-  const provider = useProvider();
 
-  const [store] = useState(
-    () => new TigrFormStore(signer || (provider as any))
-  );
-  const {
-    isLoading,
-    onSubmit,
-    calculateDestinationAmount,
-    swapStatus,
-  } = store;
+import {useRootStore} from "../../../app/use-root-store";
+export const TigrForm: FC = observer(() => {
+    const rootStore = useRootStore()
+
+  const [store] = useState(() => new TigrFormStore(rootStore));
+  const { isLoading, onSubmit, calculateDestinationAmount, swapStatus } = store;
 
   return (
     <>

@@ -1,11 +1,11 @@
 import { makeAutoObservable } from "mobx";
 import { Contract } from "@ethersproject/contracts";
 import { TOKEN_ABI, TOKEN_ADDRESS } from "../../../entities";
-import { JsonRpcSigner } from "@ethersproject/providers";
 import { BaseTokensFormSubmitData } from "../../base-tokens-form";
 import { TIGR_SWAP_CONTRACT_DATA } from "../constants";
 import { formatUnits, parseUnits } from "@ethersproject/units";
 import { SwapStatus } from "../../swap-tokens";
+import { RootStore } from "../../../app/root-store";
 
 export class TigrFormStore {
   private readonly _sourceContract: Contract;
@@ -20,25 +20,25 @@ export class TigrFormStore {
 
   private _swapStatus: SwapStatus = SwapStatus.READY;
 
-  constructor(private _signer: JsonRpcSigner) {
+  constructor(private _rootStore: RootStore) {
     makeAutoObservable(this);
 
     this._sourceContract = new Contract(
       TOKEN_ADDRESS.OMD,
       TOKEN_ABI.OMD,
-      _signer
+      _rootStore.signerOrProvider
     );
 
     this._destinationContract = new Contract(
       TOKEN_ADDRESS.omdwTigr,
       TOKEN_ABI.omdwTigr,
-      _signer
+      _rootStore.signerOrProvider
     );
 
     this._swapContract = new Contract(
       TIGR_SWAP_CONTRACT_DATA.address,
       TIGR_SWAP_CONTRACT_DATA.abi,
-      _signer
+      _rootStore.signerOrProvider
     );
 
     this.init();

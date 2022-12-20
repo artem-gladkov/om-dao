@@ -1,10 +1,10 @@
 import { Contract } from "@ethersproject/contracts";
 import { TOKEN_ABI, TOKEN_ADDRESS, TOKEN_SYMBOLS } from "../../../entities";
-import { JsonRpcSigner } from "@ethersproject/providers";
 import { BaseTokensFormSubmitData } from "../../base-tokens-form";
 import { formatUnits, parseUnits } from "@ethersproject/units";
 import { makeAutoObservable } from "mobx";
 import { OperationStatus } from "../../../shared/types";
+import { RootStore } from "../../../app/root-store";
 
 export class StakeFormStore {
   private readonly _sourceContract: Contract;
@@ -15,19 +15,19 @@ export class StakeFormStore {
 
   private _status: OperationStatus = OperationStatus.READY;
 
-  constructor(private _signer: JsonRpcSigner) {
+  constructor(private _rootStore: RootStore) {
     makeAutoObservable(this);
 
     this._sourceContract = new Contract(
       TOKEN_ADDRESS[TOKEN_SYMBOLS.OMD],
       TOKEN_ABI[TOKEN_SYMBOLS.OMD],
-      _signer
+      _rootStore.signerOrProvider
     );
 
     this._destinationContract = new Contract(
       TOKEN_ADDRESS[TOKEN_SYMBOLS.STOMD],
       TOKEN_ABI[TOKEN_SYMBOLS.STOMD],
-      _signer
+      _rootStore.signerOrProvider
     );
 
     this.fetchUnStakeDate();
@@ -46,8 +46,9 @@ export class StakeFormStore {
 
   private fetchUnStakeDate = async (): Promise<void> => {
     try {
-      const timestamp =
-        Number(formatUnits(await this.destinationContract.divDate(), 0)) * 1000;
+      console.log(this._destinationContract)
+      const divDate = await this._destinationContract.divDate()
+      const timestamp = Number(formatUnits(divDate, 0)) * 1000;
       this.unStakeDate = new Date(timestamp);
     } catch (e) {
       console.log(e);

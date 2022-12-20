@@ -5,17 +5,15 @@ import { observer } from "mobx-react-lite";
 import { CRFormLaunchStore } from "../model";
 import { SWAP_STATUS_LABELS } from "../../swap-tokens";
 import { TokenAddButton } from "../../add-token-to-metamask";
-import { useProvider, useSigner, useAccount } from "wagmi";
+import { useAccount } from "wagmi";
 import { useRootStore } from "../../../app/use-root-store";
 
 export const CRFormLaunch: FC = observer(() => {
-  const { data: signer } = useSigner();
+    const rootStore = useRootStore()
   const dcon = useAccount();
-  const provider = useProvider();
   const { refCode } = useRootStore();
   const [store] = useState(
-    () =>
-      new CRFormLaunchStore(signer || (provider as any), refCode, dcon.address)
+    () => new CRFormLaunchStore(rootStore, refCode, dcon.address)
   );
   const { isLoading, onSubmit, calculateDestinationAmount, swapStatus } = store;
 

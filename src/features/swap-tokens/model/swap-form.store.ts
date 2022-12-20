@@ -1,11 +1,11 @@
 import { Contract } from "@ethersproject/contracts";
 import { TOKEN_ABI, TOKEN_ADDRESS, TOKEN_SYMBOLS } from "../../../entities";
-import {JsonRpcSigner, Provider} from "@ethersproject/providers";
 import { makeAutoObservable } from "mobx";
 import { SwapStatus } from "../types";
 
 import { formatUnits, parseUnits } from "@ethersproject/units";
 import { BaseTokensFormSubmitData } from "../../base-tokens-form";
+import { RootStore } from "../../../app/root-store";
 
 export class SwapFormStore {
   private readonly _sourceContract: Contract;
@@ -15,7 +15,7 @@ export class SwapFormStore {
   private _swapStatus: SwapStatus = SwapStatus.READY;
 
   constructor(
-    private _signer: JsonRpcSigner,
+    private _rootStore: RootStore,
     tokenASymbol: TOKEN_SYMBOLS,
     tokenBSymbol: TOKEN_SYMBOLS
   ) {
@@ -24,16 +24,15 @@ export class SwapFormStore {
     this._sourceContract = new Contract(
       TOKEN_ADDRESS[tokenASymbol],
       TOKEN_ABI[tokenASymbol],
-      _signer
+      _rootStore.signerOrProvider
     );
 
-    new Contract(TOKEN_ADDRESS[tokenASymbol],
-        TOKEN_ABI[tokenASymbol],)
+    new Contract(TOKEN_ADDRESS[tokenASymbol], TOKEN_ABI[tokenASymbol]);
 
     this._destinationContract = new Contract(
       TOKEN_ADDRESS[tokenBSymbol],
       TOKEN_ABI[tokenBSymbol],
-      _signer
+      _rootStore.signerOrProvider
     );
   }
 
@@ -77,7 +76,7 @@ export class SwapFormStore {
     }
 
     try {
-      const signerAddress = await this._signer.getAddress();
+      const signerAddress = await this._rootStore.signerStore.signer.getAddress();
       const decimals = await this._sourceContract.decimals();
       const allowanceAmount = await this._sourceContract.allowance(
         signerAddress,

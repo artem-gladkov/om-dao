@@ -1,21 +1,15 @@
 import { makeAutoObservable } from "mobx";
 import { Contract } from "@ethersproject/contracts";
 import { TOKEN_ABI, TOKEN_ADDRESS, TOKEN_SYMBOLS } from "../../../entities";
-import { JsonRpcSigner } from "@ethersproject/providers";
 import { BaseTokensFormSubmitData } from "../../base-tokens-form";
 import { CR_SWAP_CONTRACT_DATA } from "../constants";
 import { formatUnits, parseUnits } from "@ethersproject/units";
 import { formatBytes32String } from "@ethersproject/strings";
 
 import { SwapStatus } from "../../swap-tokens";
+import {RootStore} from "../../../app/root-store";
 
 export class CRFormLaunchStore {
-    private readonly _sourceContract: Contract;
-
-    private readonly _destinationContract: Contract;
-
-    private _swapContract: Contract;
-
     private _exchangeRate: number = 0;
 
     private _isInitialized: boolean = false;
@@ -28,7 +22,7 @@ export class CRFormLaunchStore {
         "0x0000000000000000000000000000000000000000";
 
     constructor(
-        private _signer: JsonRpcSigner,
+        private _rootStore: RootStore,
         refCode: string | undefined,
         accountAddress: string | undefined
     ) {
@@ -39,31 +33,13 @@ export class CRFormLaunchStore {
             ? accountAddress
             : "0x0000000000000000000000000000000000000000";
 
-        this._sourceContract = new Contract(
-            TOKEN_ADDRESS.OMD,
-            TOKEN_ABI.OMD,
-            _signer
-        );
-
-        this._destinationContract = new Contract(
-            TOKEN_ADDRESS.omdwCRB,
-            TOKEN_ABI.omdwCRB,
-            _signer
-        );
-
-        this._swapContract = new Contract(
-            CR_SWAP_CONTRACT_DATA.address,
-            CR_SWAP_CONTRACT_DATA.abi,
-            _signer
-        );
-
         this.init();
     }
 
     private init = async (): Promise<void> => {
         try {
             const bytes32Symbol = formatBytes32String(TOKEN_SYMBOLS.CR);
-            const bigNumber = await this._swapContract.myPrice(
+            const bigNumber = await this.swapContract.myPrice(
                 this._accountAddress,
                 bytes32Symbol
             );
@@ -79,12 +55,12 @@ export class CRFormLaunchStore {
         this.swapStatus = SwapStatus.STARTING;
 
         try {
-            const decimals = await this._sourceContract.decimals();
+            const decimals = await this.sourceContract.decimals();
             const unit256Amount = parseUnits(sourceAmount, decimals);
 
             this.swapStatus = SwapStatus.AWAITING_CONFIRM;
-            const approveTransaction = await this._sourceContract.approve(
-                this._swapContract.address,
+            const approveTransaction = await this.sourceContract.approve(
+                this.swapContract.address,
                 unit256Amount
             );
 
@@ -95,7 +71,7 @@ export class CRFormLaunchStore {
             const bytes32Symbol = formatBytes32String(TOKEN_SYMBOLS.CR);
             const bytes32ReferalCode = formatBytes32String(this._refcode);
 
-            const buyTransaction = await this._swapContract.buyToken(
+            const buyTransaction = await this.swapContract.buyToken(
                 bytes32Symbol,
                 unit256Amount,
                 bytes32ReferalCode
@@ -118,11 +94,29 @@ export class CRFormLaunchStore {
     };
 
     public get sourceContract(): Contract {
-        return this._sourceContract;
+        return new Contract(
+            TOKEN_ADDRESS.OMD,
+            TOKEN_ABI.OMD,
+            this._rootStore.signerOrProvider
+        );
     }
 
+
     public get destinationContract(): Contract {
-        return this._destinationContract;
+        return new Contract(
+            TOKEN_ADDRESS.omdwCRB,
+            TOKEN_ABI.omdwCRB,
+            this._rootStore.signerOrProvider
+        );
+    }
+
+    public get swapContract(): Contract {
+        return new Contract(
+            CR_SWAP_CONTRACT_DATA.address,
+            CR_SWAP_CONTRACT_DATA.abi,
+            this._rootStore.signerOrProvider
+        );
+
     }
 
     public get isLoading(): boolean {

@@ -6,14 +6,16 @@ import { useRootStore } from "../../app/use-root-store";
 
 export const ProjectPage: FC = () => {
   const params = useParams();
-  const { setRefCode } = useRootStore();
+  const { updateRefCode } = useRootStore();
 
   useEffect(() => {
-    if (params.refcode) {
-      localStorage.setItem("refcode", params.refcode);
-      setRefCode(params.refcode);
+    const { refcode } = params
+
+    if (refcode) {
+      updateRefCode(refcode)
     }
-  });
+  }, [params]);
+
   return (
     <div className="container mx-auto p-4 max-w-2xl">
       {params.symbol === "omdwTigr" && <TigrForm />}

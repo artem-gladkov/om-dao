@@ -4,15 +4,14 @@ import { TOKEN_SYMBOLS } from "../../../../entities";
 import { observer } from "mobx-react-lite";
 import { BaseTokensForm } from "../../../base-tokens-form";
 import { STAKE_STATUS_LABELS } from "../../constants";
-import {useProvider, useSigner} from "wagmi";
+import {useRootStore} from "../../../../app/use-root-store";
 
 export interface StakeFormProps {
   className?: string;
 }
 
 export const StakeForm: FC<StakeFormProps> = observer(({ className }) => {
-  const { data: signer } = useSigner();
-  const provider = useProvider()
+  const rootStore = useRootStore();
 
   const [
     {
@@ -21,7 +20,7 @@ export const StakeForm: FC<StakeFormProps> = observer(({ className }) => {
       isStaking,
       isStakeDisabled,
     },
-  ] = useState(() => new StakeFormStore(signer || provider as any));
+  ] = useState(() => new StakeFormStore(rootStore));
 
   return (
     <BaseTokensForm

@@ -1,8 +1,6 @@
 import { FC, useEffect, useState } from "react";
 
-import {
-  TOKEN_SYMBOLS,
-} from "../../../../entities";
+import { TOKEN_SYMBOLS } from "../../../../entities";
 import { SwapFormStore } from "../../model";
 import { observer } from "mobx-react-lite";
 import { SwapStatus } from "../../types";
@@ -12,13 +10,12 @@ import { BaseTokensForm } from "../../../base-tokens-form";
 import { SWAP_STATUS_LABELS } from "../../constants";
 import { useSearchParams } from "react-router-dom";
 import { calculateSwapDestinationAmount } from "../../lib";
-import { useProvider, useSigner } from "wagmi";
+import {useRootStore} from "../../../../app/use-root-store";
 
 export interface ISwapFormProps {}
 
 export const SwapForm: FC<ISwapFormProps> = observer(() => {
-  const { data: signer } = useSigner();
-  const provider = useProvider();
+  const rootStore = useRootStore();
   const navigate = useNavigate();
 
   const [params] = useSearchParams([
@@ -30,8 +27,7 @@ export const SwapForm: FC<ISwapFormProps> = observer(() => {
   const tokenBSymbol = params.get("tokenB") as TOKEN_SYMBOLS;
 
   const [{ onSwap, swapStatus, isSwapping }] = useState(
-    () =>
-      new SwapFormStore(signer || (provider as any), tokenASymbol, tokenBSymbol)
+    () => new SwapFormStore(rootStore, tokenASymbol, tokenBSymbol)
   );
 
   useEffect(() => {

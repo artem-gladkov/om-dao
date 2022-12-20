@@ -4,11 +4,10 @@ import { StakeForm } from "../../features/stake-token";
 import { Tabs } from "../../shared/ui";
 import { UnStakeForm } from "../../features/unstake-token";
 import { TokenAddButtons } from "../../features/add-token-to-metamask";
-import {useSigner} from "wagmi";
 
 export const StakePage: FC = ({}) => {
   const [activeTab, setActiveTab] = useState("stake");
-    const { data: signer } = useSigner();
+
   return (
     <div className="flex flex-col mx-auto max-w-2xl h-full">
       <div className="flex flex-col grow">
