@@ -2,6 +2,7 @@ import { FC, useEffect } from "react";
 import { TigrForm } from "../../features/buy-tigr";
 import { CRForm } from "../../features/buy-cr";
 import { CRFormLaunch } from "../../features/buy-cr-launch";
+import { CONSForm } from "../../features/buy-cons";
 import { useParams } from "react-router";
 import { useRootStore } from "../../app/use-root-store";
 
