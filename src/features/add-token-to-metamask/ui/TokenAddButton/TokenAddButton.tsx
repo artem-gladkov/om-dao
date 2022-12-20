@@ -3,11 +3,9 @@ import classNames from "classnames";
 
 import styles from "./TokenAddButton.module.scss";
 import { TokenAddButtonStore } from "../../model";
-import { useEthereumStore } from "../../../../entities";
 import { observer } from "mobx-react-lite";
 import { TOKEN_SYMBOLS } from "../../../../entities";
 import { Button, ButtonProps } from "../../../../shared/ui";
-import { useProvider } from "wagmi";
 
 export interface TokenAddButtonProps extends ButtonProps {
   className?: string;

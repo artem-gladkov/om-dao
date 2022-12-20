@@ -3,7 +3,6 @@ import { FC, useState } from "react";
 import { Button, Loader } from "../../../../shared/ui";
 import { observer } from "mobx-react-lite";
 import { UnstakeFormStore } from "../../model";
-import { useEthereumStore } from "../../../../entities";
 import {useAccount, useProvider, useSigner} from "wagmi";
 import { Web3Button } from "@web3modal/react";
 

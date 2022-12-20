@@ -1,9 +1,7 @@
 import { FC, useEffect, useState } from "react";
 
 import {
-  OMDAO_ABI,
   TOKEN_SYMBOLS,
-  useEthereumStore,
 } from "../../../../entities";
 import { SwapFormStore } from "../../model";
 import { observer } from "mobx-react-lite";

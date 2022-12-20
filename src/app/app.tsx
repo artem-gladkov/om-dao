@@ -1,4 +1,4 @@
-import {FC, useEffect, useState} from "react";
+import { FC, useState } from "react";
 
 import {
   configureChains,
@@ -19,16 +19,19 @@ import { RouterProvider } from "react-router";
 import { Web3Modal } from "@web3modal/react";
 
 import { isProd, WALLET_CONNECT_PROJECT_ID } from "../shared/config";
-import { EthereumStore, EthereumStoreProvider } from "../entities";
+import { RootStore } from "./root-store";
+import { RootStoreProvider } from "./root-store-provider";
 
 const AVAILABLE_CHAINS = [isProd() ? mainnet : goerli];
 
 export const App: FC = () => {
+  const [rootStore] = useState(() => new RootStore());
+  const {  } = rootStore;
+
   const [{ ethereumClient, wagmiClient }] = useState(createClients);
-  const [ethereumStore] = useState(() => new EthereumStore());
 
   return (
-    <EthereumStoreProvider ethereumStore={ethereumStore}>
+    <RootStoreProvider rootStore={rootStore}>
       <>
         <WagmiConfig client={wagmiClient}>
           <RouterProvider router={appRouter} />
@@ -41,7 +44,7 @@ export const App: FC = () => {
           themeBackground="themeColor"
         />
       </>
-    </EthereumStoreProvider>
+    </RootStoreProvider>
   );
 };
 

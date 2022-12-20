@@ -1,11 +1,10 @@
 import React, { FC, useState } from "react";
 import { StakeFormStore } from "../../model";
-import { TOKEN_SYMBOLS, useEthereumStore } from "../../../../entities";
+import { TOKEN_SYMBOLS } from "../../../../entities";
 import { observer } from "mobx-react-lite";
 import { BaseTokensForm } from "../../../base-tokens-form";
 import { STAKE_STATUS_LABELS } from "../../constants";
 import {useProvider, useSigner} from "wagmi";
-import { JsonRpcSigner } from "@ethersproject/providers";
 
 export interface StakeFormProps {
   className?: string;

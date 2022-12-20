@@ -1,13 +1,11 @@
 import { FC, useState } from "react";
 import { BaseTokensForm } from "../../base-tokens-form";
-import { TOKEN_SYMBOLS, useEthereumStore } from "../../../entities";
+import { TOKEN_SYMBOLS } from "../../../entities";
 import { observer } from "mobx-react-lite";
 import { TigrFormStore } from "../model";
 import { SWAP_STATUS_LABELS } from "../../swap-tokens";
 import { TokenAddButton } from "../../add-token-to-metamask";
 import { useProvider, useSigner } from "wagmi";
-import { JsonRpcSigner } from "@ethersproject/providers";
-
 export const TigrForm: FC = observer(() => {
   const { data: signer } = useSigner();
   const provider = useProvider();
@@ -17,8 +15,6 @@ export const TigrForm: FC = observer(() => {
   );
   const {
     isLoading,
-    sourceContract,
-    destinationContract,
     onSubmit,
     calculateDestinationAmount,
     swapStatus,

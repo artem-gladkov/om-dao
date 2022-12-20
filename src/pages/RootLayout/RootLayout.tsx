@@ -1,7 +1,6 @@
-import React, { FC, useEffect } from "react";
+import React, { FC } from "react";
 import { Outlet } from "react-router-dom";
 import { Header } from "../../widgets/header";
-import { useEthereumStore } from "../../entities";
 import { observer } from "mobx-react-lite";
 import { Background } from "./Background";
 import { useSigner, useAccount } from "wagmi";
@@ -10,9 +9,8 @@ import { Loader } from "../../shared/ui";
 export interface IRootProps {}
 
 export const RootLayout: FC<IRootProps> = observer(() => {
-  const signer = useSigner();
   const account = useAccount();
-  console.log(signer)
+
   return (
     <div className="flex flex-col relative w-full h-full">
       <Header />

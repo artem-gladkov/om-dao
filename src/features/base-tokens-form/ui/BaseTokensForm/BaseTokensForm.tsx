@@ -5,25 +5,18 @@ import {
   TOKEN_ABI,
   TOKEN_ADDRESS,
   TOKEN_SYMBOLS,
-  useEthereumStore,
 } from "../../../../entities";
-import { BaseTokensFormStore } from "../../model";
 import { observer } from "mobx-react-lite";
 import { SourceContract } from "../SourceContract";
 import { DestinationContract } from "../DestinationContract";
 import { BaseContractInfo, BaseTokensFormSubmitData } from "../../types";
-import { Contract } from "@ethersproject/contracts";
 import { Button, Loader } from "../../../../shared/ui";
 import { Arrow } from "../../../../shared/ui";
 import {
   useAccount,
   useBalance,
   useContractRead,
-  useContractReads,
-  useSigner,
 } from "wagmi";
-import { BaseTokenInfo } from "../../../../entities/token/types";
-import { is } from "date-fns/locale";
 import { Web3Button } from "@web3modal/react";
 
 export interface BaseTokensFormProps {
