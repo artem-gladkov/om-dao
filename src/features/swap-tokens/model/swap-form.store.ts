@@ -8,32 +8,14 @@ import { BaseTokensFormSubmitData } from "../../base-tokens-form";
 import { RootStore } from "../../../app/root-store";
 
 export class SwapFormStore {
-  private readonly _sourceContract: Contract;
-
-  private readonly _destinationContract: Contract;
-
   private _swapStatus: SwapStatus = SwapStatus.READY;
 
   constructor(
     private _rootStore: RootStore,
-    tokenASymbol: TOKEN_SYMBOLS,
-    tokenBSymbol: TOKEN_SYMBOLS
+    private _tokenASymbol: TOKEN_SYMBOLS,
+    private _tokenBSymbol: TOKEN_SYMBOLS
   ) {
     makeAutoObservable(this);
-
-    this._sourceContract = new Contract(
-      TOKEN_ADDRESS[tokenASymbol],
-      TOKEN_ABI[tokenASymbol],
-      _rootStore.signerOrProvider
-    );
-
-    new Contract(TOKEN_ADDRESS[tokenASymbol], TOKEN_ABI[tokenASymbol]);
-
-    this._destinationContract = new Contract(
-      TOKEN_ADDRESS[tokenBSymbol],
-      TOKEN_ABI[tokenBSymbol],
-      _rootStore.signerOrProvider
-    );
   }
 
   public onSwap = async ({
@@ -76,7 +58,8 @@ export class SwapFormStore {
     }
 
     try {
-      const signerAddress = await this._rootStore.signerStore.signer.getAddress();
+      const signerAddress =
+        await this._rootStore.signerStore.signer.getAddress();
       const decimals = await this._sourceContract.decimals();
       const allowanceAmount = await this._sourceContract.allowance(
         signerAddress,
@@ -145,8 +128,20 @@ export class SwapFormStore {
     }
   };
 
-  public get sourceContract(): Contract {
-    return this._sourceContract;
+  public get _sourceContract(): Contract {
+    return new Contract(
+      TOKEN_ADDRESS[this._tokenASymbol],
+      TOKEN_ABI[this._tokenASymbol],
+      this._rootStore.signerOrProvider
+    );
+  }
+
+  public get _destinationContract(): Contract {
+    return new Contract(
+      TOKEN_ADDRESS[this._tokenBSymbol],
+      TOKEN_ABI[this._tokenBSymbol],
+      this._rootStore.signerOrProvider
+    );
   }
 
   public get destinationContract(): Contract {

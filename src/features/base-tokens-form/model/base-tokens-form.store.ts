@@ -6,6 +6,7 @@ import { BaseContractInfo, FullContractInfo } from "../types";
 import { formatUnits } from "@ethersproject/units";
 import { DEFAULT_TOKEN_INFO } from "../constants";
 
+//Не используется, просто так не заработает если захочешь юзануть
 export class BaseTokensFormStore {
   private _sourceAmount: string = "0";
 

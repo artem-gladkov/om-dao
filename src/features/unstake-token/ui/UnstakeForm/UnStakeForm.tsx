@@ -6,9 +6,10 @@ import { UnstakeFormStore } from "../../model";
 import { useAccount} from "wagmi";
 import { Web3Button } from "@web3modal/react";
 import { useSignerStore } from "../../../../entities/signer";
+import {useRootStore} from "../../../../app/use-root-store";
 
 export const UnStakeForm: FC = observer(() => {
-  const { signer } = useSignerStore();
+  const rootStore = useRootStore();
   const { isConnected } = useAccount();
 
   const [
@@ -22,7 +23,7 @@ export const UnStakeForm: FC = observer(() => {
       loadingText,
       isUnStakeDisabled,
     },
-  ] = useState(() => new UnstakeFormStore(signer));
+  ] = useState(() => new UnstakeFormStore(rootStore));
 
   return (
     <div className="grid gap-4">

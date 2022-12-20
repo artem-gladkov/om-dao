@@ -6,9 +6,10 @@ import { format } from "date-fns";
 import { makeAutoObservable } from "mobx";
 import { OperationStatus } from "../../../shared/types";
 import { UNSTAKE_STATUS_LABELS } from "../constants";
+import { RootStore } from "../../../app/root-store";
 
 export class UnstakeFormStore {
-  private _inStake: string = "";
+  private _inStake: string = "0";
 
   private _dividends: string = "0";
 
@@ -16,30 +17,14 @@ export class UnstakeFormStore {
 
   private _isLoading: boolean = true;
 
-  private _stakeContract: Contract;
-
-  private _unStakeContract: Contract;
-
   private _status: OperationStatus = OperationStatus.READY;
 
   constructor(
-    private _signer: JsonRpcSigner,
+    private _rootStore: RootStore,
     private _stakeTokenSymbol: TOKEN_SYMBOLS = TOKEN_SYMBOLS.STOMD,
     private _unstakeTokenSymbol: TOKEN_SYMBOLS = TOKEN_SYMBOLS.OMD
   ) {
     makeAutoObservable(this);
-
-    this._stakeContract = new Contract(
-      TOKEN_ADDRESS[_stakeTokenSymbol],
-      TOKEN_ABI[_stakeTokenSymbol],
-      _signer
-    );
-    this._unStakeContract = new Contract(
-      TOKEN_ADDRESS[_unstakeTokenSymbol],
-      TOKEN_ABI[_unstakeTokenSymbol],
-      _signer
-    );
-
     this.fetchUnStakeInfo();
   }
 
@@ -47,7 +32,7 @@ export class UnstakeFormStore {
     try {
       await this.fetchBalance();
       await this.fetchUnStakeDate();
-      if(this._inStake && +this._inStake !== 0) {
+      if (this._inStake && +this._inStake !== 0) {
         await this.fetchDividends();
       }
     } catch (e) {
@@ -58,12 +43,16 @@ export class UnstakeFormStore {
   };
 
   private fetchBalance = async (): Promise<void> => {
+    if (!this._rootStore.signerStore.hasSigner) {
+      return;
+    }
+
     try {
       const decimals = await this._stakeContract.decimals();
-      const signerAddress = await this._signer.getAddress();
+      const signerAddress =
+        await this._rootStore.signerStore.signer.getAddress();
       const balance = await this._stakeContract.balanceOf(signerAddress);
-      console.log(signerAddress);
-      this.inStake = formatUnits(balance, decimals);
+      this._inStake = formatUnits(balance, decimals);
     } catch (e) {
       console.log(e);
     }
@@ -71,7 +60,7 @@ export class UnstakeFormStore {
 
   private fetchDividends = async (): Promise<void> => {
     try {
-      const address = await this._signer.getAddress();
+      const address = await this._rootStore.signerStore.signer.getAddress();
       const decimals = await this._unStakeContract.decimals();
 
       this.dividends = formatUnits(
@@ -118,6 +107,22 @@ export class UnstakeFormStore {
     }
   };
 
+  private get _stakeContract(): Contract {
+    return new Contract(
+      TOKEN_ADDRESS[this._stakeTokenSymbol],
+      TOKEN_ABI[this._stakeTokenSymbol],
+      this._rootStore.signerOrProvider
+    );
+  }
+
+  private get _unStakeContract(): Contract {
+    return new Contract(
+      TOKEN_ADDRESS[this._unstakeTokenSymbol],
+      TOKEN_ABI[this._unstakeTokenSymbol],
+      this._rootStore.signerOrProvider
+    );
+  }
+
   public get totalAmount(): string {
     return (+this._inStake + +this._dividends).toString();
   }
@@ -152,10 +157,6 @@ export class UnstakeFormStore {
 
   private set isLoading(value: boolean) {
     this._isLoading = value;
-  }
-
-  private set inStake(value: string) {
-    this._inStake = value;
   }
 
   private set dividends(value: string) {

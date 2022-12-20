@@ -7,28 +7,12 @@ import { OperationStatus } from "../../../shared/types";
 import { RootStore } from "../../../app/root-store";
 
 export class StakeFormStore {
-  private readonly _sourceContract: Contract;
-
-  private readonly _destinationContract: Contract;
-
   private _unStakeDate: Date | undefined;
 
   private _status: OperationStatus = OperationStatus.READY;
 
   constructor(private _rootStore: RootStore) {
     makeAutoObservable(this);
-
-    this._sourceContract = new Contract(
-      TOKEN_ADDRESS[TOKEN_SYMBOLS.OMD],
-      TOKEN_ABI[TOKEN_SYMBOLS.OMD],
-      _rootStore.signerOrProvider
-    );
-
-    this._destinationContract = new Contract(
-      TOKEN_ADDRESS[TOKEN_SYMBOLS.STOMD],
-      TOKEN_ABI[TOKEN_SYMBOLS.STOMD],
-      _rootStore.signerOrProvider
-    );
 
     this.fetchUnStakeDate();
   }
@@ -46,8 +30,7 @@ export class StakeFormStore {
 
   private fetchUnStakeDate = async (): Promise<void> => {
     try {
-      console.log(this._destinationContract)
-      const divDate = await this._destinationContract.divDate()
+      const divDate = await this.destinationContract.divDate();
       const timestamp = Number(formatUnits(divDate, 0)) * 1000;
       this.unStakeDate = new Date(timestamp);
     } catch (e) {
@@ -89,11 +72,19 @@ export class StakeFormStore {
   };
 
   public get sourceContract(): Contract {
-    return this._sourceContract;
+    return new Contract(
+      TOKEN_ADDRESS[TOKEN_SYMBOLS.OMD],
+      TOKEN_ABI[TOKEN_SYMBOLS.OMD],
+      this._rootStore.signerOrProvider
+    );
   }
 
   public get destinationContract(): Contract {
-    return this._destinationContract;
+    return new Contract(
+      TOKEN_ADDRESS[TOKEN_SYMBOLS.STOMD],
+      TOKEN_ABI[TOKEN_SYMBOLS.STOMD],
+      this._rootStore.signerOrProvider
+    );
   }
 
   public get status(): OperationStatus {

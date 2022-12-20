@@ -1,18 +1,13 @@
 import { makeAutoObservable } from "mobx";
 import { Contract } from "@ethersproject/contracts";
 import { TOKEN_ABI, TOKEN_ADDRESS } from "../../../entities";
-import { JsonRpcSigner } from "@ethersproject/providers";
 import { BaseTokensFormSubmitData } from "../../base-tokens-form";
 import { CR_SWAP_CONTRACT_DATA } from "../constants";
 import { formatUnits, parseUnits } from "@ethersproject/units";
 import { SwapStatus } from "../../swap-tokens";
+import {RootStore} from "../../../app/root-store";
 
 export class CRFormStore {
-  private readonly _sourceContract: Contract;
-
-  private readonly _destinationContract: Contract;
-
-  private _swapContract: Contract;
 
   private _exchangeRate: number = 0;
 
@@ -20,26 +15,8 @@ export class CRFormStore {
 
   private _swapStatus: SwapStatus = SwapStatus.READY;
 
-  constructor(private _signer: JsonRpcSigner) {
+  constructor(private _rootStore: RootStore) {
     makeAutoObservable(this);
-
-    this._sourceContract = new Contract(
-      TOKEN_ADDRESS.OMD,
-      TOKEN_ABI.OMD,
-      _signer
-    );
-
-    this._destinationContract = new Contract(
-      TOKEN_ADDRESS.omdwCRB,
-      TOKEN_ABI.omdwCRB,
-      _signer
-    );
-
-    this._swapContract = new Contract(
-      CR_SWAP_CONTRACT_DATA.address,
-      CR_SWAP_CONTRACT_DATA.abi,
-      _signer
-    );
 
     this.init();
   }
@@ -90,13 +67,32 @@ export class CRFormStore {
       : (+sourceAmount / this._exchangeRate).toString();
   };
 
-  public get sourceContract(): Contract {
-    return this._sourceContract;
+  public get _sourceContract(): Contract {
+    return new Contract(
+        TOKEN_ADDRESS.OMD,
+        TOKEN_ABI.OMD,
+        this._rootStore.signerOrProvider
+    );
+
   }
 
-  public get destinationContract(): Contract {
-    return this._destinationContract;
+  public get _destinationContract(): Contract {
+    return new Contract(
+        TOKEN_ADDRESS.omdwCRB,
+        TOKEN_ABI.omdwCRB,
+        this._rootStore.signerOrProvider
+    );
+
   }
+
+  public get _swapContract(): Contract {
+    return new Contract(
+        CR_SWAP_CONTRACT_DATA.address,
+        CR_SWAP_CONTRACT_DATA.abi,
+        this._rootStore.signerOrProvider
+    );
+  }
+
 
   public get isLoading(): boolean {
     return (

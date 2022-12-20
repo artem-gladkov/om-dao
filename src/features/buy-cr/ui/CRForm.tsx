@@ -6,11 +6,12 @@ import { CRFormStore } from "../model";
 import { SWAP_STATUS_LABELS } from "../../swap-tokens";
 import { TokenAddButton } from "../../add-token-to-metamask";
 import {useSignerStore} from "../../../entities/signer";
+import {useRootStore} from "../../../app/use-root-store";
 
 export const CRForm: FC = observer(() => {
-  const { signer } = useSignerStore();
+  const rootStore = useRootStore();
 
-  const [store] = useState(() => new CRFormStore(signer))
+  const [store] = useState(() => new CRFormStore(rootStore))
   const { isLoading, onSubmit, calculateDestinationAmount, swapStatus } = store;
 
   return (

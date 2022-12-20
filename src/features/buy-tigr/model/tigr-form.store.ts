@@ -8,12 +8,6 @@ import { SwapStatus } from "../../swap-tokens";
 import { RootStore } from "../../../app/root-store";
 
 export class TigrFormStore {
-  private readonly _sourceContract: Contract;
-
-  private readonly _destinationContract: Contract;
-
-  private _swapContract: Contract;
-
   private _exchangeRate: number = 0;
 
   private _isInitialized: boolean = false;
@@ -22,24 +16,6 @@ export class TigrFormStore {
 
   constructor(private _rootStore: RootStore) {
     makeAutoObservable(this);
-
-    this._sourceContract = new Contract(
-      TOKEN_ADDRESS.OMD,
-      TOKEN_ABI.OMD,
-      _rootStore.signerOrProvider
-    );
-
-    this._destinationContract = new Contract(
-      TOKEN_ADDRESS.omdwTigr,
-      TOKEN_ABI.omdwTigr,
-      _rootStore.signerOrProvider
-    );
-
-    this._swapContract = new Contract(
-      TIGR_SWAP_CONTRACT_DATA.address,
-      TIGR_SWAP_CONTRACT_DATA.abi,
-      _rootStore.signerOrProvider
-    );
 
     this.init();
   }
@@ -90,12 +66,28 @@ export class TigrFormStore {
       : (+sourceAmount / this._exchangeRate).toString();
   };
 
-  public get sourceContract(): Contract {
-    return this._sourceContract;
+  public get _sourceContract(): Contract {
+    return new Contract(
+      TOKEN_ADDRESS.OMD,
+      TOKEN_ABI.OMD,
+      this._rootStore.signerOrProvider
+    );
   }
 
-  public get destinationContract(): Contract {
-    return this._destinationContract;
+  public get _destinationContract(): Contract {
+    return new Contract(
+      TOKEN_ADDRESS.omdwTigr,
+      TOKEN_ABI.omdwTigr,
+      this._rootStore.signerOrProvider
+    );
+  }
+
+  public get _swapContract(): Contract {
+    return new Contract(
+      TIGR_SWAP_CONTRACT_DATA.address,
+      TIGR_SWAP_CONTRACT_DATA.abi,
+      this._rootStore.signerOrProvider
+    );
   }
 
   public get isLoading(): boolean {
