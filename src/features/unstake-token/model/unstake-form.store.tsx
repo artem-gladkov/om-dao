@@ -6,7 +6,6 @@ import { format } from "date-fns";
 import { makeAutoObservable } from "mobx";
 import { OperationStatus } from "../../../shared/types";
 import { UNSTAKE_STATUS_LABELS } from "../constants";
-import {th} from "date-fns/locale";
 
 export class UnstakeFormStore {
   private _inStake: string = "";
@@ -63,7 +62,7 @@ export class UnstakeFormStore {
       const decimals = await this._stakeContract.decimals();
       const signerAddress = await this._signer.getAddress();
       const balance = await this._stakeContract.balanceOf(signerAddress);
-
+      console.log(signerAddress);
       this.inStake = formatUnits(balance, decimals);
     } catch (e) {
       console.log(e);

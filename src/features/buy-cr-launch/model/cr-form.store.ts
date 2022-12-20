@@ -24,10 +24,20 @@ export class CRFormLaunchStore {
 
     private _refcode: string = "base";
 
-    constructor(private _signer: JsonRpcSigner, refCode: string | undefined) {
+    private _accountAddress: string =
+        "0x0000000000000000000000000000000000000000";
+
+    constructor(
+        private _signer: JsonRpcSigner,
+        refCode: string | undefined,
+        accountAddress: string | undefined
+    ) {
         makeAutoObservable(this);
 
         this._refcode = refCode ? refCode : "base";
+        this._accountAddress = accountAddress
+            ? accountAddress
+            : "0x0000000000000000000000000000000000000000";
 
         this._sourceContract = new Contract(
             TOKEN_ADDRESS.OMD,
@@ -50,9 +60,13 @@ export class CRFormLaunchStore {
         this.init();
     }
 
-    private init = async () => {
+    private init = async (): Promise<void> => {
         try {
-            const bigNumber = await this._swapContract.myPrice();
+            const bytes32Symbol = formatBytes32String(TOKEN_SYMBOLS.CR);
+            const bigNumber = await this._swapContract.myPrice(
+                this._accountAddress,
+                bytes32Symbol
+            );
             this.exchangeRate = +formatUnits(bigNumber, "6");
         } catch (e) {
             console.log(e);
