@@ -11,7 +11,7 @@ export const CONSForm: FC = observer(() => {
   const rootStore = useRootStore();
 
   const [store] = useState(() => new CONSFormStore(rootStore));
-  const { isLoading, onSubmit, calculateDestinationAmount, swapStatus } = store;
+  const { isLoading, onSubmit, calculateDestinationAmount, swapStatus, exchangeRate} = store;
 
   return (
     <>

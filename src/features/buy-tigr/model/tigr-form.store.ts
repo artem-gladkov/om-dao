@@ -14,6 +14,8 @@ export class TigrFormStore {
 
   private _swapStatus: SwapStatus = SwapStatus.READY;
 
+  private _maxCount: string = "0"
+
   constructor(private _rootStore: RootStore) {
     makeAutoObservable(this);
 
@@ -23,7 +25,17 @@ export class TigrFormStore {
   private init = async () => {
     try {
       const bigNumber = await this._swapContract.PriceomdwTigr();
-      this.exchangeRate = +formatUnits(bigNumber, "6");
+      this._exchangeRate = +formatUnits(bigNumber, "6");
+
+
+      const maxCount = await this._destinationContract.balanceOf(
+          this._swapContract.address
+      );
+
+      this._maxCount = formatUnits(
+          maxCount,
+          await this._destinationContract.decimals()
+      );
     } catch (e) {
       console.log(e);
     } finally {
@@ -105,12 +117,12 @@ export class TigrFormStore {
     return this._swapStatus;
   }
 
-  private set isInitialized(value: boolean) {
-    this._isInitialized = value;
+  public get maxCount(): string {
+    return this._maxCount;
   }
 
-  private set exchangeRate(value: number) {
-    this._exchangeRate = value;
+  private set isInitialized(value: boolean) {
+    this._isInitialized = value;
   }
 
   private set swapStatus(value: SwapStatus) {

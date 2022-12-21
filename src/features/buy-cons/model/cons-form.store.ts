@@ -24,7 +24,7 @@ export class CONSFormStore {
   private init = async () => {
     try {
       const bigNumber = await this._swapContract.PriceomdwCons();
-      this.exchangeRate = +formatUnits(bigNumber, "6");
+      this._exchangeRate = +formatUnits(bigNumber, "6");
     } catch (e) {
       console.log(e);
     } finally {
@@ -69,25 +69,25 @@ export class CONSFormStore {
 
   public get _sourceContract(): Contract {
     return new Contract(
-        TOKEN_ADDRESS.OMD,
-        TOKEN_ABI.OMD,
-        this._rootStore.signerOrProvider
+      TOKEN_ADDRESS.OMD,
+      TOKEN_ABI.OMD,
+      this._rootStore.signerOrProvider
     );
   }
 
   public get destinationContract(): Contract {
     return new Contract(
-        TOKEN_ADDRESS.omdwCons,
-        TOKEN_ABI.omdwCons,
-        this._rootStore.signerOrProvider
+      TOKEN_ADDRESS.omdwCons,
+      TOKEN_ABI.omdwCons,
+      this._rootStore.signerOrProvider
     );
   }
 
   public get _swapContract(): Contract {
     return new Contract(
-        CONS_SWAP_CONTRACT_DATA.address,
-        CONS_SWAP_CONTRACT_DATA.abi,
-        this._rootStore.signerOrProvider
+      CONS_SWAP_CONTRACT_DATA.address,
+      CONS_SWAP_CONTRACT_DATA.abi,
+      this._rootStore.signerOrProvider
     );
   }
 
@@ -110,11 +110,11 @@ export class CONSFormStore {
     this._isInitialized = value;
   }
 
-  private set exchangeRate(value: number) {
-    this._exchangeRate = value;
-  }
-
   private set swapStatus(value: SwapStatus) {
     this._swapStatus = value;
+  }
+
+  public get exchangeRate(): Number {
+    return this._exchangeRate;
   }
 }

@@ -1,22 +1,14 @@
 import { FC, useCallback, useEffect, useMemo, useState } from "react";
 
 import styles from "./BaseTokensForm.module.scss";
-import {
-  TOKEN_ABI,
-  TOKEN_ADDRESS,
-  TOKEN_SYMBOLS,
-} from "../../../../entities";
+import { TOKEN_ABI, TOKEN_ADDRESS, TOKEN_SYMBOLS } from "../../../../entities";
 import { observer } from "mobx-react-lite";
 import { SourceContract } from "../SourceContract";
 import { DestinationContract } from "../DestinationContract";
 import { BaseContractInfo, BaseTokensFormSubmitData } from "../../types";
 import { Button, Loader } from "../../../../shared/ui";
 import { Arrow } from "../../../../shared/ui";
-import {
-  useAccount,
-  useBalance,
-  useContractRead,
-} from "wagmi";
+import { useAccount, useBalance, useContractRead } from "wagmi";
 import { Web3Button } from "@web3modal/react";
 
 export interface BaseTokensFormProps {
@@ -34,6 +26,7 @@ export interface BaseTokensFormProps {
   canRearrangeContracts?: boolean;
   disableSubmitButton?: boolean;
   disabledText?: string;
+  maxCount?: string;
 }
 
 export const BaseTokensForm: FC<BaseTokensFormProps> = observer(
@@ -49,6 +42,7 @@ export const BaseTokensForm: FC<BaseTokensFormProps> = observer(
     canRearrangeContracts,
     disableSubmitButton,
     disabledText,
+    maxCount,
   }) => {
     const { data: sd } = useBaseTokenInfo(sourceContractSymbol, true);
 
@@ -136,6 +130,42 @@ export const BaseTokensForm: FC<BaseTokensFormProps> = observer(
         : sourceAmount;
     }, [sourceAmount, calculateDestinationAmount, isRearranged]);
 
+    const destinationExchangeRate = useMemo(() => {
+      let destinationAmountForOneToken = "1";
+
+      if (calculateDestinationAmount) {
+        const processedValue = calculateDestinationAmount("1", isRearranged);
+
+        if (processedValue !== "0") {
+          destinationAmountForOneToken = processedValue;
+        }
+      }
+
+      const value = (1 / +destinationAmountForOneToken).toFixed(2);
+
+      const symbol = isRearranged
+        ? destinationContractSymbol
+        : sourceContractSymbol;
+
+      return `${value} ${symbol}`;
+    }, [sourceAmount, calculateDestinationAmount, isRearranged]);
+
+    const sourceMaxCount = useMemo(() => {
+      let destinationAmountForOneToken = "1";
+
+      if (calculateDestinationAmount) {
+        const processedValue = calculateDestinationAmount("1", isRearranged);
+
+        if (processedValue !== "0") {
+          destinationAmountForOneToken = processedValue;
+        }
+      }
+
+      return maxCount
+        ? (+maxCount * +destinationAmountForOneToken).toFixed(1)
+        : undefined;
+    }, [maxCount, calculateDestinationAmount, isRearranged]);
+
     const isDataFetched = sourceData && destinationData;
 
     const isButtonSubmitDisabled =
@@ -161,6 +191,7 @@ export const BaseTokensForm: FC<BaseTokensFormProps> = observer(
                   fullContractInfo={sourceData}
                   amount={sourceAmount}
                   onChangeAmount={onChangeSwapAmount}
+                  maxCount={sourceMaxCount}
                 />
                 {canRearrangeContracts && (
                   <Arrow
@@ -171,6 +202,8 @@ export const BaseTokensForm: FC<BaseTokensFormProps> = observer(
                 <DestinationContract
                   fullContractInfo={destinationData}
                   amount={destinationAmount}
+                  exchangeRate={destinationExchangeRate}
+                  maxCount={maxCount}
                 />
                 {isConnected ? (
                   <Button
@@ -182,9 +215,9 @@ export const BaseTokensForm: FC<BaseTokensFormProps> = observer(
                     Совершить сделку
                   </Button>
                 ) : (
-                    <div className="flex justify-center items-center">
-                      <Web3Button label="Подключить кошелек" />
-                    </div>
+                  <div className="flex justify-center items-center">
+                    <Web3Button label="Подключить кошелек" />
+                  </div>
                 )}
               </>
             )}

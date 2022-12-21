@@ -6,12 +6,18 @@ import { TigrFormStore } from "../model";
 import { SWAP_STATUS_LABELS } from "../../swap-tokens";
 import { TokenAddButton } from "../../add-token-to-metamask";
 
-import {useRootStore} from "../../../app/use-root-store";
+import { useRootStore } from "../../../app/use-root-store";
 export const TigrForm: FC = observer(() => {
-    const rootStore = useRootStore()
+  const rootStore = useRootStore();
 
   const [store] = useState(() => new TigrFormStore(rootStore));
-  const { isLoading, onSubmit, calculateDestinationAmount, swapStatus } = store;
+  const {
+    isLoading,
+    onSubmit,
+    calculateDestinationAmount,
+    swapStatus,
+    maxCount,
+  } = store;
 
   return (
     <>
@@ -23,6 +29,7 @@ export const TigrForm: FC = observer(() => {
         calculateDestinationAmount={calculateDestinationAmount}
         loadingText={SWAP_STATUS_LABELS[swapStatus]}
         isLoading={isLoading}
+        maxCount={maxCount}
       />
       <TokenAddButton
         className="w-full"

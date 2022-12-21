@@ -9,7 +9,9 @@ export interface SourceContractProps {
   fullContractInfo: BaseContractInfo;
   amount: string;
   onChangeAmount: (value: string) => void;
+  exchangeRate?: string;
   className?: string;
+  maxCount?: string;
 }
 
 export const SourceContract: FC<SourceContractProps> = ({
@@ -17,6 +19,8 @@ export const SourceContract: FC<SourceContractProps> = ({
   onChangeAmount,
   amount,
   fullContractInfo,
+  exchangeRate,
+  maxCount,
   ...otherProps
 }) => {
   return (
@@ -29,6 +33,8 @@ export const SourceContract: FC<SourceContractProps> = ({
         token={fullContractInfo}
         amount={amount}
         onChangeAmount={onChangeAmount}
+        exchangeRate={exchangeRate}
+        maxCount={maxCount}
       />
     </div>
   );
