@@ -130,7 +130,7 @@ export const BaseTokensForm: FC<BaseTokensFormProps> = observer(
         : sourceAmount;
     }, [sourceAmount, calculateDestinationAmount, isRearranged]);
 
-    const destinationExchangeRate = useMemo(() => {
+    const destinationExchangeRate = () => {
       let destinationAmountForOneToken = "1";
 
       if (calculateDestinationAmount) {
@@ -148,7 +148,7 @@ export const BaseTokensForm: FC<BaseTokensFormProps> = observer(
         : sourceContractSymbol;
 
       return `${value} ${symbol}`;
-    }, [sourceAmount, calculateDestinationAmount, isRearranged]);
+    }
 
     const sourceMaxCount = useMemo(() => {
       let destinationAmountForOneToken = "1";
@@ -202,7 +202,7 @@ export const BaseTokensForm: FC<BaseTokensFormProps> = observer(
                 <DestinationContract
                   fullContractInfo={destinationData}
                   amount={destinationAmount}
-                  exchangeRate={destinationExchangeRate}
+                  exchangeRate={destinationExchangeRate()}
                   maxCount={maxCount}
                 />
                 {isConnected ? (
