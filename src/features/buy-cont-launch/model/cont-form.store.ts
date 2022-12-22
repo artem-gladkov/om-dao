@@ -40,7 +40,7 @@ export class CONTFormLaunchStore {
 
     private init = async (): Promise<void> => {
         try {
-            const bytes32Symbol = formatBytes32String(TOKEN_SYMBOLS.CR);
+            const bytes32Symbol = formatBytes32String(TOKEN_SYMBOLS.CONT);
             const bigNumber = await this.swapContract.myPrice(
                 this._accountAddress,
                 bytes32Symbol
@@ -79,7 +79,7 @@ export class CONTFormLaunchStore {
             await approveTransaction.wait();
 
             this._swapStatus = SwapStatus.AWAITING_CONFIRM;
-            const bytes32Symbol = formatBytes32String(TOKEN_SYMBOLS.CR);
+            const bytes32Symbol = formatBytes32String(TOKEN_SYMBOLS.CONT);
             const bytes32ReferalCode = formatBytes32String(this._refcode);
 
             const buyTransaction = await this.swapContract.buyToken(
@@ -114,8 +114,8 @@ export class CONTFormLaunchStore {
 
     public get destinationContract(): Contract {
         return new Contract(
-            TOKEN_ADDRESS.omdwCRB,
-            TOKEN_ABI.omdwCRB,
+            TOKEN_ADDRESS.omdwCont,
+            TOKEN_ABI.omdwCont,
             this._rootStore.signerOrProvider
         );
     }
