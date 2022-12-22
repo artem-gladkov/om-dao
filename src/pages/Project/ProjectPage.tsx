@@ -21,9 +21,9 @@ export const ProjectPage: FC = () => {
   return (
     <div className="container mx-auto p-4 max-w-2xl">
       {params.symbol === 'omdwTigr' && <TigrForm />}
-      {/*{params.symbol === 'omdwCRB' && <CRForm />}*/}
+      {params.symbol === 'omdwCRB' && <CRForm />}
       {params.symbol === 'omdwCons' && <CONSForm />}
-      {params.symbol === "omdwCRB" && <CRFormLaunch />}
+      {/* {params.symbol === "omdwCRB" && <CRFormLaunch />} */}
     </div>
   );
 };

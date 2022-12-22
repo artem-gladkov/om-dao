@@ -12,7 +12,7 @@ export const CRForm: FC = observer(() => {
   const rootStore = useRootStore();
 
   const [store] = useState(() => new CRFormStore(rootStore))
-  const { isLoading, onSubmit, calculateDestinationAmount, swapStatus } = store;
+  const { isLoading, onSubmit, calculateDestinationAmount, swapStatus, maxCount } = store;
 
   return (
     <>
@@ -24,6 +24,7 @@ export const CRForm: FC = observer(() => {
         calculateDestinationAmount={calculateDestinationAmount}
         loadingText={SWAP_STATUS_LABELS[swapStatus]}
         isLoading={isLoading}
+        maxCount={maxCount}
       />
       <TokenAddButton
         className="w-full"

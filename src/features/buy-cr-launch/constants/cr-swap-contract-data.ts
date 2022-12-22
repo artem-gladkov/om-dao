@@ -2,7 +2,7 @@ import { isProd } from "../../../shared/config";
 
 export const CR_SWAP_CONTRACT_DATA = {
     address: isProd()
-        ? "0xCa5AD60a224f536A5174911722e2FEC17C0eF1d9"
+        ? "0x9a4d39F46044400Aa48Ab528f8EC3DD3B793f885"
         : "0xCa5AD60a224f536A5174911722e2FEC17C0eF1d9",
     abi: [
         {
