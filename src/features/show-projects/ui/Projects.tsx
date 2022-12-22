@@ -2,6 +2,7 @@ import { FC } from "react";
 import { Project } from "./Project";
 
 import TigrImg from "../../../app/images/tokens/omdwtigr.webp";
+
 import ConsImg from "../../../app/images/tokens/omdwcons.webp";
 import CRImg from "../../../app/images/tokens/omdwcrb.webp";
 import { TOKEN_SYMBOLS } from "../../../entities";
