@@ -157,7 +157,7 @@ export const BaseTokensForm: FC<BaseTokensFormProps> = observer(
         const processedValue = calculateDestinationAmount("1", isRearranged);
 
         if (processedValue !== "0") {
-          destinationAmountForOneToken = processedValue;
+          destinationAmountForOneToken = (1 / +processedValue).toString();
         }
       }
 
