@@ -141,7 +141,7 @@ export const BaseTokensForm: FC<BaseTokensFormProps> = observer(
         }
       }
 
-      const value = (1 / +destinationAmountForOneToken).toFixed(2);
+      const value = (1 / +destinationAmountForOneToken).toFixed(3);
 
       const symbol = isRearranged
         ? destinationContractSymbol
