@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from "react";
 
-import { TOKEN_SYMBOLS, useEthereumStore } from "../../../../entities";
+import { TOKEN_SYMBOLS } from "../../../../entities";
 import { SwapFormStore } from "../../model";
 import { observer } from "mobx-react-lite";
 import { SwapStatus } from "../../types";
@@ -10,10 +10,12 @@ import { BaseTokensForm } from "../../../base-tokens-form";
 import { SWAP_STATUS_LABELS } from "../../constants";
 import { useSearchParams } from "react-router-dom";
 import { calculateSwapDestinationAmount } from "../../lib";
+import {useRootStore} from "../../../../app/use-root-store";
 
 export interface ISwapFormProps {}
 
 export const SwapForm: FC<ISwapFormProps> = observer(() => {
+  const rootStore = useRootStore();
   const navigate = useNavigate();
 
   const [params] = useSearchParams([
@@ -21,19 +23,11 @@ export const SwapForm: FC<ISwapFormProps> = observer(() => {
     ["tokenB", TOKEN_SYMBOLS.OMD],
   ]);
 
-  const {
-    ethereumStore: { signer },
-  } = useEthereumStore();
+  const tokenASymbol = params.get("tokenA") as TOKEN_SYMBOLS;
+  const tokenBSymbol = params.get("tokenB") as TOKEN_SYMBOLS;
 
-  const [
-    { onSwap, swapStatus, isSwapping, sourceContract, destinationContract },
-  ] = useState(
-    () =>
-      new SwapFormStore(
-        signer,
-        params.get("tokenA") as TOKEN_SYMBOLS,
-        params.get("tokenB") as TOKEN_SYMBOLS
-      )
+  const [{ onSwap, swapStatus, isSwapping }] = useState(
+    () => new SwapFormStore(rootStore, tokenASymbol, tokenBSymbol)
   );
 
   useEffect(() => {
@@ -46,8 +40,8 @@ export const SwapForm: FC<ISwapFormProps> = observer(() => {
     <BaseTokensForm
       title="Обмен токенов"
       onSubmit={onSwap}
-      sourceContract={sourceContract}
-      destinationContract={destinationContract}
+      sourceContractSymbol={tokenASymbol}
+      destinationContractSymbol={tokenBSymbol}
       isLoading={isSwapping}
       loadingText={SWAP_STATUS_LABELS[swapStatus]}
       calculateDestinationAmount={calculateSwapDestinationAmount}

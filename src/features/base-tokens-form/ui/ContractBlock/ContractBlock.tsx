@@ -11,6 +11,8 @@ export interface ContractBlockProps {
   onChangeAmount?: (value: string) => void;
   readonlyAmount?: boolean;
   className?: string;
+  exchangeRate?: string;
+  maxCount?: string;
 }
 
 export const ContractBlock: FC<ContractBlockProps> = ({
@@ -20,6 +22,8 @@ export const ContractBlock: FC<ContractBlockProps> = ({
   readonlyAmount = false,
   title,
   className,
+  exchangeRate,
+  maxCount,
 }) => {
   const handleChangeSwapAmount = useCallback(
     (value: string) => {
@@ -39,15 +43,19 @@ export const ContractBlock: FC<ContractBlockProps> = ({
         <div>{title}</div>
         <div>Текущий баланс: {balance}</div>
       </div>
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-2 gap-4 align-top">
         <Token img={image} symbol={symbol} />
-        <Input
-          value={amount}
-          onChange={handleChangeSwapAmount}
-          readOnly={readonlyAmount}
-        />
+        <div className="flex flex-col justify-end space-y-2 ">
+          <Input
+            value={amount}
+            onChange={handleChangeSwapAmount}
+            readOnly={readonlyAmount}
+          />
+          {maxCount && <p className="text-right">Максимум: {maxCount}</p>}
+        </div>
       </div>
       <div>{name}</div>
+      {exchangeRate && <div>Цена: {exchangeRate}</div>}
     </div>
   );
 };

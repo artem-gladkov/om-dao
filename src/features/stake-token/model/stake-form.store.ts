@@ -1,34 +1,18 @@
 import { Contract } from "@ethersproject/contracts";
 import { TOKEN_ABI, TOKEN_ADDRESS, TOKEN_SYMBOLS } from "../../../entities";
-import { JsonRpcSigner } from "@ethersproject/providers";
 import { BaseTokensFormSubmitData } from "../../base-tokens-form";
 import { formatUnits, parseUnits } from "@ethersproject/units";
 import { makeAutoObservable } from "mobx";
 import { OperationStatus } from "../../../shared/types";
+import { RootStore } from "../../../app/root-store";
 
 export class StakeFormStore {
-  private readonly _sourceContract: Contract;
-
-  private readonly _destinationContract: Contract;
-
   private _unStakeDate: Date | undefined;
 
   private _status: OperationStatus = OperationStatus.READY;
 
-  constructor(private _signer: JsonRpcSigner) {
+  constructor(private _rootStore: RootStore) {
     makeAutoObservable(this);
-
-    this._sourceContract = new Contract(
-      TOKEN_ADDRESS[TOKEN_SYMBOLS.OMD],
-      TOKEN_ABI[TOKEN_SYMBOLS.OMD],
-      _signer
-    );
-
-    this._destinationContract = new Contract(
-      TOKEN_ADDRESS[TOKEN_SYMBOLS.STOMD],
-      TOKEN_ABI[TOKEN_SYMBOLS.STOMD],
-      _signer
-    );
 
     this.fetchUnStakeDate();
   }
@@ -46,8 +30,8 @@ export class StakeFormStore {
 
   private fetchUnStakeDate = async (): Promise<void> => {
     try {
-      const timestamp =
-        Number(formatUnits(await this.destinationContract.divDate(), 0)) * 1000;
+      const divDate = await this.destinationContract.divDate();
+      const timestamp = Number(formatUnits(divDate, 0)) * 1000;
       this.unStakeDate = new Date(timestamp);
     } catch (e) {
       console.log(e);
@@ -88,11 +72,19 @@ export class StakeFormStore {
   };
 
   public get sourceContract(): Contract {
-    return this._sourceContract;
+    return new Contract(
+      TOKEN_ADDRESS[TOKEN_SYMBOLS.OMD],
+      TOKEN_ABI[TOKEN_SYMBOLS.OMD],
+      this._rootStore.signerOrProvider
+    );
   }
 
   public get destinationContract(): Contract {
-    return this._destinationContract;
+    return new Contract(
+      TOKEN_ADDRESS[TOKEN_SYMBOLS.STOMD],
+      TOKEN_ABI[TOKEN_SYMBOLS.STOMD],
+      this._rootStore.signerOrProvider
+    );
   }
 
   public get status(): OperationStatus {

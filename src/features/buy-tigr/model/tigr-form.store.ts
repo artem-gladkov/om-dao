@@ -1,45 +1,23 @@
 import { makeAutoObservable } from "mobx";
 import { Contract } from "@ethersproject/contracts";
 import { TOKEN_ABI, TOKEN_ADDRESS } from "../../../entities";
-import { JsonRpcSigner } from "@ethersproject/providers";
 import { BaseTokensFormSubmitData } from "../../base-tokens-form";
 import { TIGR_SWAP_CONTRACT_DATA } from "../constants";
 import { formatUnits, parseUnits } from "@ethersproject/units";
 import { SwapStatus } from "../../swap-tokens";
+import { RootStore } from "../../../app/root-store";
 
 export class TigrFormStore {
-  private readonly _sourceContract: Contract;
-
-  private readonly _destinationContract: Contract;
-
-  private _swapContract: Contract;
-
   private _exchangeRate: number = 0;
 
   private _isInitialized: boolean = false;
 
   private _swapStatus: SwapStatus = SwapStatus.READY;
 
-  constructor(private _signer: JsonRpcSigner) {
+  private _maxCount: string = "0"
+
+  constructor(private _rootStore: RootStore) {
     makeAutoObservable(this);
-
-    this._sourceContract = new Contract(
-      TOKEN_ADDRESS.OMD,
-      TOKEN_ABI.OMD,
-      _signer
-    );
-
-    this._destinationContract = new Contract(
-      TOKEN_ADDRESS.omdwTigr,
-      TOKEN_ABI.omdwTigr,
-      _signer
-    );
-
-    this._swapContract = new Contract(
-      TIGR_SWAP_CONTRACT_DATA.address,
-      TIGR_SWAP_CONTRACT_DATA.abi,
-      _signer
-    );
 
     this.init();
   }
@@ -47,7 +25,17 @@ export class TigrFormStore {
   private init = async () => {
     try {
       const bigNumber = await this._swapContract.PriceomdwTigr();
-      this.exchangeRate = +formatUnits(bigNumber, "6");
+      this._exchangeRate = +formatUnits(bigNumber, "6");
+
+
+      const maxCount = await this._destinationContract.balanceOf(
+          this._swapContract.address
+      );
+
+      this._maxCount = formatUnits(
+          maxCount,
+          await this._destinationContract.decimals()
+      );
     } catch (e) {
       console.log(e);
     } finally {
@@ -90,12 +78,28 @@ export class TigrFormStore {
       : (+sourceAmount / this._exchangeRate).toString();
   };
 
-  public get sourceContract(): Contract {
-    return this._sourceContract;
+  public get _sourceContract(): Contract {
+    return new Contract(
+      TOKEN_ADDRESS.OMD,
+      TOKEN_ABI.OMD,
+      this._rootStore.signerOrProvider
+    );
   }
 
-  public get destinationContract(): Contract {
-    return this._destinationContract;
+  public get _destinationContract(): Contract {
+    return new Contract(
+      TOKEN_ADDRESS.omdwTigr,
+      TOKEN_ABI.omdwTigr,
+      this._rootStore.signerOrProvider
+    );
+  }
+
+  public get _swapContract(): Contract {
+    return new Contract(
+      TIGR_SWAP_CONTRACT_DATA.address,
+      TIGR_SWAP_CONTRACT_DATA.abi,
+      this._rootStore.signerOrProvider
+    );
   }
 
   public get isLoading(): boolean {
@@ -113,12 +117,12 @@ export class TigrFormStore {
     return this._swapStatus;
   }
 
-  private set isInitialized(value: boolean) {
-    this._isInitialized = value;
+  public get maxCount(): string {
+    return this._maxCount;
   }
 
-  private set exchangeRate(value: number) {
-    this._exchangeRate = value;
+  private set isInitialized(value: boolean) {
+    this._isInitialized = value;
   }
 
   private set swapStatus(value: SwapStatus) {

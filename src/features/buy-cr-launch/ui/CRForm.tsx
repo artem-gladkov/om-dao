@@ -2,17 +2,20 @@ import { FC, useState } from "react";
 import { BaseTokensForm } from "../../base-tokens-form";
 import { TOKEN_SYMBOLS } from "../../../entities";
 import { observer } from "mobx-react-lite";
-import { CRFormStore } from "../model";
+import { CRFormLaunchStore } from "../model";
 import { SWAP_STATUS_LABELS } from "../../swap-tokens";
 import { TokenAddButton } from "../../add-token-to-metamask";
-import {useSignerStore} from "../../../entities/signer";
-import {useRootStore} from "../../../app/use-root-store";
+import { useAccount } from "wagmi";
+import { useRootStore } from "../../../app/use-root-store";
 
-export const CRForm: FC = observer(() => {
-  const rootStore = useRootStore();
-
-  const [store] = useState(() => new CRFormStore(rootStore))
-  const { isLoading, onSubmit, calculateDestinationAmount, swapStatus, maxCount } = store;
+export const CRFormLaunch: FC = observer(() => {
+    const rootStore = useRootStore()
+  const dcon = useAccount();
+  const { refCode } = useRootStore();
+  const [store] = useState(
+    () => new CRFormLaunchStore(rootStore, refCode, dcon.address)
+  );
+  const { isLoading, onSubmit, calculateDestinationAmount, swapStatus,maxCount } = store;
 
   return (
     <>

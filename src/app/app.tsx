@@ -1,29 +1,39 @@
-import { FC, HTMLProps, useState } from "react";
+import { FC, useState } from "react";
 
-import { EthereumStore, EthereumStoreProvider } from "../entities";
-import { RouterProvider } from "react-router";
+import { WagmiConfig } from "wagmi";
+
 import { appRouter } from "../router";
+import { RouterProvider } from "react-router";
+import { Web3Modal } from "@web3modal/react";
+
+import { WALLET_CONNECT_PROJECT_ID } from "../shared/config";
+import { RootStore } from "./root-store";
+import { RootStoreProvider } from "./root-store-provider";
 import { Loader } from "../shared/ui";
 import { observer } from "mobx-react-lite";
-import { WrongNetworkOverlay } from "../widgets/wrong-network-overlay";
 
-export interface AppProps extends HTMLProps<any> {}
-
-export const App: FC<AppProps> = observer(({ className, children }) => {
-  const [ethereumStore] = useState(() => new EthereumStore());
-  const { initialized, isCorrectNetwork } = ethereumStore;
-
-  if (!initialized) {
-    return <Loader />;
-  }
+export const App: FC = observer(() => {
+  const [rootStore] = useState(() => new RootStore());
+  const { isAppInitialized, ethereumClient, wagmiClient } = rootStore;
 
   return (
-    <EthereumStoreProvider ethereumStore={ethereumStore}>
-      {isCorrectNetwork ? (
-        <RouterProvider router={appRouter} />
+    <RootStoreProvider rootStore={rootStore}>
+      {isAppInitialized ? (
+        <>
+          <WagmiConfig client={wagmiClient}>
+            <RouterProvider router={appRouter} />
+          </WagmiConfig>
+          <Web3Modal
+            projectId={WALLET_CONNECT_PROJECT_ID}
+            ethereumClient={ethereumClient}
+            themeMode="dark"
+            themeColor="magenta"
+            themeBackground="themeColor"
+          />
+        </>
       ) : (
-        <WrongNetworkOverlay />
+        <Loader />
       )}
-    </EthereumStoreProvider>
+    </RootStoreProvider>
   );
 });

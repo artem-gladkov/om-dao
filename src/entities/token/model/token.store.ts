@@ -6,11 +6,12 @@ import {
   TOKEN_NAME,
   TOKEN_SYMBOLS,
 } from "../../ethereum";
+import {Address} from "wagmi";
 
 export class TokenStore {
   private _decimals: string = "";
 
-  private _address: string = "";
+  private _address: Address = "0x";
 
   private _name: string = "";
 
@@ -22,11 +23,11 @@ export class TokenStore {
     this.address = TOKEN_ADDRESS[_symbol];
   }
 
-  public get address(): string {
+  public get address(): Address {
     return this._address;
   }
 
-  private set address(value: string) {
+  private set address(value: Address) {
     this._address = value;
   }
 

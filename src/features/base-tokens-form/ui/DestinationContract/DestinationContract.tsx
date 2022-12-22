@@ -3,18 +3,23 @@ import classNames from "classnames";
 
 import styles from "./DestinationContract.module.scss";
 import { ContractBlock } from "../ContractBlock";
-import { FullContractInfo } from "../../types";
+import { BaseContractInfo, FullContractInfo } from "../../types";
 
 export interface DestinationContractProps {
   className?: string;
-  fullContractInfo: FullContractInfo;
+  fullContractInfo: BaseContractInfo;
   amount: string;
+
+  exchangeRate?: string;
+  maxCount?: string;
 }
 
 export const DestinationContract: FC<DestinationContractProps> = ({
   className,
   amount,
-  fullContractInfo: { contract, ...restContractProps },
+  fullContractInfo,
+  exchangeRate,
+  maxCount,
   ...otherProps
 }) => {
   return (
@@ -24,9 +29,11 @@ export const DestinationContract: FC<DestinationContractProps> = ({
     >
       <ContractBlock
         title="Вы получаете"
-        token={restContractProps}
+        token={fullContractInfo}
         readonlyAmount
         amount={amount}
+        exchangeRate={exchangeRate}
+        maxCount={maxCount}
       />
     </div>
   );
