@@ -172,8 +172,7 @@ export const BaseTokensForm: FC<BaseTokensFormProps> = observer(
       !sourceAmount ||
       Number(sourceAmount) < 1 ||
       !sourceData ||
-      sourceData.balance < sourceAmount;
-
+      Number(sourceData.balance) < Number(sourceAmount);
     const onSubmitForm = useCallback(async () => {
       await onSubmit({ sourceAmount, destinationAmount, isRearranged });
     }, [onSubmit, sourceAmount, destinationAmount, isRearranged]);
