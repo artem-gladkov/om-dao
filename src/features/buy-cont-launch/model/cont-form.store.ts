@@ -1,34 +1,54 @@
 import { makeAutoObservable } from "mobx";
 import { Contract } from "@ethersproject/contracts";
-import { TOKEN_ABI, TOKEN_ADDRESS } from "../../../entities";
-import { JsonRpcSigner } from "@ethersproject/providers";
+import { TOKEN_ABI, TOKEN_ADDRESS, TOKEN_SYMBOLS } from "../../../entities";
 import { BaseTokensFormSubmitData } from "../../base-tokens-form";
-import { CONS_SWAP_CONTRACT_DATA } from "../constants";
+import { CONT_SWAP_CONTRACT_DATA } from "../constants";
 import { formatUnits, parseUnits } from "@ethersproject/units";
+import { formatBytes32String } from "@ethersproject/strings";
+
 import { SwapStatus } from "../../swap-tokens";
 import { RootStore } from "../../../app/root-store";
 
-export class CONSFormStore {
+export class CONTFormLaunchStore {
     private _exchangeRate: number = 0;
 
     private _isInitialized: boolean = false;
 
     private _swapStatus: SwapStatus = SwapStatus.READY;
 
+    private _refcode: string = "base";
+
+    private _accountAddress: string =
+        "0x0000000000000000000000000000000000000000";
+
     private _maxCount: string = "0";
 
-    constructor(private _rootStore: RootStore) {
+    constructor(
+        private _rootStore: RootStore,
+        refCode: string | undefined,
+        accountAddress: string | undefined
+    ) {
         makeAutoObservable(this);
+
+        this._refcode = refCode ? refCode : "base";
+        this._accountAddress = accountAddress
+            ? accountAddress
+            : "0x0000000000000000000000000000000000000000";
 
         this.init();
     }
 
-    private init = async () => {
+    private init = async (): Promise<void> => {
         try {
-            const bigNumber = await this._swapContract.PriceomdwCons();
+            const bytes32Symbol = formatBytes32String(TOKEN_SYMBOLS.CONT);
+            const bigNumber = await this.swapContract.myPrice(
+                this._accountAddress,
+                bytes32Symbol
+            );
             this._exchangeRate = +formatUnits(bigNumber, "6");
+
             const maxCount = await this.destinationContract.balanceOf(
-                this._swapContract.address
+                this.swapContract.address
             );
 
             this._maxCount = formatUnits(
@@ -38,37 +58,42 @@ export class CONSFormStore {
         } catch (e) {
             console.log(e);
         } finally {
-            this.isInitialized = true;
+            this._isInitialized = true;
         }
     };
 
     public onSubmit = async ({ sourceAmount }: BaseTokensFormSubmitData) => {
-        this.swapStatus = SwapStatus.STARTING;
+        this._swapStatus = SwapStatus.STARTING;
 
         try {
-            const decimals = await this._sourceContract.decimals();
+            const decimals = await this.sourceContract.decimals();
             const unit256Amount = parseUnits(sourceAmount, decimals);
 
-            this.swapStatus = SwapStatus.AWAITING_CONFIRM;
-            const approveTransaction = await this._sourceContract.approve(
-                this._swapContract.address,
+            this._swapStatus = SwapStatus.AWAITING_CONFIRM;
+            const approveTransaction = await this.sourceContract.approve(
+                this.swapContract.address,
                 unit256Amount
             );
 
-            this.swapStatus = SwapStatus.AWAITING_BLOCK_MINING;
+            this._swapStatus = SwapStatus.AWAITING_BLOCK_MINING;
             await approveTransaction.wait();
 
-            this.swapStatus = SwapStatus.AWAITING_CONFIRM;
-            const buyTransaction = await this._swapContract.buyToken(
-                unit256Amount
+            this._swapStatus = SwapStatus.AWAITING_CONFIRM;
+            const bytes32Symbol = formatBytes32String(TOKEN_SYMBOLS.CONT);
+            const bytes32ReferalCode = formatBytes32String(this._refcode);
+
+            const buyTransaction = await this.swapContract.buyToken(
+                bytes32Symbol,
+                unit256Amount,
+                bytes32ReferalCode
             );
 
-            this.swapStatus = SwapStatus.AWAITING_BLOCK_MINING;
+            this._swapStatus = SwapStatus.AWAITING_BLOCK_MINING;
             await buyTransaction.wait();
 
-            this.swapStatus = SwapStatus.SUCCESS;
+            this._swapStatus = SwapStatus.SUCCESS;
         } catch (e) {
-            this.swapStatus = SwapStatus.ERROR;
+            this._swapStatus = SwapStatus.ERROR;
             console.log(e);
         }
     };
@@ -79,7 +104,7 @@ export class CONSFormStore {
             : (+sourceAmount / this._exchangeRate).toString();
     };
 
-    public get _sourceContract(): Contract {
+    public get sourceContract(): Contract {
         return new Contract(
             TOKEN_ADDRESS.OMD,
             TOKEN_ABI.OMD,
@@ -89,16 +114,16 @@ export class CONSFormStore {
 
     public get destinationContract(): Contract {
         return new Contract(
-            TOKEN_ADDRESS.omdwCons,
-            TOKEN_ABI.omdwCons,
+            TOKEN_ADDRESS.omdwCont,
+            TOKEN_ABI.omdwCont,
             this._rootStore.signerOrProvider
         );
     }
 
-    public get _swapContract(): Contract {
+    public get swapContract(): Contract {
         return new Contract(
-            CONS_SWAP_CONTRACT_DATA.address,
-            CONS_SWAP_CONTRACT_DATA.abi,
+            CONT_SWAP_CONTRACT_DATA.address,
+            CONT_SWAP_CONTRACT_DATA.abi,
             this._rootStore.signerOrProvider
         );
     }
@@ -116,18 +141,6 @@ export class CONSFormStore {
 
     public get swapStatus(): SwapStatus {
         return this._swapStatus;
-    }
-
-    private set isInitialized(value: boolean) {
-        this._isInitialized = value;
-    }
-
-    private set swapStatus(value: SwapStatus) {
-        this._swapStatus = value;
-    }
-
-    public get exchangeRate(): Number {
-        return this._exchangeRate;
     }
 
     public get maxCount(): string {

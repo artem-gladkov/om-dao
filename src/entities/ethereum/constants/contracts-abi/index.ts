@@ -4,3 +4,4 @@ export * from "./omdao-stake";
 export * from "./tigr";
 export * from "./cr";
 export * from "./cons";
+export * from "./cont";

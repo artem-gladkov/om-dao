@@ -130,7 +130,7 @@ export const BaseTokensForm: FC<BaseTokensFormProps> = observer(
         : sourceAmount;
     }, [sourceAmount, calculateDestinationAmount, isRearranged]);
 
-    const destinationExchangeRate = useMemo(() => {
+    const destinationExchangeRate = () => {
       let destinationAmountForOneToken = "1";
 
       if (calculateDestinationAmount) {
@@ -141,14 +141,14 @@ export const BaseTokensForm: FC<BaseTokensFormProps> = observer(
         }
       }
 
-      const value = (1 / +destinationAmountForOneToken).toFixed(2);
+      const value = (1 / +destinationAmountForOneToken).toFixed(3);
 
       const symbol = isRearranged
         ? destinationContractSymbol
         : sourceContractSymbol;
 
       return `${value} ${symbol}`;
-    }, [sourceAmount, calculateDestinationAmount, isRearranged]);
+    }
 
     const sourceMaxCount = useMemo(() => {
       let destinationAmountForOneToken = "1";
@@ -157,7 +157,7 @@ export const BaseTokensForm: FC<BaseTokensFormProps> = observer(
         const processedValue = calculateDestinationAmount("1", isRearranged);
 
         if (processedValue !== "0") {
-          destinationAmountForOneToken = processedValue;
+          destinationAmountForOneToken = (1 / +processedValue).toString();
         }
       }
 
@@ -172,8 +172,7 @@ export const BaseTokensForm: FC<BaseTokensFormProps> = observer(
       !sourceAmount ||
       Number(sourceAmount) < 1 ||
       !sourceData ||
-      sourceData.balance < sourceAmount;
-
+      Number(sourceData.balance) < Number(sourceAmount);
     const onSubmitForm = useCallback(async () => {
       await onSubmit({ sourceAmount, destinationAmount, isRearranged });
     }, [onSubmit, sourceAmount, destinationAmount, isRearranged]);
@@ -202,7 +201,7 @@ export const BaseTokensForm: FC<BaseTokensFormProps> = observer(
                 <DestinationContract
                   fullContractInfo={destinationData}
                   amount={destinationAmount}
-                  exchangeRate={destinationExchangeRate}
+                  exchangeRate={destinationExchangeRate()}
                   maxCount={maxCount}
                 />
                 {isConnected ? (

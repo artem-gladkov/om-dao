@@ -15,7 +15,6 @@ export class ProviderStore {
 
   protected init = () => {
     try {
-      console.log("init provider store");
       watchProvider({ chainId: AVAILABLE_NETWORK }, this.onChangeProvider);
     } catch (e) {
       console.log(e);
@@ -25,7 +24,6 @@ export class ProviderStore {
   };
 
   private onChangeProvider = (data: GetProviderResult) => {
-    console.log(this._provider);
     this._provider = data;
   };
 
@@ -38,7 +36,6 @@ export class ProviderStore {
   }
 
   get hasProvider(): boolean {
-    console.log(this._provider);
     return !!this._provider;
   }
 }

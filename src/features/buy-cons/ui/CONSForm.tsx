@@ -11,7 +11,7 @@ export const CONSForm: FC = observer(() => {
   const rootStore = useRootStore();
 
   const [store] = useState(() => new CONSFormStore(rootStore));
-  const { isLoading, onSubmit, calculateDestinationAmount, swapStatus, exchangeRate} = store;
+  const { isLoading, onSubmit, calculateDestinationAmount, swapStatus, maxCount} = store;
 
   return (
     <>
@@ -22,7 +22,8 @@ export const CONSForm: FC = observer(() => {
         loadingText={SWAP_STATUS_LABELS[swapStatus]}
         isLoading={isLoading}
         sourceContractSymbol={TOKEN_SYMBOLS.OMD}
-        destinationContractSymbol={TOKEN_SYMBOLS.CR}
+        destinationContractSymbol={TOKEN_SYMBOLS.CONS}
+        maxCount={maxCount}
       />
       <TokenAddButton
         className="w-full"
