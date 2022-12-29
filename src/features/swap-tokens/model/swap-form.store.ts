@@ -116,8 +116,8 @@ export class SwapFormStore {
       const decimals = await this._sourceContract.decimals();
 
       const unit256Amount = parseUnits(amount, decimals);
-      const sellTransaction = await this._sourceContract.sellToken(
-        unit256Amount
+      const sellTransaction = await this._destinationContract.sellToken(
+          unit256Amount
       );
       this.swapStatus = SwapStatus.AWAITING_BLOCK_MINING;
       await sellTransaction.wait();

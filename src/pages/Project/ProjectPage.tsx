@@ -4,6 +4,7 @@ import { CRForm } from "../../features/buy-cr";
 import { CRFormLaunch } from "../../features/buy-cr-launch";
 import { CONSForm } from "../../features/buy-cons";
 import { CONTFormLaunch } from "../../features/buy-cont-launch";
+import { CHAIFormLaunch } from "../../features/buy-chai-launch";
 import { useParams } from "react-router";
 import { useRootStore } from "../../app/use-root-store";
 
@@ -26,6 +27,7 @@ export const ProjectPage: FC = () => {
       {params.symbol === 'omdwCons' && <CONSForm />}
       {/* {params.symbol === "omdwCRB" && <CRFormLaunch />} */}
       {params.symbol === 'omdwCont' && <CONTFormLaunch />}
+      {params.symbol === 'omdwChai' && <CHAIFormLaunch />}
     </div>
   );
 };

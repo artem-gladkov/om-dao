@@ -30,11 +30,11 @@ export const SwapForm: FC<ISwapFormProps> = observer(() => {
     () => new SwapFormStore(rootStore, tokenASymbol, tokenBSymbol)
   );
 
-  useEffect(() => {
-    if (swapStatus === SwapStatus.SUCCESS) {
-      navigate(PATHS.STAKE);
-    }
-  }, [swapStatus]);
+  // useEffect(() => {
+  //   if (swapStatus === SwapStatus.SUCCESS) {
+  //     navigate(PATHS.STAKE);
+  //   }
+  // }, [swapStatus]);
 
   return (
     <BaseTokensForm
