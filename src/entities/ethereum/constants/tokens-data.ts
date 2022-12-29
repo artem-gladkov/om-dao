@@ -7,6 +7,7 @@ import {
     CR_ABI,
     CONS_ABI,
     CONT_ABI,
+    CHAI_ABI,
 } from "./contracts-abi";
 import { isProd } from "../../../shared/config";
 import { Address } from "wagmi";
@@ -19,6 +20,7 @@ export enum TOKEN_SYMBOLS {
     CR = "omdwCRB",
     CONS = "omdwCons",
     CONT = "omdwCont",
+    CHAI = "omdwChai",
 }
 
 export const TOKEN_ADDRESS: Record<TOKEN_SYMBOLS, Address> = {
@@ -43,6 +45,9 @@ export const TOKEN_ADDRESS: Record<TOKEN_SYMBOLS, Address> = {
     [TOKEN_SYMBOLS.CONT]: isProd()
         ? "0xf6d8220D1470d12F007B3540b111Eb4e7db2Adbe"
         : "0xbc0D848dAA133fa5d767b1fDa7fF774DB2Ff559e",
+    [TOKEN_SYMBOLS.CHAI]: isProd()
+        ? "0x1Aeb27D2F0c1861A538b289c602fFA784d3EDCB0"
+        : "0x21a56167802F2387E25a45908Ca170dF5a786AE0",
 };
 
 export const TOKEN_ABI: { [key in TOKEN_SYMBOLS]: any } = {
@@ -53,6 +58,7 @@ export const TOKEN_ABI: { [key in TOKEN_SYMBOLS]: any } = {
     [TOKEN_SYMBOLS.CR]: CR_ABI,
     [TOKEN_SYMBOLS.CONS]: CONS_ABI,
     [TOKEN_SYMBOLS.CONT]: CONT_ABI,
+    [TOKEN_SYMBOLS.CHAI]: CHAI_ABI,
 };
 
 export const TOKEN_NAME: { [key in TOKEN_SYMBOLS]: string } = {
@@ -63,6 +69,7 @@ export const TOKEN_NAME: { [key in TOKEN_SYMBOLS]: string } = {
     [TOKEN_SYMBOLS.CR]: "OM DAO Wrapped Cross River Bank",
     [TOKEN_SYMBOLS.CONS]: "OM DAO Wrapped Consensys",
     [TOKEN_SYMBOLS.CONT]: "OM DAO Wrapped Contango",
+    [TOKEN_SYMBOLS.CHAI]: "OM DAO Wrapped Chainalysis",
 };
 
 export const TOKEN_DECIMAL: { [key in TOKEN_SYMBOLS]: string } = {
@@ -73,6 +80,7 @@ export const TOKEN_DECIMAL: { [key in TOKEN_SYMBOLS]: string } = {
     [TOKEN_SYMBOLS.CR]: "6",
     [TOKEN_SYMBOLS.CONS]: "6",
     [TOKEN_SYMBOLS.CONT]: "6",
+    [TOKEN_SYMBOLS.CHAI]: "6",
 };
 
 export const TOKEN_HREF: { [key in TOKEN_SYMBOLS]: string } = {
@@ -86,6 +94,7 @@ export const TOKEN_HREF: { [key in TOKEN_SYMBOLS]: string } = {
     [TOKEN_SYMBOLS.CONS]:
         "https://selectedpublic.notion.site/ConsenSys-e538fbe363ea4bbd9165a7aec7aa5fc1",
     [TOKEN_SYMBOLS.CONT]: "https://contango.xyz",
+    [TOKEN_SYMBOLS.CHAI]: "https://chainalysis.com",
 };
 
 export const TOKEN_TITLE: { [key in TOKEN_SYMBOLS]: string } = {
@@ -96,4 +105,5 @@ export const TOKEN_TITLE: { [key in TOKEN_SYMBOLS]: string } = {
     [TOKEN_SYMBOLS.CR]: "Cross River",
     [TOKEN_SYMBOLS.CONS]: "ConsenSys",
     [TOKEN_SYMBOLS.CONT]: "Contango",
+    [TOKEN_SYMBOLS.CHAI]: "Chainalysis",
 };
