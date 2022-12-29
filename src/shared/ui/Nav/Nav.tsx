@@ -12,7 +12,7 @@ export const Nav: FC<INavProps> = () => {
 
   return (
     <nav className={styles.nav}>
-      {Object.entries(PATHS).map(([key, value]) => (
+      {Object.entries(PATHS).filter((item) => (item[0]!=="STAKE")).map(([key, value]) => (
         <NavLink
           key={key}
           className={classNames(styles.navLink, {
@@ -21,7 +21,7 @@ export const Nav: FC<INavProps> = () => {
           to={value}
         >
           {PATH_LABEL[key]}
-        </NavLink>
+          </NavLink>
       ))}
     </nav>
   );
