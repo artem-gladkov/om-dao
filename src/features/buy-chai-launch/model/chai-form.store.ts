@@ -114,8 +114,8 @@ export class CHAIFormLaunchStore {
 
     public get destinationContract(): Contract {
         return new Contract(
-            TOKEN_ADDRESS.omdwCont,
-            TOKEN_ABI.omdwCont,
+            TOKEN_ADDRESS.omdwChai,
+            TOKEN_ABI.omdwChai,
             this._rootStore.signerOrProvider
         );
     }
