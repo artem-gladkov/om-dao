@@ -5,9 +5,10 @@ export interface ITokenProps {
   symbol: string;
   img?: string;
   className?: string;
+  title?: string;
 }
 
-export const Token: FC<ITokenProps> = ({ className, symbol, img }) => {
+export const Token: FC<ITokenProps> = ({ className, symbol, img, title }) => {
   return (
     <div className={classNames(className, "flex items-center")}>
       {img ? (
@@ -19,7 +20,7 @@ export const Token: FC<ITokenProps> = ({ className, symbol, img }) => {
       ) : (
         <div className="mr-2 w-8 h-8 bg-gray-200 rounded-full " />
       )}
-      <div className="">{symbol}</div>
+      <div className="">{title? title: symbol}</div>
     </div>
   );
 };

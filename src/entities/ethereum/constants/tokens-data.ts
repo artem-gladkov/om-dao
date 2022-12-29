@@ -74,3 +74,26 @@ export const TOKEN_DECIMAL: { [key in TOKEN_SYMBOLS]: string } = {
     [TOKEN_SYMBOLS.CONS]: "6",
     [TOKEN_SYMBOLS.CONT]: "6",
 };
+
+export const TOKEN_HREF: { [key in TOKEN_SYMBOLS]: string } = {
+    [TOKEN_SYMBOLS.USDT]: "https://tether.to",
+    [TOKEN_SYMBOLS.OMD]: "https://omdao.vc",
+    [TOKEN_SYMBOLS.STOMD]: "https://omdao.vc",
+    [TOKEN_SYMBOLS.TIGR]:
+        "https://selectedpublic.notion.site/Tiger-Trade-a081fd79e144442dbf133a83eba5fb68",
+    [TOKEN_SYMBOLS.CR]:
+        "https://selectedpublic.notion.site/Cross-River-46adffcd372143f3b81e486d518ab222",
+    [TOKEN_SYMBOLS.CONS]:
+        "https://selectedpublic.notion.site/ConsenSys-e538fbe363ea4bbd9165a7aec7aa5fc1",
+    [TOKEN_SYMBOLS.CONT]: "https://contango.xyz",
+};
+
+export const TOKEN_TITLE: { [key in TOKEN_SYMBOLS]: string } = {
+    [TOKEN_SYMBOLS.USDT]: "Tether",
+    [TOKEN_SYMBOLS.OMD]: "OM DAO",
+    [TOKEN_SYMBOLS.STOMD]: "OM DAO (Staked)",
+    [TOKEN_SYMBOLS.TIGR]: "Tiger Trade",
+    [TOKEN_SYMBOLS.CR]: "Cross River",
+    [TOKEN_SYMBOLS.CONS]: "ConsenSys",
+    [TOKEN_SYMBOLS.CONT]: "Contango",
+};
