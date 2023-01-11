@@ -1,6 +1,6 @@
 export const calculateSwapDestinationAmount = (
-  sourceAmount: string,
-  isRearranged: boolean
+    sourceAmount: string,
+    isRearranged: boolean
 ): string => {
-  return isRearranged ? String(+sourceAmount * 0.9) : sourceAmount;
+    return isRearranged ? String(+sourceAmount * 1) : sourceAmount;
 };
