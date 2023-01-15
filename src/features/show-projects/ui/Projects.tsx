@@ -4,7 +4,7 @@ import { Project } from "./Project";
 import TigrImg from "../../../app/images/tokens/omdwtigr.webp";
 
 // import ConsImg from "../../../app/images/tokens/omdwcons.webp";
-import CRImg from "../../../app/images/tokens/omdwcrb.webp";
+// import CRImg from "../../../app/images/tokens/omdwcrb.webp";
 import { TOKEN_SYMBOLS, TOKEN_HREF, TOKEN_TITLE } from "../../../entities";
 
 export interface IProjectsProps {}
