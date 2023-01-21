@@ -4,7 +4,6 @@ import { Button, Panel } from "../../../../shared/ui";
 
 export interface IProjectViewProps {
   symbol: string;
-  img: string;
   href: string;
   title: string;
   onClick: (event: MouseEvent<HTMLButtonElement>) => void;
@@ -12,14 +11,13 @@ export interface IProjectViewProps {
 
 export const ProjectView: FC<IProjectViewProps> = ({
   symbol,
-  img,
   href,
   title,
   onClick,
 }) => {
   return (
     <Panel>
-      <Token className="justify-center mb-4" img={img} symbol={symbol} title={title} />
+      <Token className="justify-center mb-4" symbol={symbol} title={title} />
       <div
         className="grid gap-4 grid-cols-1 lg:grid-cols-2 pb-4"
       >
