@@ -1,6 +1,6 @@
-import { ContractInterface } from "@ethersproject/contracts";
+import {ContractInterface} from "@ethersproject/contracts";
 
-export const CONT_ABI: ContractInterface = [
+export const WRAPPED_TOKEN_ABI: ContractInterface = [
     {
         inputs: [],
         stateMutability: "nonpayable",

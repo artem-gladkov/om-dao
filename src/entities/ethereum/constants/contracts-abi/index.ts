@@ -1,9 +1,5 @@
 export * from "./usdt";
 export * from "./omdao";
 export * from "./omdao-stake";
-export * from "./tigr";
-export * from "./cr";
-export * from "./cons";
-export * from "./cont";
-export * from "./chai";
-export * from "./led";
+export * from "./wrapped-abi"
+
