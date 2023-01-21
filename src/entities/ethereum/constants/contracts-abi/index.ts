@@ -6,3 +6,4 @@ export * from "./cr";
 export * from "./cons";
 export * from "./cont";
 export * from "./chai";
+export * from "./led";
