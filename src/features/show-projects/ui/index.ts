@@ -1,2 +1,4 @@
 export * from "./Project";
-export * from "./Projects";
+export * from "./ActiveProjects";
+export * from "./ArchiveProjects";
+export * from "./WaitingProjects";
