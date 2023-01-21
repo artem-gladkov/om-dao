@@ -5,7 +5,7 @@ import {
   ProjectsPage,
   RootLayout,
   StakePage,
-  ReferralPage,
+  ReferralPage, ReferralTransactionsPage,
 } from "../pages";
 import { PATHS } from "./constants";
 import React from "react";
@@ -37,6 +37,9 @@ export const appRouter = createBrowserRouter([
       {
         path: `${PATHS.REFERRAL}/:refcode`,
         element: <ReferralPage />,
+      },     {
+        path: `${PATHS.REFERRAL}/:refcode/:symbol`,
+        element: <ReferralTransactionsPage />,
       },
       {
         path: "*",
