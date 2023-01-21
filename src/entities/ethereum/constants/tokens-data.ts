@@ -1,4 +1,3 @@
-import { ContractInterface } from "@ethersproject/contracts";
 import {
     USDT_ABI,
     OMDAO_ABI,

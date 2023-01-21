@@ -9,7 +9,7 @@ export interface IProjectViewProps {
   onClick: (event: MouseEvent<HTMLButtonElement>) => void;
 }
 
-export const ProjectView: FC<IProjectViewProps> = ({
+export const ReferralProjectView: FC<IProjectViewProps> = ({
   symbol,
   href,
   title,
