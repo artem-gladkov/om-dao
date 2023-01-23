@@ -6,3 +6,5 @@ export * from "./Loader";
 export * from "./Tabs";
 export * from "./Logo";
 export * from "./Panel";
+export * from "./Modal";
+export * from "./TransitionPreset";
