@@ -1,13 +1,9 @@
 import { FC } from "react";
-import { Projects } from "../../features/show-projects";
+import { AllProjects } from "../../features/show-projects";
 
-export interface IProjectsPageProps {}
-
-export const ProjectsPage: FC<IProjectsPageProps> = () => {
-  return (
-    <>
-      <h2 className="mb-4">Проекты</h2>
-      <Projects />
-    </>
-  );
-};
+export const ProjectsPage: FC = () => (
+  <>
+    <h2 className="mb-4">Проекты</h2>
+    <AllProjects />
+  </>
+);
