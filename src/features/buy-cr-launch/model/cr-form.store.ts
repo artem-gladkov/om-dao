@@ -2,12 +2,13 @@ import { makeAutoObservable } from "mobx";
 import { Contract } from "@ethersproject/contracts";
 import { TOKEN_ABI, TOKEN_ADDRESS, TOKEN_SYMBOLS } from "../../../entities";
 import { BaseTokensFormSubmitData } from "../../base-tokens-form";
+import { CR_SWAP_CONTRACT_DATA } from "../constants";
 import { formatUnits, parseUnits } from "@ethersproject/units";
 import { formatBytes32String } from "@ethersproject/strings";
 
 import { SwapStatus } from "../../swap-tokens";
 import { RootStore } from "../../../app/root-store";
-import { SWAP_CONTRACT_DATA } from "../../../entities/ethereum/constants/swap-contract-data";
+import { th } from "date-fns/locale";
 
 export class CRFormLaunchStore {
   private _exchangeRate: number = 0;
@@ -122,8 +123,8 @@ export class CRFormLaunchStore {
 
   public get swapContract(): Contract {
     return new Contract(
-      SWAP_CONTRACT_DATA.address,
-      SWAP_CONTRACT_DATA.abi,
+      CR_SWAP_CONTRACT_DATA.address,
+      CR_SWAP_CONTRACT_DATA.abi,
       this._rootStore.signerOrProvider
     );
   }

@@ -1,18 +1,26 @@
 import { FC } from "react";
 import classNames from "classnames";
-import { TokenIcon } from "./TokenIcon";
 
 export interface ITokenProps {
   symbol: string;
+  img?: string;
   className?: string;
   title?: string;
 }
 
-export const Token: FC<ITokenProps> = ({ className, symbol, title }) => {
+export const Token: FC<ITokenProps> = ({ className, symbol, img, title }) => {
   return (
     <div className={classNames(className, "flex items-center")}>
-      <TokenIcon tokenSymbol={symbol} />
-      <div className="">{title ? title : symbol}</div>
+      {img ? (
+        <img
+          className="mr-2 max-w-8 max-h-8 rounded-full"
+          src={img}
+          alt={img}
+        />
+      ) : (
+        <div className="mr-2 w-8 h-8 bg-gray-200 rounded-full " />
+      )}
+      <div className="">{title? title: symbol}</div>
     </div>
   );
 };

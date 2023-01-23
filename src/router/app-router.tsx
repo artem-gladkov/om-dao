@@ -1,14 +1,12 @@
-import {createBrowserRouter, Navigate} from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import {
   ExchangePage,
   ProjectPage,
   ProjectsPage,
   RootLayout,
   StakePage,
-  ReferralPage, ReferralTransactionsPage,
 } from "../pages";
 import { PATHS } from "./constants";
-import React from "react";
 
 export const appRouter = createBrowserRouter([
   {
@@ -33,17 +31,6 @@ export const appRouter = createBrowserRouter([
       {
         path: `${PATHS.PROJECTS}/:symbol/:refcode`,
         element: <ProjectPage />,
-      },
-      {
-        path: `${PATHS.REFERRAL}/:refcode`,
-        element: <ReferralPage />,
-      },     {
-        path: `${PATHS.REFERRAL}/:refcode/:symbol`,
-        element: <ReferralTransactionsPage />,
-      },
-      {
-        path: "*",
-        element: <Navigate to={PATHS.ROOT} replace />
       },
     ],
   },

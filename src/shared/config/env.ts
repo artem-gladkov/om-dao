@@ -1,4 +1,4 @@
-export const getEnvVariable = (key: string) => {
+const getEnvVariable = (key: string) => {
     if (process.env[key] === undefined) {
         throw new Error(`Env variable ${key} is required`);
     }

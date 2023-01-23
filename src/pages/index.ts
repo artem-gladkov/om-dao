@@ -3,4 +3,3 @@ export * from "./Stake";
 export * from "./RootLayout";
 export * from "./Projects";
 export * from "./Project";
-export * from "./Referral";
