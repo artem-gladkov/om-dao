@@ -65,7 +65,6 @@ export const TOKEN_ABI: { [key in TOKEN_SYMBOLS]: any } = {
     [TOKEN_SYMBOLS.CONT]: CONT_ABI,
     [TOKEN_SYMBOLS.CHAI]: CHAI_ABI,
     [TOKEN_SYMBOLS.LED]: LED_ABI,
-    
 };
 
 export const TOKEN_NAME: { [key in TOKEN_SYMBOLS]: string } = {
@@ -104,7 +103,8 @@ export const TOKEN_HREF: { [key in TOKEN_SYMBOLS]: string } = {
         "https://selectedpublic.notion.site/ConsenSys-e538fbe363ea4bbd9165a7aec7aa5fc1",
     [TOKEN_SYMBOLS.CONT]: "https://contango.xyz",
     [TOKEN_SYMBOLS.CHAI]: "https://chainalysis.com",
-    [TOKEN_SYMBOLS.LED]: "https://www.ledger.com/ru",
+    [TOKEN_SYMBOLS.LED]:
+        "https://selectedpublic.notion.site/Ledger-d1e8be65607741d0aa07c482b45333c5",
 };
 
 export const TOKEN_TITLE: { [key in TOKEN_SYMBOLS]: string } = {
