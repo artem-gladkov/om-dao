@@ -7,3 +7,4 @@ export * from "./cons";
 export * from "./cont";
 export * from "./chai";
 export * from "./led";
+export * from "./delc";
