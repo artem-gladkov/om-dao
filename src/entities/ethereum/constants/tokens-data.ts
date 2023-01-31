@@ -18,7 +18,7 @@ export enum TOKEN_SYMBOLS {
     CONT = "omdwCont",
     CHAI = "omdwChai",
     LED = "omdwLed",
-    DELC = "omdwDelc"
+    DELC = "omdwDelC",
 }
 
 export const TOKEN_ADDRESS: Record<TOKEN_SYMBOLS, Address> = {
@@ -51,7 +51,7 @@ export const TOKEN_ADDRESS: Record<TOKEN_SYMBOLS, Address> = {
         : "0x62D124483252C906E8CCF02Efd893c305A25Dd42",
     [TOKEN_SYMBOLS.DELC]: isProd()
         ? "0x6E98eF583C64482a6A6b63a679197813B7c3Cd1A"
-        : "0x4a8bbBaE7fac603A82707D6FE2315030a7E71a63"
+        : "0x4a8bbBaE7fac603A82707D6FE2315030a7E71a63",
         
 };
 

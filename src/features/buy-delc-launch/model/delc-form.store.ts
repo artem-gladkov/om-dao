@@ -114,8 +114,8 @@ export class DELCFormLaunchStore {
 
     public get destinationContract(): Contract {
         return new Contract(
-            TOKEN_ADDRESS.omdwDelc,
-            TOKEN_ABI.omdwDelc,
+            TOKEN_ADDRESS.omdwDelC,
+            TOKEN_ABI.omdwDelC,
             this._rootStore.signerOrProvider
         );
     }
