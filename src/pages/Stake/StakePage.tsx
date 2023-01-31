@@ -4,6 +4,7 @@ import { StakeForm } from "../../features/stake-token";
 import { Tabs } from "../../shared/ui";
 import { UnStakeForm } from "../../features/unstake-token";
 import { TokenAddButtons } from "../../features/add-token-to-metamask";
+import { ModalTerms } from "../../features/show-terms";
 
 export const StakePage: FC = ({}) => {
   const [activeTab, setActiveTab] = useState("stake");
@@ -26,6 +27,7 @@ export const StakePage: FC = ({}) => {
         </div>
       </div>
       <TokenAddButtons className="pb-4" />
+      <ModalTerms />
     </div>
   );
 };

@@ -44,7 +44,7 @@ export const ContractBlock: FC<ContractBlockProps> = ({
         <div>Текущий баланс: {balance}</div>
       </div>
       <div className="grid grid-cols-2 gap-4 align-top">
-        <Token img={image} symbol={symbol} />
+        <Token symbol={symbol} />
         <div className="flex flex-col justify-end space-y-2 ">
           <Input
             value={amount}
