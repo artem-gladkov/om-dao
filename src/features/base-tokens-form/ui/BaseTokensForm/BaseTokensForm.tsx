@@ -27,6 +27,7 @@ export interface BaseTokensFormProps {
   disableSubmitButton?: boolean;
   disabledText?: string;
   maxCount?: string;
+  getupdateMaxCount?: () => Promise<any>;
 }
 
 export const BaseTokensForm: FC<BaseTokensFormProps> = observer(
@@ -43,6 +44,7 @@ export const BaseTokensForm: FC<BaseTokensFormProps> = observer(
     disableSubmitButton,
     disabledText,
     maxCount,
+    getupdateMaxCount
   }) => {
     const { data: sd } = useBaseTokenInfo(sourceContractSymbol, true);
 
@@ -58,6 +60,8 @@ export const BaseTokensForm: FC<BaseTokensFormProps> = observer(
 
     const [isRearranged, setIsRearranged] = useState(false);
 
+    const [maxiCount, setMaxiCount] = useState(maxCount)
+
     useEffect(() => {
       setSourceData(sd);
     }, [sd]);
@@ -65,6 +69,17 @@ export const BaseTokensForm: FC<BaseTokensFormProps> = observer(
     useEffect(() => {
       setDestinationData(dd);
     }, [dd]);
+
+    useEffect(()=>{
+      updateMaxCount()
+   },[sd, dd])
+
+   const updateMaxCount = async () =>{
+     if(getupdateMaxCount){
+       const updCount =  await getupdateMaxCount()
+       setMaxiCount(await updCount)
+     } 
+    }
 
     function rearrangeData() {
       setSourceData(destinationData);
@@ -161,10 +176,10 @@ export const BaseTokensForm: FC<BaseTokensFormProps> = observer(
         }
       }
 
-      return maxCount
-        ? (+maxCount * +destinationAmountForOneToken).toFixed(1)
+      return maxiCount
+        ? (+maxiCount * +destinationAmountForOneToken).toFixed(1)
         : undefined;
-    }, [maxCount, calculateDestinationAmount, isRearranged]);
+    }, [maxiCount, calculateDestinationAmount, isRearranged]);
 
     const isDataFetched = sourceData && destinationData;
 
@@ -172,7 +187,9 @@ export const BaseTokensForm: FC<BaseTokensFormProps> = observer(
       !sourceAmount ||
       Number(sourceAmount) < 1 ||
       !sourceData ||
-      Number(sourceData.balance) < Number(sourceAmount);
+      Number(sourceData.balance) < Number(sourceAmount) ||
+      Number(maxCount) < Number(sourceAmount);
+
     const onSubmitForm = useCallback(async () => {
       await onSubmit({ sourceAmount, destinationAmount, isRearranged });
     }, [onSubmit, sourceAmount, destinationAmount, isRearranged]);
@@ -202,7 +219,7 @@ export const BaseTokensForm: FC<BaseTokensFormProps> = observer(
                   fullContractInfo={destinationData}
                   amount={destinationAmount}
                   exchangeRate={destinationExchangeRate()}
-                  maxCount={maxCount}
+                  maxCount={maxiCount}
                 />
                 {isConnected ? (
                   <Button
@@ -268,7 +285,7 @@ const useBaseTokenInfo = (
         image,
       });
     }
-  }, [isLoadingBalance, isLoadingName]);
+  }, [isLoadingBalance, isLoadingName, balance]);
 
   return {
     data: result,

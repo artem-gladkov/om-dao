@@ -15,7 +15,7 @@ export const LEDFormLaunch: FC = observer(() => {
   const [store] = useState(
     () => new LEDFormLaunchStore(rootStore, refCode, dcon.address)
   );
-  const { isLoading, onSubmit, calculateDestinationAmount, swapStatus,maxCount } = store;
+  const { isLoading, onSubmit, calculateDestinationAmount, swapStatus,maxCount, getupdateMaxCount } = store;
 
   return (
     <>
@@ -28,6 +28,7 @@ export const LEDFormLaunch: FC = observer(() => {
         loadingText={SWAP_STATUS_LABELS[swapStatus]}
         isLoading={isLoading}
         maxCount={maxCount}
+        getupdateMaxCount={getupdateMaxCount}
       />
       <TokenAddButton
         className="w-full"
