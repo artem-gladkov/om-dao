@@ -146,4 +146,16 @@ export class CRFormLaunchStore {
   public get maxCount(): string {
     return this._maxCount;
   }
+  public getupdateMaxCount = async ()=>{
+    const maxCount = await this.destinationContract.balanceOf(
+      this.swapContract.address
+    );
+   
+    const maxsCount = formatUnits(
+      maxCount,
+      await this.destinationContract.decimals()
+    );
+      
+    return  maxsCount
+  }
 }

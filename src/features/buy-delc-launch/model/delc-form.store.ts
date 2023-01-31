@@ -114,8 +114,8 @@ export class DELCFormLaunchStore {
 
     public get destinationContract(): Contract {
         return new Contract(
-            TOKEN_ADDRESS.omdwDelC,
-            TOKEN_ABI.omdwDelC,
+            TOKEN_ADDRESS.omdwDelc,
+            TOKEN_ABI.omdwDelc,
             this._rootStore.signerOrProvider
         );
     }
@@ -146,4 +146,17 @@ export class DELCFormLaunchStore {
     public get maxCount(): string {
         return this._maxCount;
     }
+
+    public getupdateMaxCount = async ()=>{
+    const maxCount = await this.destinationContract.balanceOf(
+      this.swapContract.address
+    );
+   
+    const maxsCount = formatUnits(
+      maxCount,
+      await this.destinationContract.decimals()
+    );
+      
+    return  maxsCount
+  }
 }

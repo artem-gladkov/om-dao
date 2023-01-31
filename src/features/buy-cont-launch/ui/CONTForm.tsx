@@ -15,7 +15,7 @@ export const CONTFormLaunch: FC = observer(() => {
   const [store] = useState(
     () => new CONTFormLaunchStore(rootStore, refCode, dcon.address)
   );
-  const { isLoading, onSubmit, calculateDestinationAmount, swapStatus,maxCount } = store;
+  const { isLoading, onSubmit, calculateDestinationAmount, swapStatus,maxCount,getupdateMaxCount } = store;
 
   return (
     <>
@@ -28,6 +28,7 @@ export const CONTFormLaunch: FC = observer(() => {
         loadingText={SWAP_STATUS_LABELS[swapStatus]}
         isLoading={isLoading}
         maxCount={maxCount}
+        getupdateMaxCount={getupdateMaxCount}
       />
       <TokenAddButton
         className="w-full"

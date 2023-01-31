@@ -3,7 +3,7 @@ import {
   OMDAO_ABI,
   OMDAO_STAKE_ABI,
   WRAPPED_TOKEN_ABI,
-    DELC_ABI,
+    
 } from "./contracts-abi";
 import { isProd } from "../../../shared/config";
 import { Address } from "wagmi";
@@ -18,6 +18,7 @@ export enum TOKEN_SYMBOLS {
     CONT = "omdwCont",
     CHAI = "omdwChai",
     LED = "omdwLed",
+    DELC = "omdwDelc"
 }
 
 export const TOKEN_ADDRESS: Record<TOKEN_SYMBOLS, Address> = {
@@ -48,18 +49,23 @@ export const TOKEN_ADDRESS: Record<TOKEN_SYMBOLS, Address> = {
     [TOKEN_SYMBOLS.LED]: isProd()
         ? "0x1D8efA821D2EDEFb7c71d79F317cDe14dEE4F748"
         : "0x62D124483252C906E8CCF02Efd893c305A25Dd42",
+    [TOKEN_SYMBOLS.DELC]: isProd()
+        ? "0x6E98eF583C64482a6A6b63a679197813B7c3Cd1A"
+        : "0x4a8bbBaE7fac603A82707D6FE2315030a7E71a63"
+        
 };
 
 export const TOKEN_ABI: { [key in TOKEN_SYMBOLS]: any } = {
     [TOKEN_SYMBOLS.USDT]: USDT_ABI,
     [TOKEN_SYMBOLS.OMD]: OMDAO_ABI,
     [TOKEN_SYMBOLS.STOMD]: OMDAO_STAKE_ABI,
-    [TOKEN_SYMBOLS.TIGR]: TIGR_ABI,
-    [TOKEN_SYMBOLS.CR]: CR_ABI,
-    [TOKEN_SYMBOLS.CONS]: CONS_ABI,
-    [TOKEN_SYMBOLS.CONT]: CONT_ABI,
-    [TOKEN_SYMBOLS.CHAI]: CHAI_ABI,
-    [TOKEN_SYMBOLS.LED]: LED_ABI,
+    [TOKEN_SYMBOLS.TIGR]: WRAPPED_TOKEN_ABI,
+    [TOKEN_SYMBOLS.CR]: WRAPPED_TOKEN_ABI,
+    [TOKEN_SYMBOLS.CONS]: WRAPPED_TOKEN_ABI,
+    [TOKEN_SYMBOLS.CONT]: WRAPPED_TOKEN_ABI,
+    [TOKEN_SYMBOLS.CHAI]: WRAPPED_TOKEN_ABI,
+    [TOKEN_SYMBOLS.LED]: WRAPPED_TOKEN_ABI,
+    [TOKEN_SYMBOLS.DELC]: WRAPPED_TOKEN_ABI,
     
 };
 
@@ -73,6 +79,7 @@ export const TOKEN_NAME: { [key in TOKEN_SYMBOLS]: string } = {
     [TOKEN_SYMBOLS.CONT]: "OM DAO Wrapped Contango",
     [TOKEN_SYMBOLS.CHAI]: "OM DAO Wrapped Chainalysis",
     [TOKEN_SYMBOLS.LED]: "OM DAO Wrapped Ledger",
+    [TOKEN_SYMBOLS.DELC]: "OM DAO Wrapped Delegate Cash",
 };
 
 export const TOKEN_DECIMAL: { [key in TOKEN_SYMBOLS]: string } = {
@@ -85,6 +92,7 @@ export const TOKEN_DECIMAL: { [key in TOKEN_SYMBOLS]: string } = {
     [TOKEN_SYMBOLS.CONT]: "6",
     [TOKEN_SYMBOLS.CHAI]: "6",
     [TOKEN_SYMBOLS.LED]: "6",
+    [TOKEN_SYMBOLS.DELC]: "6",
 };
 
 export const TOKEN_HREF: { [key in TOKEN_SYMBOLS]: string } = {
@@ -100,6 +108,7 @@ export const TOKEN_HREF: { [key in TOKEN_SYMBOLS]: string } = {
     [TOKEN_SYMBOLS.CONT]: "https://contango.xyz",
     [TOKEN_SYMBOLS.CHAI]: "https://chainalysis.com",
     [TOKEN_SYMBOLS.LED]: "https://www.ledger.com/ru",
+    [TOKEN_SYMBOLS.DELC]: "https://github.com/0xfoobar/delegate-cash-frontend",
 };
 
 export const TOKEN_TITLE: { [key in TOKEN_SYMBOLS]: string } = {
@@ -112,4 +121,5 @@ export const TOKEN_TITLE: { [key in TOKEN_SYMBOLS]: string } = {
     [TOKEN_SYMBOLS.CONT]: "Contango",
     [TOKEN_SYMBOLS.CHAI]: "Chainalysis",
     [TOKEN_SYMBOLS.LED]: "Ledger",
+    [TOKEN_SYMBOLS.DELC]: "Delegate Cash",
 };
