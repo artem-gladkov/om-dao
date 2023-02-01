@@ -1,15 +1,9 @@
-import { ContractInterface } from "@ethersproject/contracts";
 import {
-    USDT_ABI,
-    OMDAO_ABI,
-    OMDAO_STAKE_ABI,
-    TIGR_ABI,
-    CR_ABI,
-    CONS_ABI,
-    CONT_ABI,
-    CHAI_ABI,
-    LED_ABI,
-    DELC_ABI,
+  USDT_ABI,
+  OMDAO_ABI,
+  OMDAO_STAKE_ABI,
+  WRAPPED_TOKEN_ABI,
+    
 } from "./contracts-abi";
 import { isProd } from "../../../shared/config";
 import { Address } from "wagmi";
@@ -58,19 +52,21 @@ export const TOKEN_ADDRESS: Record<TOKEN_SYMBOLS, Address> = {
     [TOKEN_SYMBOLS.DELC]: isProd()
         ? "0x6E98eF583C64482a6A6b63a679197813B7c3Cd1A"
         : "0x4a8bbBaE7fac603A82707D6FE2315030a7E71a63",
+        
 };
 
 export const TOKEN_ABI: { [key in TOKEN_SYMBOLS]: any } = {
     [TOKEN_SYMBOLS.USDT]: USDT_ABI,
     [TOKEN_SYMBOLS.OMD]: OMDAO_ABI,
     [TOKEN_SYMBOLS.STOMD]: OMDAO_STAKE_ABI,
-    [TOKEN_SYMBOLS.TIGR]: TIGR_ABI,
-    [TOKEN_SYMBOLS.CR]: CR_ABI,
-    [TOKEN_SYMBOLS.CONS]: CONS_ABI,
-    [TOKEN_SYMBOLS.CONT]: CONT_ABI,
-    [TOKEN_SYMBOLS.CHAI]: CHAI_ABI,
-    [TOKEN_SYMBOLS.LED]: LED_ABI,
-    [TOKEN_SYMBOLS.DELC]: DELC_ABI,
+    [TOKEN_SYMBOLS.TIGR]: WRAPPED_TOKEN_ABI,
+    [TOKEN_SYMBOLS.CR]: WRAPPED_TOKEN_ABI,
+    [TOKEN_SYMBOLS.CONS]: WRAPPED_TOKEN_ABI,
+    [TOKEN_SYMBOLS.CONT]: WRAPPED_TOKEN_ABI,
+    [TOKEN_SYMBOLS.CHAI]: WRAPPED_TOKEN_ABI,
+    [TOKEN_SYMBOLS.LED]: WRAPPED_TOKEN_ABI,
+    [TOKEN_SYMBOLS.DELC]: WRAPPED_TOKEN_ABI,
+    
 };
 
 export const TOKEN_NAME: { [key in TOKEN_SYMBOLS]: string } = {
@@ -111,8 +107,7 @@ export const TOKEN_HREF: { [key in TOKEN_SYMBOLS]: string } = {
         "https://selectedpublic.notion.site/ConsenSys-e538fbe363ea4bbd9165a7aec7aa5fc1",
     [TOKEN_SYMBOLS.CONT]: "https://contango.xyz",
     [TOKEN_SYMBOLS.CHAI]: "https://chainalysis.com",
-    [TOKEN_SYMBOLS.LED]:
-        "https://selectedpublic.notion.site/Ledger-d1e8be65607741d0aa07c482b45333c5",
+    [TOKEN_SYMBOLS.LED]: "https://www.ledger.com/ru",
     [TOKEN_SYMBOLS.DELC]: "https://github.com/0xfoobar/delegate-cash-frontend",
 };
 

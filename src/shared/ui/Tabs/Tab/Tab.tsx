@@ -10,13 +10,26 @@ export interface ITabProps {
   onClick?: () => void;
   active?: boolean;
   disabled?: boolean;
+  title?: string;
 }
 
-export const Tab: FC<ITabProps> = ({ className, label, active, onClick }) => {
+export const Tab: FC<ITabProps> = ({
+  className,
+  label,
+  active,
+  onClick,
+  disabled,
+  ...otherProps
+}) => {
   return (
     <button
       onClick={onClick}
-      className={classNames(styles.tab, className, { [styles.active]: active })}
+      disabled={disabled}
+      className={classNames(styles.tab, className, {
+        [styles.active]: active,
+        [styles.disabled]: disabled,
+      })}
+      {...otherProps}
     >
       {label}
     </button>
