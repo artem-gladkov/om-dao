@@ -6,6 +6,7 @@ export interface IProjectViewProps {
   symbol: string;
   href: string;
   title: string;
+  buttonName?: string;
   onClick: (event: MouseEvent<HTMLButtonElement>) => void;
 }
 
@@ -13,6 +14,7 @@ export const ProjectView: FC<IProjectViewProps> = ({
   symbol,
   href,
   title,
+  buttonName,
   onClick,
 }) => {
   return (
@@ -22,7 +24,7 @@ export const ProjectView: FC<IProjectViewProps> = ({
         className="grid gap-4 grid-cols-1 lg:grid-cols-2 pb-4"
       >
         <Button onClick={onClick} >
-          Купить {symbol}
+          {buttonName? buttonName: 'Купить'} {symbol}
         </Button>
         <Button onClick={() => {
           window.open(href, "_blank");
