@@ -70,15 +70,15 @@ export const BaseTokensForm: FC<BaseTokensFormProps> = observer(
       setDestinationData(dd);
     }, [dd]);
 
-    useEffect(()=>{
+    useEffect(() => {
       updateMaxCount()
-   },[sd, dd])
+    }, [sd, dd])
 
-   const updateMaxCount = async () =>{
-     if(getupdateMaxCount){
-       const updCount =  await getupdateMaxCount()
-       setMaxiCount(await updCount)
-     } 
+    const updateMaxCount = async () => {
+      if (getupdateMaxCount) {
+        const updCount = await getupdateMaxCount()
+        setMaxiCount(await updCount)
+      }
     }
 
     function rearrangeData() {
@@ -188,7 +188,7 @@ export const BaseTokensForm: FC<BaseTokensFormProps> = observer(
       Number(sourceAmount) < 1 ||
       !sourceData ||
       Number(sourceData.balance) < Number(sourceAmount) ||
-      Number(maxCount) < Number(sourceAmount);
+      Number(maxiCount) < Number(sourceAmount);
 
     const onSubmitForm = useCallback(async () => {
       await onSubmit({ sourceAmount, destinationAmount, isRearranged });
