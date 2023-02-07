@@ -10,6 +10,7 @@ export const WaitingProjects: FC = () => {
       <Project buttonName={buttonName} title={TOKEN_TITLE[TOKEN_SYMBOLS.CR]} symbol={TOKEN_SYMBOLS.CR} href={TOKEN_HREF[TOKEN_SYMBOLS.CR]} />
       <Project buttonName={buttonName} title={TOKEN_TITLE[TOKEN_SYMBOLS.CONS]} symbol={TOKEN_SYMBOLS.CONS} href={TOKEN_HREF[TOKEN_SYMBOLS.CONS]} />
       <Project buttonName={buttonName} title={TOKEN_TITLE[TOKEN_SYMBOLS.CHAI]} symbol={TOKEN_SYMBOLS.CHAI} href={TOKEN_HREF[TOKEN_SYMBOLS.CHAI]} />
+      <Project buttonName={buttonName} title={TOKEN_TITLE[TOKEN_SYMBOLS.CONT]} symbol={TOKEN_SYMBOLS.CONT} href={TOKEN_HREF[TOKEN_SYMBOLS.CONT]} />
       <Project buttonName={buttonName} title={TOKEN_TITLE[TOKEN_SYMBOLS.DELC]} symbol={TOKEN_SYMBOLS.DELC} href={TOKEN_HREF[TOKEN_SYMBOLS.DELC]} />
     </div>
   );
