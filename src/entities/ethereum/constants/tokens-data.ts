@@ -105,7 +105,8 @@ export const TOKEN_HREF: { [key in TOKEN_SYMBOLS]: string } = {
     [TOKEN_SYMBOLS.CONT]:
         "https://selectedpublic.notion.site/Contango-c61be1a2aaf4438cbb1567b25ec10275",
     [TOKEN_SYMBOLS.CHAI]: "https://chainalysis.com",
-    [TOKEN_SYMBOLS.LED]: "https://www.ledger.com/ru",
+    [TOKEN_SYMBOLS.LED]:
+        "https://www.notion.so/selectedpublic/Ledger-d1e8be65607741d0aa07c482b45333c5",
     [TOKEN_SYMBOLS.DELC]: "https://github.com/0xfoobar/delegate-cash-frontend",
 };
 
