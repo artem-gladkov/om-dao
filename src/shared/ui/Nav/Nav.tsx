@@ -12,7 +12,8 @@ export const Nav: FC<INavProps> = () => {
 
   return (
     <nav className={styles.nav}>
-      {Object.entries(PATHS).filter((item) => (item[0]!=="STAKE")).map(([key, value]) => (
+      {/* filter item[0]!=="STAKE" */}
+      {Object.entries(PATHS).filter((item) => (item[0]!=="")).map(([key, value]) => (
         <NavLink
           key={key}
           className={classNames(styles.navLink, {
