@@ -104,7 +104,8 @@ export const TOKEN_HREF: { [key in TOKEN_SYMBOLS]: string } = {
         "https://selectedpublic.notion.site/ConsenSys-e538fbe363ea4bbd9165a7aec7aa5fc1",
     [TOKEN_SYMBOLS.CONT]:
         "https://selectedpublic.notion.site/Contango-c61be1a2aaf4438cbb1567b25ec10275",
-    [TOKEN_SYMBOLS.CHAI]: "https://chainalysis.com",
+    [TOKEN_SYMBOLS.CHAI]:
+        "https://selectedpublic.notion.site/Chainalysis-ef0d077b3c974dc49d353f5840f15475",
     [TOKEN_SYMBOLS.LED]:
         "https://www.notion.so/selectedpublic/Ledger-d1e8be65607741d0aa07c482b45333c5",
     [TOKEN_SYMBOLS.DELC]: "https://github.com/0xfoobar/delegate-cash-frontend",
