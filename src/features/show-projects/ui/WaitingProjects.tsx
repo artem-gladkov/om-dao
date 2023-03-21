@@ -11,6 +11,7 @@ export const WaitingProjects: FC = () => {
       <Project buttonName={buttonName} title={TOKEN_TITLE[TOKEN_SYMBOLS.CONS]} symbol={TOKEN_SYMBOLS.CONS} href={TOKEN_HREF[TOKEN_SYMBOLS.CONS]} />
       <Project buttonName={buttonName} title={TOKEN_TITLE[TOKEN_SYMBOLS.CONT]} symbol={TOKEN_SYMBOLS.CONT} href={TOKEN_HREF[TOKEN_SYMBOLS.CONT]} />
       <Project buttonName={buttonName} title={TOKEN_TITLE[TOKEN_SYMBOLS.DELC]} symbol={TOKEN_SYMBOLS.DELC} href={TOKEN_HREF[TOKEN_SYMBOLS.DELC]} />
+      <Project buttonName={buttonName} title={TOKEN_TITLE[TOKEN_SYMBOLS.CHAI]} symbol={TOKEN_SYMBOLS.CHAI} href={TOKEN_HREF[TOKEN_SYMBOLS.CHAI]} />
     </div>
   );
 };
