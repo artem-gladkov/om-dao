@@ -6,6 +6,7 @@ import { CONTFormLaunch } from "../../features/buy-cont-launch";
 import { CHAIFormLaunch } from "../../features/buy-chai-launch";
 import { LEDFormLaunch } from "../../features/buy-led-launch";
 import { DELCFormLaunch } from "../../features/buy-delc-launch";
+import { MAGICFormLaunch } from "../../features/buy-magic-launch/";
 import { useParams } from "react-router";
 import { useRootStore } from "../../app/use-root-store";
 
@@ -30,6 +31,7 @@ export const ProjectPage: FC = () => {
       {params.symbol === 'omdwChai' && <CHAIFormLaunch />}
       {params.symbol === 'omdwLed' && <LEDFormLaunch />}
       {params.symbol === 'omdwDelC' && <DELCFormLaunch />}
+      {params.symbol === 'omdwMS' && <MAGICFormLaunch />}
     </div>
   );
 };
