@@ -114,8 +114,8 @@ export class ARAFormLaunchStore {
 
     public get destinationContract(): Contract {
         return new Contract(
-            TOKEN_ADDRESS.omdwMS,
-            TOKEN_ABI.omdwMS,
+            TOKEN_ADDRESS.omAra,
+            TOKEN_ABI.omAra,
             this._rootStore.signerOrProvider
         );
     }
