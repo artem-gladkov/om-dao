@@ -19,6 +19,7 @@ export enum TOKEN_SYMBOLS {
     LED = "omdwLed",
     DELC = "omdwDelC",
     MAGIC = "omdwMS",
+    ARA = "omAra",
 }
 
 export const TOKEN_ADDRESS: Record<TOKEN_SYMBOLS, Address> = {
@@ -55,6 +56,9 @@ export const TOKEN_ADDRESS: Record<TOKEN_SYMBOLS, Address> = {
     [TOKEN_SYMBOLS.MAGIC]: isProd()
         ? "0x62D124483252C906E8CCF02Efd893c305A25Dd42"
         : "0x62D124483252C906E8CCF02Efd893c305A25Dd42",
+    [TOKEN_SYMBOLS.ARA]: isProd()
+        ? "0x48A063759dF79A1B3A5cCdfE25C1a9980d61BD6F"
+        : "0x48A063759dF79A1B3A5cCdfE25C1a9980d61BD6F",
 };
 
 export const TOKEN_ABI: { [key in TOKEN_SYMBOLS]: any } = {
@@ -69,6 +73,7 @@ export const TOKEN_ABI: { [key in TOKEN_SYMBOLS]: any } = {
     [TOKEN_SYMBOLS.LED]: WRAPPED_TOKEN_ABI,
     [TOKEN_SYMBOLS.DELC]: WRAPPED_TOKEN_ABI,
     [TOKEN_SYMBOLS.MAGIC]: WRAPPED_TOKEN_ABI,
+    [TOKEN_SYMBOLS.ARA]: WRAPPED_TOKEN_ABI,
 };
 
 export const TOKEN_NAME: { [key in TOKEN_SYMBOLS]: string } = {
@@ -83,6 +88,7 @@ export const TOKEN_NAME: { [key in TOKEN_SYMBOLS]: string } = {
     [TOKEN_SYMBOLS.LED]: "OM DAO Wrapped Ledger",
     [TOKEN_SYMBOLS.DELC]: "OM DAO Wrapped Delegate Cash",
     [TOKEN_SYMBOLS.MAGIC]: "OM DAO Wrapped Magic Square",
+    [TOKEN_SYMBOLS.ARA]: "OM DAO Wrapped Aradena",
 };
 
 export const TOKEN_DECIMAL: { [key in TOKEN_SYMBOLS]: string } = {
@@ -97,6 +103,7 @@ export const TOKEN_DECIMAL: { [key in TOKEN_SYMBOLS]: string } = {
     [TOKEN_SYMBOLS.LED]: "6",
     [TOKEN_SYMBOLS.DELC]: "6",
     [TOKEN_SYMBOLS.MAGIC]: "6",
+    [TOKEN_SYMBOLS.ARA]: "6",
 };
 
 export const TOKEN_HREF: { [key in TOKEN_SYMBOLS]: string } = {
@@ -118,6 +125,8 @@ export const TOKEN_HREF: { [key in TOKEN_SYMBOLS]: string } = {
     [TOKEN_SYMBOLS.DELC]: "https://github.com/0xfoobar/delegate-cash-frontend",
     [TOKEN_SYMBOLS.MAGIC]:
         "https://selectedpublic.notion.site/Magic-Square-45994ad5105742b4b1cd8deb0d6feff5",
+    [TOKEN_SYMBOLS.ARA]:
+        "https://selectedpublic.notion.site/Aradena-8a79e3ddb7174c128dbb2e68484fe0d2",
 };
 
 export const TOKEN_TITLE: { [key in TOKEN_SYMBOLS]: string } = {
@@ -132,4 +141,5 @@ export const TOKEN_TITLE: { [key in TOKEN_SYMBOLS]: string } = {
     [TOKEN_SYMBOLS.LED]: "Ledger",
     [TOKEN_SYMBOLS.DELC]: "Delegate Cash",
     [TOKEN_SYMBOLS.MAGIC]: "Magic Square",
+    [TOKEN_SYMBOLS.ARA]: "Aradena",
 };
