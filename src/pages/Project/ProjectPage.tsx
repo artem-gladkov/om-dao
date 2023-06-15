@@ -10,6 +10,7 @@ import { MAGICFormLaunch } from "../../features/buy-magic-launch/";
 import { ARAFormLaunch } from "../../features/buy-ara-launch/";
 import { useParams } from "react-router";
 import { useRootStore } from "../../app/use-root-store";
+import { OoFormLaunch } from "../../features/buy-oo-launch";
 
 export const ProjectPage: FC = () => {
   const params = useParams();
@@ -34,6 +35,7 @@ export const ProjectPage: FC = () => {
       {params.symbol === 'omdwDelC' && <DELCFormLaunch />}
       {params.symbol === 'omdwMS' && <MAGICFormLaunch />}
       {params.symbol === 'omAra' && <ARAFormLaunch />}
+      {params.symbol === 'omOo' && <OoFormLaunch />}
     </div>
   );
 };
