@@ -5,8 +5,10 @@ import { Tabs } from "../../shared/ui";
 import { UnStakeForm } from "../../features/unstake-token";
 import { TokenAddButtons } from "../../features/add-token-to-metamask";
 import { ModalTerms } from "../../features/show-terms";
+import { useTranslation } from 'react-i18next';
 
-export const StakePage: FC = ({}) => {
+export const StakePage: FC = () => {
+  const { t } = useTranslation()
   const [activeTab, setActiveTab] = useState("stake");
 
   return (
@@ -16,8 +18,8 @@ export const StakePage: FC = ({}) => {
           className="mb-4"
           activeKey={activeTab}
           items={[
-            { label: "Cтейкинг", key: "stake" },
-            { label: "Вывести из стейкинга", key: "unStake" },
+            { label: t("common.stake"), key: "stake" },
+            { label: t("common.unStake"), key: "unStake" },
           ]}
           onChange={setActiveTab}
         />

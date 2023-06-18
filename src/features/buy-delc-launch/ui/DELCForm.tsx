@@ -3,12 +3,14 @@ import { BaseTokensForm } from "../../base-tokens-form";
 import { TOKEN_SYMBOLS } from "../../../entities";
 import { observer } from "mobx-react-lite";
 import { DELCFormLaunchStore } from "../model";
-import { SWAP_STATUS_LABELS } from "../../swap-tokens";
+
 import { TokenAddButton } from "../../add-token-to-metamask";
 import { useAccount } from "wagmi";
 import { useRootStore } from "../../../app/use-root-store";
+import { useTranslation } from 'react-i18next';
 
 export const DELCFormLaunch: FC = observer(() => {
+  const { t } = useTranslation();
     const rootStore = useRootStore()
   const dcon = useAccount();
   const { refCode } = useRootStore();
@@ -20,19 +22,21 @@ export const DELCFormLaunch: FC = observer(() => {
   return (
     <>
       <BaseTokensForm
-        title={`Покупка ${TOKEN_SYMBOLS.DELC}`}
+        title={t("common.purchaseToken", { symbol: TOKEN_SYMBOLS.DELC })}
         onSubmit={onSubmit}
         sourceContractSymbol={TOKEN_SYMBOLS.OMD}
         destinationContractSymbol={TOKEN_SYMBOLS.DELC}
         calculateDestinationAmount={calculateDestinationAmount}
-        loadingText={SWAP_STATUS_LABELS[swapStatus]}
+        swapStatus={swapStatus}
         isLoading={isLoading}
         maxCount={maxCount}
         getupdateMaxCount={getupdateMaxCount}
       />
       <TokenAddButton
-        className="w-full"
-        text={`Добавить токен ${TOKEN_SYMBOLS.DELC} в MetaMask`}
+        className="w-full"   text={t("common.addToken", {
+        symbol: TOKEN_SYMBOLS.DELC,
+        walletName: "MetaMask",
+      })}
         tokenSymbol={TOKEN_SYMBOLS.DELC}
       />
     </>

@@ -1,11 +1,9 @@
-import { JsonRpcSigner } from "@ethersproject/providers";
 import { Contract } from "@ethersproject/contracts";
 import { TOKEN_ABI, TOKEN_ADDRESS, TOKEN_SYMBOLS } from "../../../entities";
 import { formatUnits } from "@ethersproject/units";
 import { format } from "date-fns";
 import { makeAutoObservable } from "mobx";
 import { OperationStatus } from "../../../shared/types";
-import { UNSTAKE_STATUS_LABELS } from "../constants";
 import { RootStore } from "../../../app/root-store";
 
 export class UnstakeFormStore {
@@ -145,10 +143,6 @@ export class UnstakeFormStore {
 
   public get status(): OperationStatus {
     return this._status;
-  }
-
-  public get loadingText(): string {
-    return UNSTAKE_STATUS_LABELS[this.status];
   }
 
   public get isUnStakeDisabled(): boolean {

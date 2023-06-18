@@ -10,6 +10,9 @@ import { Button, Loader } from "../../../../shared/ui";
 import { Arrow } from "../../../../shared/ui";
 import { useAccount, useBalance, useContractRead } from "wagmi";
 import { Web3Button } from "@web3modal/react";
+import { useTranslation } from "react-i18next";
+import { OperationStatus } from '../../../../shared/types';
+import { SwapStatus } from '../../../swap-tokens';
 
 export interface BaseTokensFormProps {
   title: string;
@@ -17,7 +20,7 @@ export interface BaseTokensFormProps {
   sourceContractSymbol: TOKEN_SYMBOLS;
   destinationContractSymbol: TOKEN_SYMBOLS;
   isLoading: boolean;
-  loadingText?: string;
+  swapStatus?: OperationStatus | SwapStatus;
   className?: string;
   calculateDestinationAmount?: (
     sourceAmount: string,
@@ -28,6 +31,7 @@ export interface BaseTokensFormProps {
   disabledText?: string;
   maxCount?: string;
   getupdateMaxCount?: () => Promise<any>;
+  mode?: "swap" | "stake"
 }
 
 export const BaseTokensForm: FC<BaseTokensFormProps> = observer(
@@ -37,15 +41,19 @@ export const BaseTokensForm: FC<BaseTokensFormProps> = observer(
     destinationContractSymbol,
     className,
     isLoading,
-    loadingText,
+     swapStatus,
     onSubmit,
     calculateDestinationAmount,
     canRearrangeContracts,
     disableSubmitButton,
     disabledText,
     maxCount,
-    getupdateMaxCount
+    getupdateMaxCount,
+    mode = "swap"
   }) => {
+    const { t } = useTranslation();
+
+    const loadingText = t(`common.${mode}Status.${swapStatus}`)
     const { data: sd } = useBaseTokenInfo(sourceContractSymbol, true);
 
     const { data: dd } = useBaseTokenInfo(destinationContractSymbol, true);
@@ -60,7 +68,7 @@ export const BaseTokensForm: FC<BaseTokensFormProps> = observer(
 
     const [isRearranged, setIsRearranged] = useState(false);
 
-    const [maxiCount, setMaxiCount] = useState(maxCount)
+    const [maxiCount, setMaxiCount] = useState(maxCount);
 
     useEffect(() => {
       setSourceData(sd);
@@ -71,15 +79,15 @@ export const BaseTokensForm: FC<BaseTokensFormProps> = observer(
     }, [dd]);
 
     useEffect(() => {
-      updateMaxCount()
-    }, [sd, dd])
+      updateMaxCount();
+    }, [sd, dd]);
 
     const updateMaxCount = async () => {
       if (getupdateMaxCount) {
-        const updCount = await getupdateMaxCount()
-        setMaxiCount(await updCount)
+        const updCount = await getupdateMaxCount();
+        setMaxiCount(await updCount);
       }
-    }
+    };
 
     function rearrangeData() {
       setSourceData(destinationData);
@@ -163,7 +171,7 @@ export const BaseTokensForm: FC<BaseTokensFormProps> = observer(
         : sourceContractSymbol;
 
       return `${value} ${symbol}`;
-    }
+    };
 
     const sourceMaxCount = useMemo(() => {
       let destinationAmountForOneToken = "1";
@@ -232,7 +240,7 @@ export const BaseTokensForm: FC<BaseTokensFormProps> = observer(
                   </Button>
                 ) : (
                   <div className="flex justify-center items-center">
-                    <Web3Button label="Подключить кошелек" />
+                    <Web3Button label={t("common.connectWallet")} />
                   </div>
                 )}
               </>

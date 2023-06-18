@@ -13,7 +13,7 @@ export const Project: FC<IProjectProps> = ({ symbol, ...otherProps }) => {
     navigate({
       pathname: `${PATHS.PROJECTS}/${symbol}`,
     });
-  }, [symbol]);
+  }, [navigate, symbol]);
 
   return (
     <ProjectView onClick={onClickProject} symbol={symbol} {...otherProps} />

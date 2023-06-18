@@ -2,6 +2,7 @@ import { FC } from "react";
 import classNames from "classnames";
 
 import styles from "./Loader.module.scss";
+import { useTranslation } from "react-i18next";
 
 export interface ILoaderProps {
   text?: string;
@@ -11,17 +12,19 @@ export interface ILoaderProps {
 
 export const Loader: FC<ILoaderProps> = ({
   className,
-  text = "Загрузка ...",
+  text,
   mask = false,
   ...otherProps
 }) => {
+  const { t } = useTranslation();
   const classes = classNames(styles.loader, { [styles.mask]: mask }, className);
+  const loaderText = text || `${t("common.loading")}...`;
 
   return (
     <div className={classes} {...otherProps}>
       <div className={styles.body}>
         <SpinSvg />
-        <div className={styles.text}>{text}</div>
+        <div className={styles.text}>{loaderText}</div>
       </div>
     </div>
   );

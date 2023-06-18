@@ -2,7 +2,15 @@
   "swap": "Swap",
   "swapTokens": "Swap tokens",
   "stake": "Stake",
+  "stakeToken": "Stake {{symbol}}",
+  "unStake": " UnStake",
   "projects": "Projects",
+  "connectWallet": "Connect wallet",
+  "buy": "Buy",
+  "show": "Show",
+  "addToken": "Add token {{symbol}} to {{walletName}}",
+  "purchaseToken": "Purchase of a {{symbol}}",
+  "loading": "Loading",
   "routes": {
     "root": "Swap",
     "stake": "Stake",
@@ -14,6 +22,45 @@
     "currentBalance": "Current balance",
     "youGet": "You get",
     "youGive": "You give",
-    "max": "Maximum"
+    "max": "Maximum",
+    "makeDeal": "Make a deal"
+  },
+  "projectsPage": {
+    "active": "Active",
+    "waiting": "Awaiting listing",
+    "archive": "Archive",
+    "aboutProject": "About project",
+    "buyToken": "Buy {{symbol}}",
+    "showToken": "Show {{symbol}}"
+  },
+  "stakePage": {
+    "inStake": "In stacking",
+    "currentDividends": "Current dividends",
+    "total": "Total",
+    "date": "The date after which you can output"
+  },
+  "swapStatus": {
+    "ready": "Ready for exchange",
+    "starting": "Start of exchange",
+    "awaitingConfirm": "Awaiting confirmation",
+    "awaitingBlockMining": "Waiting for block mining on the network",
+    "success": "Exchange completed successfully",
+    "error": "An error occurred during the exchange"
+  },
+  "stakeStatus": {
+    "ready": "Ready for staking",
+    "starting": "Staking start",
+    "awaitingConfirm": "Awaiting confirmation",
+    "awaitingBlockMining": "Awaiting block mining in the network",
+    "success": "Stacking successfully completed",
+    "error": "An error occurred during the staking"
+  } ,
+  "unStakeStatus": {
+    "ready": "Ready for withdrawal",
+    "starting": "Start of withdrawal from staking",
+    "awaitingConfirm": "Awaiting confirmation",
+    "awaitingBlockMining": "Waiting for block extraction in the network",
+    "success": "Withdrawal from stacking successfully completed",
+    "error": "An error occurred during the output"
   }
 }

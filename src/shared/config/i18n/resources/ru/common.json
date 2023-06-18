@@ -2,7 +2,15 @@
   "swap": "Обмен",
   "swapTokens": "Обмен токенов",
   "stake": "Стейкинг",
+  "stakeToken": "Стейкинг {{symbol}}",
+  "unStake": "Вывести из стейкинга",
   "projects": "Проекты",
+  "connectWallet": "Подключить кошелек",
+  "buy": "Купить",
+  "show": "Посмотреть",
+  "addToken": "Добавить токен {{symbol}} в {{walletName}}",
+  "purchaseToken": "Покупка {{symbol}}",
+  "loading": "Загрузка",
   "routes": {
     "root": "Обмен",
     "stake": "Стейкинг",
@@ -14,6 +22,45 @@
     "currentBalance": "Текущий баланс",
     "youGet": "Вы получаете",
     "youGive": "Вы отдаете",
-    "max": "Максимум"
+    "max": "Максимум",
+    "makeDeal": "Совершить сделку"
+  },
+  "projectsPage": {
+    "active": "Активные",
+    "waiting": "Ожидают листинга",
+    "archive": "Архив",
+    "aboutProject": "О проекте",
+    "buyToken": "Купить {{symbol}}",
+    "showToken": "Посмотреть {{symbol}}"
+  },
+  "stakePage": {
+    "inStake": "В стейкинге",
+    "currentDividends": "Текущие дивиденды",
+    "total": "Итого",
+    "date": "Дата после которой можно вывести"
+  },
+  "swapStatus": {
+    "ready": "Готов к обмену",
+    "starting": "Начало обмена",
+    "awaitingConfirm": "Ожидает подтверждения",
+    "awaitingBlockMining": "Ожидает добычи блока в сети",
+    "success": "Обмен успешно завершен",
+    "error": "Во время обмена произошла ошибка"
+  },
+  "stakeStatus": {
+    "ready": "Готов к стейкингу",
+    "starting": "Начало стейкинга",
+    "awaitingConfirm": "Ожидает подтверждения",
+    "awaitingBlockMining": "Ожидает добычи блока в сети",
+    "success": "Стейкинг успешно завершен",
+    "error": "Во время стейкинга произошла ошибка"
+  },
+  "unStakeStatus": {
+    "ready": "Готов к выводу",
+    "starting": "Начало вывода из стейкинга",
+    "awaitingConfirm": "Ожидает подтверждения",
+    "awaitingBlockMining": "Ожидает добычи блока в сети",
+    "success": "Вывод из стейкинга успешно завершен",
+    "error": "Во время вывода произошла ошибка"
   }
 }

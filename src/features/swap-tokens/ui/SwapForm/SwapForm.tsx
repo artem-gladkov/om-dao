@@ -1,11 +1,10 @@
-import {FC, useEffect, useState} from "react";
+import {FC, useState} from "react";
 
 import { TOKEN_SYMBOLS } from "../../../../entities";
 import { SwapFormStore } from "../../model";
 import { observer } from "mobx-react-lite";
 import { useNavigate } from "react-router";
 import { BaseTokensForm } from "../../../base-tokens-form";
-import { SWAP_STATUS_LABELS } from "../../constants";
 import { useSearchParams } from "react-router-dom";
 import { calculateSwapDestinationAmount } from "../../lib";
 import {useRootStore} from "../../../../app/use-root-store";
@@ -43,7 +42,7 @@ export const SwapForm: FC<ISwapFormProps> = observer(() => {
       sourceContractSymbol={tokenASymbol}
       destinationContractSymbol={tokenBSymbol}
       isLoading={isSwapping}
-      loadingText={SWAP_STATUS_LABELS[swapStatus]}
+      swapStatus={swapStatus}
       calculateDestinationAmount={calculateSwapDestinationAmount}
       canRearrangeContracts
     />

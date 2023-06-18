@@ -3,12 +3,14 @@ import { BaseTokensForm } from "../../base-tokens-form";
 import { TOKEN_SYMBOLS } from "../../../entities";
 import { observer } from "mobx-react-lite";
 import { CONTFormLaunchStore } from "../model";
-import { SWAP_STATUS_LABELS } from "../../swap-tokens";
+
 import { TokenAddButton } from "../../add-token-to-metamask";
 import { useAccount } from "wagmi";
 import { useRootStore } from "../../../app/use-root-store";
+import { useTranslation } from 'react-i18next';
 
 export const CONTFormLaunch: FC = observer(() => {
+  const { t } = useTranslation();
     const rootStore = useRootStore()
   const dcon = useAccount();
   const { refCode } = useRootStore();
@@ -20,19 +22,21 @@ export const CONTFormLaunch: FC = observer(() => {
   return (
     <>
       <BaseTokensForm
-        title={`Покупка ${TOKEN_SYMBOLS.CONT}`}
+        title={t("common.purchaseToken", { symbol: TOKEN_SYMBOLS.CONT })}
         onSubmit={onSubmit}
         sourceContractSymbol={TOKEN_SYMBOLS.OMD}
         destinationContractSymbol={TOKEN_SYMBOLS.CONT}
         calculateDestinationAmount={calculateDestinationAmount}
-        loadingText={SWAP_STATUS_LABELS[swapStatus]}
+        swapStatus={swapStatus}
         isLoading={isLoading}
         maxCount={maxCount}
         getupdateMaxCount={getupdateMaxCount}
       />
       <TokenAddButton
-        className="w-full"
-        text={`Добавить токен ${TOKEN_SYMBOLS.CONT} в MetaMask`}
+        className="w-full"   text={t("common.addToken", {
+        symbol: TOKEN_SYMBOLS.CONT,
+        walletName: "MetaMask",
+      })}
         tokenSymbol={TOKEN_SYMBOLS.CONT}
       />
     </>
