@@ -1,0 +1,19 @@
+{
+  "swap": "Swap",
+  "swapTokens": "Swap tokens",
+  "stake": "Stake",
+  "projects": "Projects",
+  "routes": {
+    "root": "Swap",
+    "stake": "Stake",
+    "projects": "Projects",
+    "referral": "Referral"
+  },
+  "form": {
+    "price": "Price",
+    "currentBalance": "Current balance",
+    "youGet": "You get",
+    "youGive": "You give",
+    "max": "Maximum"
+  }
+}

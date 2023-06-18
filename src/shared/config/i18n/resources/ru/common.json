@@ -1,0 +1,19 @@
+{
+  "swap": "Обмен",
+  "swapTokens": "Обмен токенов",
+  "stake": "Стейкинг",
+  "projects": "Проекты",
+  "routes": {
+    "root": "Обмен",
+    "stake": "Стейкинг",
+    "projects": "Проекты",
+    "referral": "Referral"
+  },
+  "form": {
+    "price": "Цена",
+    "currentBalance": "Текущий баланс",
+    "youGet": "Вы получаете",
+    "youGive": "Вы отдаете",
+    "max": "Максимум"
+  }
+}

@@ -4,6 +4,7 @@ import classNames from "classnames";
 import styles from "./DestinationContract.module.scss";
 import { ContractBlock } from "../ContractBlock";
 import { BaseContractInfo, FullContractInfo } from "../../types";
+import {useTranslation} from "react-i18next";
 
 export interface DestinationContractProps {
   className?: string;
@@ -22,13 +23,15 @@ export const DestinationContract: FC<DestinationContractProps> = ({
   maxCount,
   ...otherProps
 }) => {
+  const {t} = useTranslation()
+
   return (
     <div
       className={classNames(styles.destinationContract, className)}
       {...otherProps}
     >
       <ContractBlock
-        title="Вы получаете"
+        title={t("common.form.youGet")}
         token={fullContractInfo}
         readonlyAmount
         amount={amount}

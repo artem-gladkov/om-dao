@@ -1,27 +1,36 @@
-import React, { FC } from "react";
+import React, { FC, useMemo } from "react";
 import classNames from "classnames";
 
 import styles from "./Nav.module.scss";
 import { NavLink, useLocation } from "react-router-dom";
-import { PATHS, PATH_LABEL } from "../../../router";
+import { PATHS } from "../../../router";
+import {useTranslation} from "react-i18next";
 
 export interface INavProps {}
 
 export const Nav: FC<INavProps> = () => {
-  const { pathname } = useLocation();
+  const { pathname: currentPathName } = useLocation();
+  const { t } = useTranslation()
+
+  const links: {pathName: string, label: string}[] = useMemo(() => {
+    return Object.entries(PATHS)
+        .filter(([key]) => key !== "REFERRAL")
+        .map(([key, value]) => {
+          return { pathName: value, label: t(`common.routes.${key.toLowerCase()}`)}
+        })
+  }, [t])
 
   return (
     <nav className={styles.nav}>
-      {/* filter item[0]!=="STAKE" */}
-      {Object.entries(PATHS).filter((item) => (item[0]!=="")).map(([key, value]) => (
+      {links.map(({ label, pathName }) => (
         <NavLink
-          key={key}
+          key={pathName}
           className={classNames(styles.navLink, {
-            [styles.active]: pathname === value,
+            [styles.active]: currentPathName === pathName,
           })}
-          to={value}
+          to={pathName}
         >
-          {PATH_LABEL[key]}
+          {label}
           </NavLink>
       ))}
     </nav>

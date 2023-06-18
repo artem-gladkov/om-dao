@@ -1,20 +1,20 @@
-import { FC, useEffect, useState } from "react";
+import {FC, useEffect, useState} from "react";
 
 import { TOKEN_SYMBOLS } from "../../../../entities";
 import { SwapFormStore } from "../../model";
 import { observer } from "mobx-react-lite";
-import { SwapStatus } from "../../types";
 import { useNavigate } from "react-router";
-import { PATHS } from "../../../../router";
 import { BaseTokensForm } from "../../../base-tokens-form";
 import { SWAP_STATUS_LABELS } from "../../constants";
 import { useSearchParams } from "react-router-dom";
 import { calculateSwapDestinationAmount } from "../../lib";
 import {useRootStore} from "../../../../app/use-root-store";
+import {useTranslation} from "react-i18next";
 
 export interface ISwapFormProps {}
 
 export const SwapForm: FC<ISwapFormProps> = observer(() => {
+  const { t } = useTranslation()
   const rootStore = useRootStore();
   const navigate = useNavigate();
 
@@ -38,7 +38,7 @@ export const SwapForm: FC<ISwapFormProps> = observer(() => {
 
   return (
     <BaseTokensForm
-      title="Обмен токенов"
+      title={t("common.swapTokens")}
       onSubmit={onSwap}
       sourceContractSymbol={tokenASymbol}
       destinationContractSymbol={tokenBSymbol}

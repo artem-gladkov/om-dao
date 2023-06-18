@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import { Outlet } from "react-router-dom";
 import { Header } from "../../widgets/header";
 import { observer } from "mobx-react-lite";
