@@ -11,6 +11,7 @@ import { ARAFormLaunch } from "../../features/buy-ara-launch/";
 import { useParams } from "react-router";
 import { useRootStore } from "../../app/use-root-store";
 import { OoFormLaunch } from "../../features/buy-oo-launch";
+import { CrcFormLaunch } from "../../features/buy-crc-launch";
 
 export const ProjectPage: FC = () => {
   const params = useParams();
@@ -36,6 +37,7 @@ export const ProjectPage: FC = () => {
       {params.symbol === 'omdwMS' && <MAGICFormLaunch />}
       {params.symbol === 'omAra' && <ARAFormLaunch />}
       {params.symbol === 'omOo' && <OoFormLaunch />}
+      {params.symbol === 'omCrc' && <CrcFormLaunch />}
     </div>
   );
 };
