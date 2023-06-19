@@ -30,7 +30,7 @@ export const ProjectView: FC<IProjectViewProps> = ({
           onClick={() => {
             window.open(href, "_blank");
           }}
-          title="О проекте"
+          title={t("common.projectsPage.aboutProject")}
         >
           {t("common.projectsPage.aboutProject")}
         </Button>
