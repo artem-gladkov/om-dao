@@ -1,12 +1,14 @@
 import { makeAutoObservable } from "mobx";
-import { GetProviderResult, watchProvider } from "@wagmi/core";
-import { AVAILABLE_NETWORK } from "../../../shared/config";
+import { getNetwork, GetProviderResult, watchNetwork, watchProvider, watchSigner } from '@wagmi/core';
 import {BaseProvider, Provider} from "@ethersproject/providers";
 
 export class ProviderStore {
   private _provider: null | GetProviderResult = null;
 
   private _isInitialized = false;
+
+  private _unWatchProvider: (() => void) | undefined = undefined;
+
   constructor(defaultProvider: BaseProvider) {
     makeAutoObservable(this);
     this._provider = defaultProvider;
@@ -15,13 +17,32 @@ export class ProviderStore {
 
   protected init = () => {
     try {
-      watchProvider({ chainId: AVAILABLE_NETWORK }, this.onChangeProvider);
+
+      const network = getNetwork();
+      if (network.chain?.id) {
+        this.reInitProviderWatcher(network.chain.id);
+      }
+
+      watchNetwork((network) => {
+        if (network.chain?.id) {
+          this.reInitProviderWatcher(network.chain?.id);
+        }
+      });
     } catch (e) {
       console.log(e);
     } finally {
       this._isInitialized = true;
     }
   };
+
+  private reInitProviderWatcher = (chainId: number) => {
+    if (this._unWatchProvider) {
+      this._unWatchProvider();
+    }
+
+    this._unWatchProvider = watchProvider({ chainId }, this.onChangeProvider);
+  };
+
 
   private onChangeProvider = (data: GetProviderResult) => {
     this._provider = data;

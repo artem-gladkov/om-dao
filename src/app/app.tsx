@@ -29,6 +29,7 @@ export const App: FC = observer(() => {
 							themeMode="dark"
 							themeColor="magenta"
 							themeBackground="themeColor"
+							enableNetworkView={true}
 						/>
 					</>
 				) : (
