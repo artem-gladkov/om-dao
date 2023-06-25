@@ -21,6 +21,7 @@ export enum TOKEN_SYMBOLS {
     MAGIC = "omdwMS",
     ARA = "omAra",
     Oo = "omOo",
+    Crc = "omCrc",
 }
 
 export const TOKEN_ADDRESS: Record<TOKEN_SYMBOLS, Address> = {
@@ -63,6 +64,9 @@ export const TOKEN_ADDRESS: Record<TOKEN_SYMBOLS, Address> = {
     [TOKEN_SYMBOLS.Oo]: isProd()
         ? "0xaBB1d16B6DC6ad06b202bc9800690E041f343592"
         : "0xaBB1d16B6DC6ad06b202bc9800690E041f343592",
+    [TOKEN_SYMBOLS.Crc]: isProd()
+        ? "0xFC6493F0bcF60F086a83b09cF707C9a09Df16498"
+        : "0xFC6493F0bcF60F086a83b09cF707C9a09Df16498",
 };
 
 export const TOKEN_ABI: { [key in TOKEN_SYMBOLS]: any } = {
@@ -79,6 +83,7 @@ export const TOKEN_ABI: { [key in TOKEN_SYMBOLS]: any } = {
     [TOKEN_SYMBOLS.MAGIC]: WRAPPED_TOKEN_ABI,
     [TOKEN_SYMBOLS.ARA]: WRAPPED_TOKEN_ABI,
     [TOKEN_SYMBOLS.Oo]: WRAPPED_TOKEN_ABI,
+    [TOKEN_SYMBOLS.Crc]: WRAPPED_TOKEN_ABI,
 };
 
 export const TOKEN_NAME: { [key in TOKEN_SYMBOLS]: string } = {
@@ -95,6 +100,7 @@ export const TOKEN_NAME: { [key in TOKEN_SYMBOLS]: string } = {
     [TOKEN_SYMBOLS.MAGIC]: "OM DAO Wrapped Magic Square",
     [TOKEN_SYMBOLS.ARA]: "OM DAO Wrapped Aradena",
     [TOKEN_SYMBOLS.Oo]: "OM DAO Wrapped omOo",
+    [TOKEN_SYMBOLS.Crc]: "OM DAO Wrapped Crecy",
 };
 
 export const TOKEN_DECIMAL: { [key in TOKEN_SYMBOLS]: string } = {
@@ -111,6 +117,7 @@ export const TOKEN_DECIMAL: { [key in TOKEN_SYMBOLS]: string } = {
     [TOKEN_SYMBOLS.MAGIC]: "6",
     [TOKEN_SYMBOLS.ARA]: "6",
     [TOKEN_SYMBOLS.Oo]: "6",
+    [TOKEN_SYMBOLS.Crc]: "6",
 };
 
 export const TOKEN_HREF: { [key in TOKEN_SYMBOLS]: string } = {
@@ -135,6 +142,8 @@ export const TOKEN_HREF: { [key in TOKEN_SYMBOLS]: string } = {
     [TOKEN_SYMBOLS.ARA]:
         "https://selectedpublic.notion.site/Aradena-8a79e3ddb7174c128dbb2e68484fe0d2",
     [TOKEN_SYMBOLS.Oo]: "https://youtu.be/NNS2NnZ67xs",
+    [TOKEN_SYMBOLS.Crc]:
+        "https://selectedpublic.notion.site/Crecy-da12da0f0086482299a5cdf141ffc1a7",
 };
 
 export const TOKEN_TITLE: { [key in TOKEN_SYMBOLS]: string } = {
@@ -151,4 +160,5 @@ export const TOKEN_TITLE: { [key in TOKEN_SYMBOLS]: string } = {
     [TOKEN_SYMBOLS.MAGIC]: "Magic Square",
     [TOKEN_SYMBOLS.ARA]: "Aradena",
     [TOKEN_SYMBOLS.Oo]: "Oo",
+    [TOKEN_SYMBOLS.Crc]: "Crecy",
 };
